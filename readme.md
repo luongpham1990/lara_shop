@@ -16,7 +16,7 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 
 
 
-### Cái đéo gì thế, khó dùng vl. Đm Tiên chó
+### Cái đéo gì thế, khó dùng vl. Lịt Pẹ tiên
 
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
