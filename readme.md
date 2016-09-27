@@ -9,7 +9,7 @@ Laravel is accessible, yet powerful, providing tools needed for large, robust ap
 Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
 
 ## Contributing
-### Ti Nguyễn
+### Ti Nguyễn 1
 ### Nghĩa thân
 ### Huy Hứng
 ### Nguyễn Anh Thanh
