@@ -11,7 +11,7 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 ## Contributing
 ### Ti Nguyễn 1
 ### Nghĩa thân
-### Huy Hứng
+### Huy Hứng 1
 ### Nguyễn Anh Thanh
 ### Phạm Sỹ Lương 1
 
