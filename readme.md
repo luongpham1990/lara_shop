@@ -14,6 +14,8 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 ### Huy Hứng
 
 
+### Cái đéo gì thế, khó dùng vl
+
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
 ## Security Vulnerabilities
