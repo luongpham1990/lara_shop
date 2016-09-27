@@ -12,7 +12,7 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 ### Ti Nguyễn
 ### Nghĩa thân
 ### Huy Hứng
-### ákdjh
+### Cãi lộn gì thế
 
 
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
