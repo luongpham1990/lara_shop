@@ -15,13 +15,8 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 ### Nguyễn Anh Thanh
 ### Phạm Sỹ Lương
 
-### có ai thấy gì không ?
 
-### Cái đéo gì thế, khó dùng vl. Lịt Pẹ tiên
-### Cái đéo gì thế, khó dùng vl. Lịt Pẹ tiên - Huy Hứng
-### Đây là commit
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+Sản phẩm phục cho các bạn quẩy
 
 ## Security Vulnerabilities
 
