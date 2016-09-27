@@ -13,7 +13,7 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 ### Nghĩa thân
 ### Huy Hứng
 ### Nguyễn Anh Thanh
-### Phạm Sỹ Lương
+### Phạm Sỹ Lương 1
 
 
 Sản phẩm phục cho các bạn quẩy
