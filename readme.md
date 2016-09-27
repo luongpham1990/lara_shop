@@ -12,8 +12,12 @@ Documentation for the framework can be found on the [Laravel website](http://lar
 ### Ti Nguyễn
 ### Nghĩa thân
 ### Huy Hứng
-### Cãi lộn gì thế
+### Nguyễn Anh Thanh
 
+### có ai thấy gì không ?
+
+### Cái đéo gì thế, khó dùng vl. Lịt Pẹ tiên
+### Đây là commit
 
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
