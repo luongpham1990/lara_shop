@@ -12,5 +12,32 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('shop.home');
+});
+Route::get('/login', function(){
+   return view('shop.login');
+});
+
+
+Route::get('/checkout', function(){
+    return view('shop.checkout');
+});
+
+Route::get('/cart',function(){
+   return view('shop.cart');
+});
+
+
+Route::get('/contact',function(){
+   return view('shop.contact-us');
+});
+
+
+Route::get('/shop',function(){
+    return view('shop.shop');
+});
+
+
+Route::get('/product-detail',function(){
+    return view('shop.product-detail');
 });
