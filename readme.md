@@ -9,7 +9,9 @@
   - Sỹ Lương
   - Huy Hùng
 ### Tên đề tài
+
     Xây dựng website bán hàng bằng ngôn ngữ Laravel
+    
 ### Phân công công việc
   - Ti Nguyễn: Ngồi xem và support anh em
   - Huy Hùng : Tất cả liên quan đến Product
