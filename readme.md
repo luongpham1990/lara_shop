@@ -1,27 +1,76 @@
-# Larashop of Techmaster
+# Techmaster laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+[![N|ghia](https://viblo.asia/uploads/images/a56fb493de07174a3a0cbc5b057e719db7c3389a/903e2553967e1ac73760ad85c14977bd1f753d6c.png)](https://www.facebook.com/nghia.than)
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Đây là project của team Laravel PHP tại techmaster
+### Danh sách thành viên
+  - Ti Nguyễn
+  - Anh Thanh
+  - Sỹ Lương
+  - Huy Hùng
+### Tên đề tài
+    Xây dựng website bán hàng bằng ngôn ngữ Laravel
+### Phân công công việc
+  - Ti Nguyễn: Ngồi xem và support anh em
+  - Huy Hùng : Tất cả liên quan đến Product
+  - Anh Thanh :  Tất cả liên quan đến ORder
+  - Sỹ Lương :  Tất cả liên quan đến  USer
 
-## Official Documentation
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+### Công nghệ sử dung
 
-## Contributing
-### Ti Nguyễn 1
-### Nghĩa thân [M]
-### Huy Hứng 1
-### Nguyễn Anh Thanh
-### Phạm Sỹ Lương 1
+Lara shop sử dụng Laravel làm chủ đạo
+
+* [HTML] - HTML là nền tảng của mọi trang web
+* [CSS] - cặp đôi không thể thiếu của HTML
+* [Twitter Bootstrap] - great UI boilerplate for modern web apps
+* [Gulp] - the streaming build system
+* [jQuery] - duh
 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+### Cài đặt
 
-## Security Vulnerabilities
+Tải và giải nén tại đây [Phiên bản mới nhất](https://gitlab.com/nghiatv/lara-shop.git).
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+Còn không thì làm như sau
 
-## License
+```sh
+$ cd <dau-cung-duoc>
+$ git clone https://gitlab.com/nghiatv/lara-shop.git
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Sau đó sử dụng lệnh trong cửa sổ teminal
+```
+php -r "copy('.env.example','.env')
+```
+Set up file .env
+
+Sau đó thì
+```sh
+$ php artisan key:generate
+$ composer update
+```
+Cuối cùng là chạy lệnh
+```git-bash
+php artisan serve
+```
+để chương trình hoạt động.
+
+### Plugins
+Chương trình sử dụng một số plugin như sau:
+
+* [Datatable](https://datatables.net/)
+
+
+### Đóng góp
+
+Muốn đóng góp á.
+Chắc là không được đâu
+
+
+   [Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
+   [keymaster.js]: <https://github.com/madrobby/keymaster>
+   [jQuery]: <http://jquery.com>
+   [HTML]: <http://www.w3schools.com/html>
+[CSS]: <http://www.w3schools.com/css>
+   [Gulp]: <http://gulpjs.com>
