@@ -14,10 +14,32 @@
 Route::get('/', function () {
     return view('shop.home');
 });
-Route::get('/login', function(){
-   return view('shop.login');
+//Lương sửa
+Route::get('/home', function (){
+    return view('shop.home');
 });
-
+//Lương sửa
+Route::get('/register', function (){
+   return view('shop.users.login');
+});
+//Lương sửa
+Route::post('/register', 'UsersController@register');
+//Lương sửa
+Route::get('/login', function(){
+   return view('shop.users.login');
+});
+//Lương sửa
+Route::post('/login', 'UsersController@login');
+//Lương sửa
+Route::post('/logout', 'UsersController@logout');
+//Lương sửa
+Route::get('/verify/{confirmation_code}', 'UsersController@active');
+//Lương sửa
+Route::get('/edit/{id}',function (){
+    return view('/shop.users.edit');
+});
+//Lương sửa
+Route::put('/edit{id}','UsersController@edit');
 
 Route::get('/checkout', function(){
     return view('shop.checkout');
