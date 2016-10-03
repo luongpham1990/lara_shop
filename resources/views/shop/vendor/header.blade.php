@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="{{ url('/') }}"><img src="images/home/logo.png" alt="" /></a>
+                        <a href="{{ url('/') }}"><img src="images/home/logo.png" alt=""/></a>
                     </div>
                     <div class="btn-group pull-right">
                         <div class="btn-group">
@@ -63,7 +63,29 @@
                             <li><a href="/wishlist"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>
+                            @if(Auth::guest())
+                                <li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>
+                            @else
+                              <li>
+                                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                     aria-expanded="false">
+                                      {{Auth::user()->name}} <span class="caret"></span>
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                          <a href="{{url('/logout')}}"
+                                             onclick="event.preventDefault();
+                                           document.getElementById('logout-form').submit();">
+                                              Logout
+                                          </a>
+                                          <form id="logout-form" action="{{url('/logout')}}" method="post"
+                                                style="display: none">
+                                              {{csrf_field()}}
+                                          </form>
+                                      </li>
+                                  </ul>
+                              </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -76,7 +98,8 @@
             <div class="row">
                 <div class="col-sm-9">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
