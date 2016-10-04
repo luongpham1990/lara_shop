@@ -97,8 +97,8 @@ class UsersController extends Controller
         return view('shop.users.home');
     }
 
-//    public function edit(Request $request)
-//    {
-//
-//    }
+    public function edit(Request $request)
+    {
+
+    }
 }
