@@ -49,7 +49,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Product Description</label>
-                                <textarea class="form-control" name="description" id="description" rows="10" name="txtContent">{{$pro->description}}</textarea>
+                                <textarea class="form-control" name="description" id="description" rows="5" name="txtContent">{{$pro->description}}</textarea>
                             </div>
                             <div class="form-group">
                                 <label>Product Brand</label>
