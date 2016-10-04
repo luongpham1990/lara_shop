@@ -76,4 +76,15 @@ Route::group(['prefix' => 'admin'], function(){
 
         Route::delete('delete/{id}','Admin\CataController@delete');
     });
+    Route::group(['prefix' => 'user'], function(){
+        Route::get('show','Admin\CataController@show');
+
+        Route::get('add','Admin\CataController@showadd');
+        Route::post('add','admin\CataController@add');
+
+        Route::get('edit/{id}','Admin\CataController@showOne');
+        Route::put('edit/{id}','Admin\CataController@edit');
+
+        Route::delete('delete/{id}','Admin\CataController@delete');
+    });
 });
