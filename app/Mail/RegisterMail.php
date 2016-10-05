@@ -23,8 +23,8 @@ class RegisterMail extends Mailable
     public function __construct($name, $email, $link)
     {
         //
-        $this->rname = $name;
-        $this->remail = $email;
+        $this->name = $name;
+        $this->email = $email;
         $this->link = $link;
     }
 
@@ -36,7 +36,7 @@ class RegisterMail extends Mailable
     public function build()
     {
         return $this->view('shop.mail.register')->with([
-            'rname' => $this->name,
+            'rusername' => $this->name,
             'remail' => $this->email,
             'link' => $this->link
         ]);

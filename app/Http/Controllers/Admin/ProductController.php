@@ -13,13 +13,13 @@ class ProductController extends Controller
 {
     public function show(){
         $product = Product::all();
-        return view('shop.admin.product.list')->with([
+        return view('admin.product.list')->with([
             'product' => $product]);
     }
 
     public function showadd()
     {
-        return view('shop.admin.product.add');
+        return view('admin.product.add');
     }
 
     public function edit(Request $request, $id)
@@ -60,7 +60,7 @@ class ProductController extends Controller
 
     public function showOne($id){
         $product=Product::find($id);
-        return view('shop.admin.product.edit',['pro'=>$product]);
+        return view('admin.product.edit',['pro'=>$product]);
     }
 
     public function add(Request $request)

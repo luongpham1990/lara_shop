@@ -53,16 +53,16 @@
                                 {{--@endforeach--}}
                             {{--@endif--}}
                             <div>
-                                <input id="name" name="rname" value="{{old('rname')}}" type="text" placeholder="Name"/>
-                                @if ($errors->has('rname'))
+                                <input id="username" name="rusername" value="{{old('rusername')}}" type="text" placeholder="Tên hiển thị"/>
+                                @if ($errors->has('rusername'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('rname') }}</strong>
+                                        <strong>{{ $errors->first('rusername') }}</strong>
                                     </span>
                                 @endif
                             </div>
 
                             <div>
-                                <input id="email" name="remail" value="{{old('remail')}}" type="email" placeholder="Email Address"/>
+                                <input id="email" name="remail" value="{{old('remail')}}" type="email" placeholder="Email"/>
                                 @if ($errors->has('remail'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('remail') }}</strong>

@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="{{ url('/') }}"><img src="images/home/logo.png" alt=""/></a>
+                        <a href="{{ url('/') }}"><img src="/images/home/logo.png" alt=""/></a>
                     </div>
                     <div class="btn-group pull-right">
                         <div class="btn-group">
@@ -69,9 +69,11 @@
                               <li>
                                   <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                      aria-expanded="false">
-                                      {{Auth::user()->name}} <span class="caret"></span>
+                                      {{Auth::user()->username}} <span class="caret"></span>
                                   </a>
                                   <ul class="dropdown-menu" role="menu">
+
+                                      <li><a href="{{ url('/edit/'.\Illuminate\Support\Facades\Auth::user()->id) }}"> Dashboard</li>
                                       <li>
                                           <a href="{{url('/logout')}}"
                                              onclick="event.preventDefault();

@@ -35,11 +35,9 @@ Route::post('/logout', 'UsersController@logout');
 //Lương sửa
 Route::get('/verify/{confirmation_code}', 'UsersController@active');
 //Lương sửa
-Route::get('/edit/{id}',function (){
-    return view('/shop.users.edit');
-});
+Route::get('/edit/{id}', 'UsersController@profile');
 //Lương sửa
-Route::put('/edit{id}','UsersController@edit');
+Route::put('/edit/{id}','UsersController@changePass');
 
 Route::get('/checkout', function(){
     return view('shop.checkout');
@@ -64,7 +62,13 @@ Route::get('/product-detail',function(){
     return view('shop.product-detail');
 });
 
-Route::group(['prefix' => 'admin'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
+    Route::get('/login', function (){
+        return view('admin.login');
+    });
+    Route::post('/login','Admin\UserController@login');
+    Route::post('/logout', 'Admin\UserController@logout');
+
     Route::group(['prefix' => 'cata'], function(){
         Route::get('show','Admin\CataController@show');
 
@@ -76,6 +80,7 @@ Route::group(['prefix' => 'admin'], function(){
 
         Route::delete('delete/{id}','Admin\CataController@delete');
     });
+
     Route::group(['prefix' => 'product'], function () {
         Route::get('list','Admin\ProductController@show');
 
@@ -86,5 +91,17 @@ Route::group(['prefix' => 'admin'], function(){
         Route::put('edit/{id}', 'Admin\ProductController@edit');
 
         Route::delete('delete/{id}', 'Admin\ProductController@delete');
+    });
+
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('list','Admin\UserController@show');
+
+        Route::get('add','Admin\UserController@showadd');
+        Route::post('add','Admin\UserController@add');
+
+        Route::get('edit/{id}', 'Admin\UserController@showOne');
+        Route::put('edit/{id}', 'Admin\UserController@edit');
+
+        Route::delete('delete/{id}', 'Admin\UserController@delete');
     });
 });
