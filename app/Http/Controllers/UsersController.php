@@ -110,7 +110,7 @@ class UsersController extends Controller
            $user = User::find($id);
            return view('shop.users.edit', ['user' => $user]);
        }else {
-          return             abort(403);
+          return abort(403);
        }
     }
 
@@ -144,7 +144,7 @@ class UsersController extends Controller
              return redirect()->back()->with('oldsida', 'Mật khẩu cũ không đúng');
          }
      }else {
-         abort(403);
+        return abort(403);
      }
     }
 

@@ -15,18 +15,18 @@ Route::get('/', function () {
     return view('shop.home');
 });
 //Lương sửa
-Route::get('/home', function () {
+Route::get('/home', function (){
     return view('shop.home');
 });
 //Lương sửa
-Route::get('/register', function () {
-    return view('shop.users.login');
+Route::get('/register', function (){
+   return view('shop.users.login');
 });
 //Lương sửa
 Route::post('/register', 'UsersController@register');
 //Lương sửa
-Route::get('/login', function () {
-    return view('shop.users.login');
+Route::get('/login', function(){
+   return view('shop.users.login');
 });
 //Lương sửa
 Route::post('/login', 'UsersController@login');
@@ -37,48 +37,50 @@ Route::get('/verify/{confirmation_code}', 'UsersController@active');
 //Lương sửa
 Route::get('/edit/{id}', 'UsersController@profile');
 //Lương sửa
-Route::put('/edit/{id}', 'UsersController@changePass');
+Route::put('/edit/{id}','UsersController@changePass');
 
-Route::get('/checkout', function () {
+Route::get('/checkout', function(){
     return view('shop.checkout');
 });
 
-Route::get('/cart', function () {
-    return view('shop.cart');
+Route::get('/cart',function(){
+   return view('shop.cart');
 });
 
 
-Route::get('/contact', function () {
-    return view('shop.contact-us');
+Route::get('/contact',function(){
+   return view('shop.contact-us');
 });
 
 
-Route::get('/shop', function () {
+Route::get('/shop',function(){
     return view('shop.shop');
 });
 
-Route::get('/product-detail', function () {
+
+Route::get('/product-detail',function(){
     return view('shop.product-detail');
 });
 
-Route::get('/admin/cate/edit', function () {
-    return view('shop.admin.cate.edit');
-});
-Route::get('/admin/cate/list', function () {
-    return view('shop.admin.cate.list');
-});
-Route::get('/admin/cate/add', function () {
-    return view('shop.admin.cate.add');
-});
-Route::group(['prefix' => 'admin'], function () {
-    Route::group(['prefix' => 'user'], function () {
-        Route::get('/list', 'Admin\EditUserController@show');
-        Route::delete('/list', 'Admin\EditUserController@delete');
-        Route::get('/add', 'Admin\EditUserController@showadd');
-        Route::post('/add', 'Admin\EditUserController@add');
-        Route::get('/edit/{id}', 'Admin\EditUserController@edit');
-        Route::put('/edit/{id}', 'Admin\EditUserController@edit');
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
+    Route::get('/login', function (){
+        return view('admin.login');
     });
+    Route::post('/login','Admin\UserController@login');
+    Route::post('/logout', 'Admin\UserController@logout');
+
+    Route::group(['prefix' => 'cata'], function(){
+        Route::get('show','Admin\CataController@show');
+
+        Route::get('add','Admin\CataController@showadd');
+        Route::post('add','admin\CataController@add');
+
+        Route::get('edit/{id}','Admin\CataController@showOne');
+        Route::put('edit/{id}','Admin\CataController@edit');
+
+        Route::delete('delete/{id}','Admin\CataController@delete');
+    });
+
     Route::group(['prefix' => 'product'], function () {
         Route::get('list','Admin\ProductController@show');
 
@@ -89,5 +91,17 @@ Route::group(['prefix' => 'admin'], function () {
         Route::put('edit/{id}', 'Admin\ProductController@edit');
 
         Route::delete('delete/{id}', 'Admin\ProductController@delete');
+    });
+
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('list','Admin\UserController@show');
+
+        Route::get('add','Admin\UserController@showadd');
+        Route::post('add','Admin\UserController@add');
+
+        Route::get('edit/{id}', 'Admin\UserController@showOne');
+        Route::put('edit/{id}', 'Admin\UserController@edit');
+
+        Route::delete('delete/{id}', 'Admin\UserController@delete');
     });
 });
