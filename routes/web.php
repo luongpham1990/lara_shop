@@ -61,14 +61,14 @@ Route::get('/shop',function(){
 Route::get('/product-detail',function(){
     return view('shop.product-detail');
 });
-
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
+//Lương sửa
+Route::group(['prefix' => 'admin', 'middleware' => ['admin','auth']], function(){
     Route::get('/login', function (){
         return view('admin.login');
     });
     Route::post('/login','Admin\UserController@login');
     Route::post('/logout', 'Admin\UserController@logout');
-
+//Hùng sửa
     Route::group(['prefix' => 'cata'], function(){
         Route::get('show','Admin\CataController@show');
 
@@ -80,7 +80,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 
         Route::delete('delete/{id}','Admin\CataController@delete');
     });
-
+//Hùng sửa
     Route::group(['prefix' => 'product'], function () {
         Route::get('list','Admin\ProductController@show');
 
@@ -92,7 +92,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 
         Route::delete('delete/{id}', 'Admin\ProductController@delete');
     });
-
+//Lương sửa
     Route::group(['prefix' => 'user'], function () {
         Route::get('list','Admin\UserController@show');
 
