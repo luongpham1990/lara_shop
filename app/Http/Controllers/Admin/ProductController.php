@@ -17,13 +17,13 @@ class ProductController extends Controller
     public function show()
     {
         $product = Product::all();
-        return view('shop.admin.product.list')->with([
+        return view('admin.product.list')->with([//Lương sửa: thừa chữ shop. nhé
             'product' => $product]);
     }
 
     public function showadd()
     {
-        return view('shop.admin.product.add');
+        return view('admin.product.add');//Lương sửa: thừa chữ shop. nhé
     }
 
     public function edit(Request $request, $id)
@@ -65,7 +65,7 @@ class ProductController extends Controller
     public function showOne($id)
     {
         $product = Product::find($id);
-        return view('shop.admin.product.edit', ['pro' => $product]);
+        return view('admin.product.edit', ['pro' => $product]);//Lương sửa: thừa chữ shop. nhé
     }
 
     public function add(Request $request)

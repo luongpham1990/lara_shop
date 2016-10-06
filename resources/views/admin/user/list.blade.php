@@ -58,8 +58,8 @@
 
                                         @endif </td>
                                     <td>{{$item->created_at}}</td>
-                                    <td class="center"><button class="btn btn-primary"><a href="{{url('/admin/user/edit/'.$item->id)}}"><span class="glyphicon glyphicon-pencil"></span>Edit</a></button> </td>
-                                    <td class="center"><button class="delete-modal btn btn-danger" onclick="" data-info="{{ $item->id }}">
+                                    <td class="center"><a href="{{url('/admin/user/edit/'.$item->id)}}"><button class="btn btn-primary btn-flat"><i class="fa fa-pencil"></i> Edit</button></a> </td>
+                                    <td class="center"><button class="delete-modal btn btn-danger btn-flat" onclick="" data-info="{{ $item->id }}">
                                             <span class="glyphicon glyphicon-trash"></span> Delete
                                         </button>
                                     </td>

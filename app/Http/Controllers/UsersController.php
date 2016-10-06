@@ -101,7 +101,7 @@ class UsersController extends Controller
     public function logout(Request $request)
     {
         Auth::logout($request->user());
-        return view('shop.home');
+       return redirect('home');
     }
 
     public function profile(Request $request,$id)

@@ -12,24 +12,32 @@
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-top-links navbar-right">
-        <!-- /.dropdown -->
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+
+            @if(Auth::guest())
+                <li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>
+            @else
+                <li>
+
+                    <a class=" dropdown-toggle" data-toggle="dropdown"> {{Auth::user()->username}}
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+
+                        <li><a href="{{ url('/dashboard') }}"> Dashboard </a> </li>
+                        <li>
+                            <a href="{{url('/logout')}}"
+                               onclick="event.preventDefault();
+                                           document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{url('/logout')}}" method="post"
+                                  style="display: none">
+                                {{csrf_field()}}
+                            </form>
+                        </li>
+                    </ul>
                 </li>
-                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                </li>
-                <li class="divider"></li>
-                <li><a href="{{url('Auth/logout')}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                </li>
-            </ul>
-            <!-- /.dropdown-user -->
-        </li>
-        <!-- /.dropdown -->
-    </ul>
+            @endif
+        </ul>
     <!-- /.navbar-top-links -->
 
     <div class="navbar-default sidebar" role="navigation">
@@ -50,7 +58,8 @@
                     <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="{{url('/admin/cata/list')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span class="fa arrow"></span></a>
+                    <a href="{{url('/admin/cata/list')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span
+                                class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="{{url('/admin/cata/list')}}">List Category</a>
@@ -62,7 +71,8 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="{{url('/admin/product/list')}}"><i class="fa fa-cube fa-fw"></i> Product<span class="fa arrow"></span></a>
+                    <a href="{{url('/admin/product/list')}}"><i class="fa fa-cube fa-fw"></i> Product<span
+                                class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="{{url('/admin/product/list')}}">List Product</a>
@@ -74,7 +84,8 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="{{url('/admin/user/list')}}"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
+                    <a href="{{url('/admin/user/list')}}"><i class="fa fa-users fa-fw"></i> User<span
+                                class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="{{url('/admin/user/list')}}">List User</a>

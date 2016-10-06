@@ -12,7 +12,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
+
 {
+    function __construct()
+    {
+        $this->middleware(['auth','admin'])->except('login');
+    }
+
     function show()
     {
         $user = User::all();
@@ -91,15 +97,21 @@ class UserController extends Controller
             'password.required' => 'Mật khẩu không được để trống'
         ];
 
-        $validation = Validator::make($request->all(),$rule,$message);
+        $validation = Validator::make($request->only(['email','password']),$rule,$message);
 
         if ($validation->fails()){
             return redirect()->back()->withInput()->withErrors($validation);
         }else {
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_admin' == true])){
-                return redirect('/admin/user/list');
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+//                return redirect('/admin/user/list');
+                if(Auth::user()->is_admin){
+                    return redirect('/admin/user/list');
+                }else{
+                    return abort(403);
+                }
+
             }else {
-                return redirect('/home')->withErrors('sida', 'Đéo phải admin nhé');
+                return redirect()->back()->withErrors(['login' => 'Tài khoản hoặc mật khẩu không đúng']);
             }
         }
     }
