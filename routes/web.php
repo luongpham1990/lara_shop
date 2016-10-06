@@ -70,7 +70,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin','auth']], function()
     Route::post('/logout', 'Admin\UserController@logout');
 //Hùng sửa
     Route::group(['prefix' => 'cata'], function(){
-        Route::get('show','Admin\CataController@show');
+        Route::get('list','Admin\CataController@show');
 
         Route::get('add','Admin\CataController@showadd');
         Route::post('add','admin\CataController@add');

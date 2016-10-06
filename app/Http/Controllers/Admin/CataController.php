@@ -15,12 +15,12 @@ class CataController extends Controller
     {
 
         $cata = Catalog::all();
-        return view('shop.admin.cata.show', ['cata' => $cata]);
+        return view('admin.cata.list', ['cata' => $cata]);
     }
 
     public function showadd()
     {
-        return view('shop.admin.cata.add');
+        return view('admin.cata.add');
     }
 
     public function add(Request $request)
@@ -39,19 +39,16 @@ class CataController extends Controller
         if ($validation->fails()) {
             return redirect()->back()->withErrors($validation)->withInput();
         }
-//        dd("abc");
-
         $cata = new Catalog();
         $cata->name = $request->name;
         $cata->save();
 
-        return redirect('/admin/cata/show')->with('thongbao', 'Bạn đã thêm thành công');
-
+        return redirect('/admin/cata/list')->with('thongbao', 'Bạn đã thêm thành công');
     }
 
     public function showOne($id){
         $cata=Catalog::find($id);
-        return view('shop.admin.cata.edit',['cata'=>$cata]);
+        return view('admin.cata.edit',['cata'=>$cata]);
     }
 
     public function edit(Request $request,$id){
@@ -75,7 +72,7 @@ class CataController extends Controller
             $cata= Catalog::find($request->id);
             $cata->name = ($request->name);
             $cata->save();
-            return redirect('/admin/cata/show')->with('thongbao', 'Sửa thành công');
+            return redirect('/admin/cata/list')->with('thongbao', 'Sửa thành công');
 
         }
     }
@@ -83,6 +80,6 @@ class CataController extends Controller
     public function delete($id)
     {
         Catalog::find($id)->delete();
-        return redirect('/admin/cata/show')->with('thongbao', 'Bạn đã xóa thành công');
+        return redirect('/admin/cata/list')->with('thongbao', 'Bạn đã xóa thành công');
     }
 }
