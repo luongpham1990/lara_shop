@@ -14,6 +14,11 @@ use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['admin','auth'])->except('login');
+    }
+
     public function show()
     {
         $product = Product::all();

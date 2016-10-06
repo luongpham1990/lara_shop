@@ -36,6 +36,14 @@
                                        <strong> {{ session('oldsida') }}  </strong>
                                     </div>
                                  @endif
+                                    @if(session('alert'))
+                                       <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                             <span aria-hidden="true">&times;</span>
+                                          </button>
+                                          <strong> {{ session('alert') }}  </strong>
+                                       </div>
+                                    @endif
                                  <div class="row">
                                     <div class="col-md-4">
                                        <div class="form-group">
@@ -59,6 +67,7 @@
                                        </div>
                                     </div>
                                     <div class="col-md-8">
+
                                        <div class="signup-form"><!--sign up form-->
                                           <form method="post" action="{{url('/edit/'.$user->id)}}">
                                              {{ csrf_field() }}
@@ -70,8 +79,8 @@
                                              {{--@endif--}}
                                              <div class="form-group">
                                                 <label for="username"> Tên tài khoản</label>
-                                                <input class='form-control' id="username" name="username" value="{{$user->username}}"
-                                                       type="text" disabled/>
+                                                <input class='form-control ' id="username" name="username" value="{{$user->username}}"
+                                                       type="text" />
                                              </div>
                                              <div class="form-group">
                                                 <label for="email">Email </label>
@@ -86,16 +95,16 @@
                                              </div>
                                              <div class="form-group">
                                                 <label for="userphone"> Số điện thoại</label>
-                                                <input id="userphone" name="userphone"
+                                                <input id="userphone" name="phone"
                                                        value="{{$user->phone}}" type="number"
-                                                       disabled/>
+                                                       />
                                              </div>
                                              <div class="form-group">
                                                 <label for="address"> Địa chỉ</label>
                                                 <input id="address"
                                                        name="address"
                                                        value="{{$user->address}}" type="text"
-                                                       disabled/>
+                                                       />
                                              </div>
                                           </form>
                                        </div><!--/sign up form-->

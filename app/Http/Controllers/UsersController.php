@@ -148,6 +148,37 @@ class UsersController extends Controller
      }
     }
 
+    function edit(Request $request)
+    {
+        $rule = [
+            'username' => 'string|min:6|max:32|unique:users,username',
+            'address' => 'text|max:255',
+            'phone' => 'numeric|max: 15'
+        ];
+
+        $message = [
+            'username.min' => 'Tên hiển thị không được ít hơn :min ký tự',
+            'username.max' => 'Tên hiển thị không được nhiều hơn :max ký tự',
+            'address.max' => 'Địa chỉ không được nhiều hơn :max ký tự',
+            'phone.max' => 'Số điện thoại không vượt quá :max ký tự'
+        ];
+
+        $validation = Validator::make($request->all(), $rule, $message);
+
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation);
+        } else {
+
+            $user = new User();
+            $user->username = $request->username;
+            $user->address = $request->address;
+            $user->phone = $request->phone;
+            $user->save();
+
+            return redirect('/admin/user/list')->with('alert', 'Sửa tài khoản thành công ');
+        }
+    }
+
     function delete($id){
          User::find($id)->delete();
         return redirect('/admin/user/list')->with('alert','Xóa tài khoản thành công');

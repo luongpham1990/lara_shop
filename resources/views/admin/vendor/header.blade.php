@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{url('/admin')}}">Admin Area</a>
+        <a class="navbar-brand" href="{{url('/admin/user/list')}}">Admin Area</a>
     </div>
     <!-- /.navbar-header -->
 
