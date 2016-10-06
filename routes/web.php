@@ -62,7 +62,10 @@ Route::get('/product-detail',function(){
     return view('shop.product-detail');
 });
 //Lương sửa
-Route::group(['prefix' => 'admin', 'middleware' => ['admin','auth']], function(){
+Route::group(['prefix' => 'admin'], function(){
+    Route::get('/',function (){
+        dd('sida');
+    });
     Route::get('/login', function (){
         return view('admin.login');
     });

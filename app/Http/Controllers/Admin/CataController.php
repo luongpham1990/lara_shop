@@ -11,6 +11,11 @@ use Validator;
 
 class CataController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['admin','auth'])->except('login');
+    }
+
     public function show()
     {
 

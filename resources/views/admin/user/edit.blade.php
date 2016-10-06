@@ -26,7 +26,23 @@
                     </h1>
                 </div>
                 <!-- /.col-lg-12 -->
-                <div class="col-lg-12" style="padding-bottom:120px">
+                @if(session('alert'))
+                    <div class="alert alert-success">
+                        {{session('alert')}}
+                    </div>
+                @endif
+                @if(count($errors))
+                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <ul>
+                            @foreach( $errors->all() as $item)
+                                <li> {{ $item }}  </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                     <form action="" method="POST">
                         {{csrf_field()}}
                         {{method_field('PUT')}}
@@ -39,44 +55,54 @@
                                 <th>Address</th>
                                 <th>Phone</th>
                                 <th>Status</th>
-                                <th>Time</th>
+                                <th>Admin</th>
+                                {{--<th>Time</th>--}}
                             </tr>
                             </thead>
                             <tbody>
                             <tr class="odd gradeX" align="center">
                                 <td>
                                     <a href="#" data-pk="1" class="editable editable-click" type="textarea"
-                                       data-title="Edit User Name">{{$user->id}}</a>
+                                       data-title="Edit Id">{{$user->id}}</a>
                                 </td>
                                 <td>
-                                    <a href="#" data-pk="1" class="editable editable-click" type="textarea"
+                                    <a href="#" data-pk="1" id="username" class="editable editable-click" name="username" type="textarea"
                                        data-title="Edit User Name">{{$user->username}}</a>
                                 </td>
                                 <td>
-                                    <a href="#" data-pk="1" class="editable editable-click" type="textarea"
-                                       data-title="Edit User Name">{{$user->email}}</a>
+                                    <a href="#" data-pk="1" class="editable editable-click" name="email" type="textarea"
+                                       data-title="Edit User Email">{{$user->email}}</a>
                                 </td>
                                 <td>
-                                    <a href="#" data-pk="1" class="editable editable-click" type="textarea"
-                                       data-title="Edit User Name">{{$user->address}}</a>
+                                    <a href="#" data-pk="1" id="address" class="editable editable-click" name="address" type="textarea"
+                                       data-title="Edit User Address">{{$user->address}}</a>
                                 </td>
                                 <td>
-                                    <a href="#" data-pk="1" class="editable editable-click" type="textarea"
-                                       data-title="Edit User Name">{{$user->phone}}</a>
+                                    <a href="#" data-pk="1" id="phone" class="editable editable-click" name="phone" type="textarea"
+                                       data-title="Edit User Phone">{{$user->phone}}</a>
                                 </td>
                                 <td>
-                                    <a href="#" data-pk="1" class="editable editable-click" type="textarea"
-                                       data-title="Edit User Name"> @if ($user->confirmed == 1)
-                                            {{ 'active' }}
+                                    <a href="#" data-pk="1" id="status" class="editable editable-click" name="confirmed" type="textarea"
+                                       data-title="Edit Status"> @if ($user->confirmed == 1)
+                                            {{ 'Active' }}
                                         @else
                                             {{ "No Active" }}
 
                                         @endif</a>
                                 </td>
                                 <td>
-                                    <a href="#" data-pk="1" class="editable editable-click" type="textarea"
-                                       data-title="Edit User Name">{{$user->created_at}}</a>
+                                    <a href="#" data-pk="1" id="admin" class="editable editable-click" name="is_admin" type="textarea"
+                                       data-title="Edit Admin"> @if ($user->is_admin == 1)
+                                            {{ 'Admin' }}
+                                        @else
+                                            {{ "User" }}
+
+                                        @endif</a>
                                 </td>
+                                {{--<td>--}}
+                                    {{--<a href="#" data-pk="1" class="editable editable-click" type="textarea"--}}
+                                       {{--data-title="Edit User Name">{{$user->created_at}}</a>--}}
+                                {{--</td>--}}
                                 {{--<td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>--}}
                                 {{--<td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="#">Edit</a></td>--}}
                             </tr>
@@ -96,39 +122,45 @@
 
 @push('script')
 <script>
-    $(document).ready(function () {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
+    $('#username').editable({
+        type: 'text',
+        pk: 1,
+        url: '/post',
+        title: 'Enter username'
     });
-
-    $(document).on('click', '.delete-modal', function () {
-        $('.modal-title').text('Delete');
-        $('.deleteContent').show();
-        var id = $(this).data('info');
-        console.log(id);
-
-        $('#button-delete').attr('onclick', "document.getElementById('abc-" + id + "').submit()");
-        $('#myModal').modal('show');
+    $('#address').editable({
+        type: 'text',
+        pk: 1,
+        url: '/post',
+        title: 'Enter username'
     });
-
-    function fillmodalData(details) {
-        $('#fid').val(details[0]);
-        $('#title').val(details[1]);
-        $('#image').val(details[2]);
-        $('#author').val(details[3]);
-        $('#content').val(details[4]);
-        $('#category_id').val(details[5]);
-    }
-
-    $(document).on('click', '.delete-modal', function () {
-        $('.modal-title').text('Delete');
-        $('.deleteContent').show();
-        var id = $(this).data('info');
-        console.log(id);
-
-        $('#button-delete').attr('onclick', "document.getElementById('product-" + id + "').submit()");
-        $('#myModal').modal('show');
+    $('#phone').editable({
+        type: 'text',
+        pk: 1,
+        url: '/post',
+        title: 'Enter username'
+    });
+    $('#status').editable({
+        type: 'select',
+        title: 'Enter Status',
+        url: '/post',
+        placement: 'right',
+        value: 2,
+        source: [
+            {value: 1, text: 'Active'},
+            {value: 1, text: 'No Active'}
+        ]
+    });
+    $('#admin').editable({
+        type: 'select',
+        title: 'Enter Admin',
+        url: '/post',
+        placement: 'right',
+        value: 2,
+        source: [
+            {value: 1, text: 'Admin'},
+            {value: 1, text: 'User'}
+        ]
     });
 
 </script>
