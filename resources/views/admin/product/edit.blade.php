@@ -1,6 +1,11 @@
-@extends('admin.layouts.admin-app')
+@extends('shop.layouts.admin-app')
 @section('title')
 @endsection
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
 
 @section('content')
 
@@ -44,7 +49,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Product Description</label>
-                                <textarea class="form-control" name="description" id="description" rows="10" name="txtContent">{{$pro->description}}</textarea>
+                                <textarea class="form-control" name="description" id="description" rows="5" name="txtContent">{{$pro->description}}</textarea>
                             </div>
                             <div class="form-group">
                                 <label>Product Brand</label>
@@ -52,7 +57,6 @@
                                     <option value="{{$pro->brand}}"> {{$pro->brand}} </option>
                                     <option value="Quần">Quần </option>
                                     <option value="Áo">Áo </option>
-
                                 </select>
                             </div>
                             <div class="form-group">
@@ -80,43 +84,10 @@
         <!-- /#page-wrapper -->
     @endsection
 
-    @push('script')
-    <script>
-        $(document).ready(function () {
-            $('#dataTables-example').DataTable({
-                responsive: true
-            });
-        });
+</div>
+<!-- /#wrapper -->
 
-        $(document).on('click', '.delete-modal', function () {
-            $('.modal-title').text('Delete');
-            $('.deleteContent').show();
-            var id = $(this).data('info');
-            console.log(id);
 
-            $('#button-delete').attr('onclick', "document.getElementById('abc-" + id + "').submit()");
-            $('#myModal').modal('show');
-        });
+</body>
 
-        function fillmodalData(details) {
-            $('#fid').val(details[0]);
-            $('#title').val(details[1]);
-            $('#image').val(details[2]);
-            $('#author').val(details[3]);
-            $('#content').val(details[4]);
-            $('#category_id').val(details[5]);
-        }
-
-        $(document).on('click', '.delete-modal', function () {
-            $('.modal-title').text('Delete');
-            $('.deleteContent').show();
-            var id = $(this).data('info');
-            console.log(id);
-
-            $('#button-delete').attr('onclick', "document.getElementById('product-" + id + "').submit()");
-            $('#myModal').modal('show');
-        });
-
-    </script>
-
-@endpush
+</html>

@@ -46,8 +46,8 @@
                            <tbody>
                            @foreach($cata as $ct)
                                <tr class="odd gradeX" align="center">
-                                   <td>{{$ct->id  }}</td>
-                                   <td>{{$ct->name}}</td>
+                                   <td>{{$ct->catalog_id  }}</td>
+                                   <td>{{$ct->catalog_name}}</td>
 
                                    <td><a href="/admin/cata/edit/{{ $ct->id }}" class="edit-modal btn btn-info">
                                            <span class="glyphicon glyphicon-edit"></span> Edit
