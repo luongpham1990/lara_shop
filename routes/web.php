@@ -38,6 +38,8 @@ Route::get('/verify/{confirmation_code}', 'UsersController@active');
 Route::get('/edit/{id}', 'UsersController@profile');
 //Lương sửa
 Route::put('/edit/{id}','UsersController@changePass');
+//Lương sửa
+Route::put('/edit/{id}','UsersController@edit');
 
 Route::get('/checkout', function(){
     return view('shop.checkout');
@@ -71,6 +73,8 @@ Route::group(['prefix' => 'admin'], function(){
     });
     Route::post('/login','Admin\UserController@login');
     Route::post('/logout', 'Admin\UserController@logout');
+    Route::get('/edit/{id}', 'Admin\UserController@showAdmin');
+    Route::put('/edit/{id}', 'Admin\UserController@editAdmin');
 //Hùng sửa
     Route::group(['prefix' => 'cata'], function(){
         Route::get('show','Admin\CataController@show');
@@ -104,7 +108,7 @@ Route::group(['prefix' => 'admin'], function(){
 
         Route::get('edit/{id}', 'Admin\UserController@showOne');
         Route::put('edit/{id}', 'Admin\UserController@edit');
-
+        Route::put('edituser', 'Admin\UserController@editUser');//x editable edit user
         Route::delete('delete/{id}', 'Admin\UserController@delete');
     });
 });

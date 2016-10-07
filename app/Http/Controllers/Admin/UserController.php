@@ -16,7 +16,7 @@ class UserController extends Controller
 {
     function __construct()
     {
-        $this->middleware(['auth','admin'])->except('login');
+        $this->middleware(['auth', 'admin'])->except('login');
     }
 
     function show()
@@ -77,7 +77,8 @@ class UserController extends Controller
         }
     }
 
-    function edit(Request $request){
+    function edit(Request $request)
+    {
         $rule = [
             'username' => 'string|min:6|max:32|unique:users,username',
             'address' => 'text|max:255',
@@ -85,15 +86,15 @@ class UserController extends Controller
         ];
 
         $message = [
-          'username.min' => 'Tên hiển thị không được ít hơn :min ký tự',
+            'username.min' => 'Tên hiển thị không được ít hơn :min ký tự',
             'username.max' => 'Tên hiển thị không được nhiều hơn :max ký tự',
             'address.max' => 'Địa chỉ không được nhiều hơn :max ký tự',
             'phone.max' => 'Số điện thoại không vượt quá :max ký tự'
         ];
 
-        $validation = Validator::make($request->all(),$rule,$message);
+        $validation = Validator::make($request->all(), $rule, $message);
 
-        if ($validation->fails()){
+        if ($validation->fails()) {
             return redirect()->back()->withErrors($validation);
         } else {
 
@@ -105,19 +106,43 @@ class UserController extends Controller
             $user->is_admin = ($request->Level == 1) ? true : false;
             $user->save();
 
-            return redirect('/admin/user/list')->with('alert','Sửa tài khoản thành công ');
+            return redirect('/admin/user/list')->with('alert', 'Sửa tài khoản thành công ');
         }
     }
 
-     function showone($id)
+    function editUser(Request $request)
+    {
+
+
+        // sau khi validate thanh cong
+        $user = User::findOrFail($request->get('pk'));
+        $name = $request->get('name');
+
+
+
+        $value = $request->get('value');
+        $user->$name = $value;
+        $user->save();
+
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'lit pe anh Hung nhe'
+        ]);
+
+    }
+
+    function showone($id)
     {
         $user = User::find($id);
+//        dd($user);
         return view('admin.user.edit', ['user' => $user]);
     }
 
 //    function
 
-    function login(Request $request){
+    function login(Request $request)
+    {
         $rule = [
             'email' => 'required|email',
             'password' => 'string|required'
@@ -129,31 +154,73 @@ class UserController extends Controller
             'password.required' => 'Mật khẩu không được để trống'
         ];
 
-        $validation = Validator::make($request->only(['email','password']),$rule,$message);
+        $validation = Validator::make($request->only(['email', 'password']), $rule, $message);
 
-        if ($validation->fails()){
+        if ($validation->fails()) {
             return redirect()->back()->withInput()->withErrors($validation);
-        }else {
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+        } else {
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 //                return redirect('/admin/user/list');
-                if(Auth::user()->is_admin){
+                if (Auth::user()->is_admin) {
                     return redirect('/admin/user/list');
-                }else{
+                } else {
                     return abort(403);
                 }
 
-            }else {
+            } else {
                 return redirect()->back()->withErrors(['login' => 'Tài khoản hoặc mật khẩu không đúng']);
             }
         }
     }
-    function logout(Request $request){
+
+    function logout(Request $request)
+    {
         Auth::logout($request->user);
         return redirect('/admin/login');
     }
 
-    function delete($id){
+    function delete($id)
+    {
         User::find($id)->delete();
-        return redirect('/admin/user/list')->with('alert','Xóa tài khoản thành công ');
+        return redirect('/admin/user/list')->with('alert', 'Xóa tài khoản thành công ');
+    }
+
+    function showAdmin(Request $request, $id){
+        if ($request->user()->id == $id){
+            $user = User::find($id);
+            return view('admin.edit', ['user'=>$user]);
+        }
+    }
+    function editAdmin(Request $request, $id)
+    {
+        if ($request->user()->id == $id){
+            $user = User::find($id);
+            $rule = [
+                'username' => 'string|min:6|max:32|unique:users,username',
+                'address' => 'text|max:255',
+                'phone' => 'numeric|max: 15'
+            ];
+
+            $message = [
+                'username.min' => 'Tên hiển thị không được ít hơn :min ký tự',
+                'username.max' => 'Tên hiển thị không được nhiều hơn :max ký tự',
+                'address.max' => 'Địa chỉ không được nhiều hơn :max ký tự',
+                'phone.max' => 'Số điện thoại không vượt quá :max ký tự'
+            ];
+
+            $validation = Validator::make($request->only(['username'=>$request->username,'address' => $request->address,'phone'=>$request->phone]), $rule, $message);
+
+            if ($validation->fails()) {
+                return redirect()->back()->withErrors($validation);
+            } else {
+
+                $user->username = $request->username;
+                $user->address = $request->address;
+                $user->phone = $request->phone;
+                $user->save();
+
+                return redirect('/admin/edit/' . $user->id)->with('alert', 'Sửa tài khoản thành công ');
+            }
+        }
     }
 }
