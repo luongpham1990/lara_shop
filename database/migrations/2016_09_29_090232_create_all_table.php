@@ -185,7 +185,7 @@ class CreateAllTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('address')->nullable();
-            $table->string('numberphone',15);
+            $table->integer('phone',15); // Thanh sửa từ : string('numberphone',15).
             $table->string('confirm_code',100);
             $table->tinyInteger('confirmed');
             $table->tinyInteger('is_admin')->nullable();
