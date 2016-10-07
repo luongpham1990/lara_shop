@@ -77,7 +77,7 @@ Route::group(['prefix' => 'admin'], function(){
     Route::put('/edit/{id}', 'Admin\UserController@editAdmin');
 //Hùng sửa
     Route::group(['prefix' => 'cata'], function(){
-        Route::get('show','Admin\CataController@show');
+        Route::get('list','Admin\CataController@show');
 
         Route::get('add','Admin\CataController@showadd');
         Route::post('add','admin\CataController@add');
