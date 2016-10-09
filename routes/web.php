@@ -1,5 +1,9 @@
 <?php
 
+use App\Product;
+use App\ProductImages;
+use App\Catalog;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,9 +15,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('shop.home');
-});
+Route::get('/','ShopController@index');
 //Lương sửa
 Route::get('/home', function (){
     return view('shop.home');
@@ -57,10 +59,17 @@ Route::get('/shop',function(){
     return view('shop.shop');
 });
 
-
 Route::get('/product-detail',function(){
-    return view('shop.product-detail');
+    $product = Product::all();
+    $cata = Catalog::all();
+$product_img = ProductImages::all();
+    return view('shop.product-detail')->with([
+        'product' => $product,
+        'cata' =>$cata,
+        'product_img' =>$product_img
+    ]);
 });
+
 //Lương sửa
 Route::group(['prefix' => 'admin'], function(){
     Route::get('/',function (){

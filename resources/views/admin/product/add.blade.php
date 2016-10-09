@@ -1,4 +1,4 @@
-@extends('shop.layouts.app')
+@extends('admin.layouts.admin-app')
 @section('title')
 @endsection
 
@@ -45,15 +45,15 @@
                         </div>
                         <div class="form-group">
                             <label>Product Description</label>
-                                <textarea class="form-control" name="description" id="description" rows="10"
+                                <textarea class="form-control" name="description" id="description" rows="5"
                                           name="txtContent"></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label>Product Brand</label>
-                            <select id="catalog" class="form-control input-lg" name="catalog">
+                            <label>Product Catalog</label>
+                            <select id="catalog" class="form-control input-lg" name="catalog" id="catalog">
                                 @foreach($cata as $ct)
-                                    <option value="{{$ct->id}}">{{$ct->catalog_name}} </option>
+                                    <option value="{{$ct->catalog_id}}">{{$ct->catalog_name}} </option>
                                 @endforeach
                             </select>
                         </div>
@@ -62,15 +62,13 @@
                             <label>Product Status</label>
                             <label class="radio-inline" id="productstatus">
                                 <input name="rdoStatus" value="1" checked="" type="radio">Visible
-                            </label>
-                            <label class="radio-inline">
-                                <input name="rdoStatus" value="2" type="radio">Invisible
+                            </label>                            <label class="radio-inline">
+                                <input name="rdoStatus" value="0" type="radio">Invisible
                             </label>
                         </div>
 
                         <button type="submit" class="btn btn-default">Add Product</button>
                         <button type="reset" class="btn btn-default">Reset</button>
-
 
                     </div>
                     <strong style="font-size: 20px">Featured image: </strong><br/><br/>

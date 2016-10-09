@@ -1,4 +1,4 @@
-@extends('shop.layouts.admin-app')
+@extends('admin.layouts.admin-app')
 @section('title')
 @endsection
 <body>

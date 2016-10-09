@@ -13,7 +13,7 @@ class CataController extends Controller
 {
     function __construct()
     {
-//        $this->middleware(['admin','auth'])->except('login');
+        $this->middleware(['admin','auth'])->except('login');
     }
 
     public function show()
@@ -30,6 +30,8 @@ class CataController extends Controller
 
     public function add(Request $request)
     {
+
+        
         $rules = [
             'name' => 'string|required'
         ];
@@ -75,7 +77,7 @@ class CataController extends Controller
 
         } else {
             $cata= Catalog::find($request->id);
-            $cata->name = ($request->name);
+            $cata->catalog_name = ($request->name);
             $cata->save();
             return redirect('/admin/cata/list')->with('thongbao', 'Sửa thành công');
 

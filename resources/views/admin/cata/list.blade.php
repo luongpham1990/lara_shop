@@ -49,16 +49,16 @@
                                    <td>{{$ct->catalog_id  }}</td>
                                    <td>{{$ct->catalog_name}}</td>
 
-                                   <td><a href="/admin/cata/edit/{{ $ct->id }}" class="edit-modal btn btn-info">
+                                   <td><a href="{{url('/admin/cata/edit/'.$ct->catalog_id)}}" class="edit-modal btn btn-info">
                                            <span class="glyphicon glyphicon-edit"></span> Edit
                                        </a>
 
-                                       <button class="delete-modal btn btn-danger" onclick="" data-info="{{ $ct->id }}">
+                                       <button class="delete-modal btn btn-danger" onclick="" data-info="{{ $ct->catalog_id }}">
                                            <span class="glyphicon glyphicon-trash"></span> Delete
                                        </button>
                                    </td>
-                                   <form id="abc-{{ $ct->id }}" method="post"
-                                         action="/admin/cata/delete/{{ $ct->id }}">
+                                   <form id="abc-{{ $ct->catalog_id }}" method="post"
+                                         action="/admin/cata/delete/{{ $ct->catalog_id }}">
                                        {{csrf_field()}}
                                        {{ method_field('DELETE') }}
                                    </form>

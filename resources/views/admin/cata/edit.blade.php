@@ -39,14 +39,14 @@
                             </div>
                             <!-- /.col-lg-12 -->
                             <div class="col-lg-7" style="padding-bottom:120px">
-                                <form method="POST" action="/admin/cata/edit/{{$cata->id}}" enctype="multipart/form-data" accept-charset="UTF-8" class="form-horizontal"><input name="_token" type="hidden" value="fPdMAGRbTI5JL8qhYatebA965h6NuPPpAImtmrJk">
+                                <form method="POST" action="/admin/cata/edit/{{$cata->catalog_id}}" enctype="multipart/form-data" accept-charset="UTF-8" class="form-horizontal"><input name="_token" type="hidden" value="fPdMAGRbTI5JL8qhYatebA965h6NuPPpAImtmrJk">
                                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                                     {{ csrf_field() }}
                                     {{ method_field('PUT') }}
 
                                     <div class="form-group">
                                         <label>Category Name</label>
-                                        <input class="form-control" name="name" placeholder="Please Enter Category Name" value="{{$cata->name}}"/>
+                                        <input class="form-control" name="name" placeholder="Please Enter Category Name" value="{{$cata->catalog_name}}"/>
                                     </div>
 
                                     <button type="submit" class="btn btn-default">Category Edit</button>
