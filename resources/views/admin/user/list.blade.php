@@ -19,14 +19,10 @@
 
         @section('content')
             <!-- Page Content -->
+
                 <div id="page-wrapper">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-12">
-                                <h1 class="page-header">User
-                                    <small>List</small>
-                                </h1>
-                            </div>
                             @if(session('alert'))
                                 <div class="alert alert-success">
                                     {{session('alert')}}
@@ -43,7 +39,12 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                        @endif
+                            @endif
+                            <div class="col-lg-12">
+                                <h1 class="page-header">User
+                                    <small>List</small>
+                                </h1>
+                            </div>
                             <!-- /.col-lg-12 -->
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead  style="background: none">
@@ -70,13 +71,13 @@
 
                                         @endif </td>
                                     <td>{{$item->created_at}}</td>
-                                    <td class="center"><a href="{{url('/admin/user/edit/'.$item->id)}}"><button class="btn btn-primary btn-flat"><i class="fa fa-pencil"></i> Edit</button></a> </td>
+                                    <td class="center"><a href="{{url('/admin/user/'.$item->id).'/edit/'}}"><button class="btn btn-primary btn-flat"><i class="fa fa-pencil"></i> Edit</button></a> </td>
                                     <td class="center"><button class="delete-modal btn btn-danger btn-flat" onclick="" data-info="{{ $item->id }}">
                                             <span class="glyphicon glyphicon-trash"></span> Delete
                                         </button>
                                     </td>
                                     <form id="user-{{ $item->id }}" method="post"
-                                          action="/admin/user/delete/{{ $item->id }}">
+                                          action="/admin/user/{{ $item->id }}/delete/">
                                         {{csrf_field()}}
                                         {{ method_field('DELETE') }}
                                     </form>

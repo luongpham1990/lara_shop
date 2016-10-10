@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\RegisterMail;
-use App\Notifications\UserRegister;
+
 use App\User;
 use Validator;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-
+use App\Notifications\UserRegister;
 class UsersController extends Controller
 {
     //dang ky
@@ -53,10 +53,10 @@ class UsersController extends Controller
             $user->save();
 
             $link = (url('/verify') . "/" . $confirm_code);
-//            $user->notify(new UserRegister($user,$link));
-            Mail::to($user)->send(new RegisterMail($request->rusername, $request->remail, $link));
+            $user->notify( new UserRegister($user,$link));
+//            Mail::to($user)->send(new RegisterMail($request->rusername, $request->remail, $link));
 
-            return redirect('/login');
+            return redirect('/login')->with('alert', 'Dang ky thanh cong moi ban kich hoat tai khoan');
         }
     }
 
@@ -69,7 +69,7 @@ class UsersController extends Controller
         $user->save();
 
         Auth::loginUsingId($user->id);
-        return redirect('/edit/' . $user->id);
+        return redirect('/user/'. $user->id.'/edit/');
     }
 
     //dang nhap
@@ -135,12 +135,12 @@ class UsersController extends Controller
                 $validation = Validator::make($request->all(), $rule, $message);
 
                 if ($validation->fails()) {
-                    return redirect('/edit/' . $user->id)->withInput()->withErrors($validation);
+                    return redirect('/user/'. $user->id.'/edit/')->withInput()->withErrors($validation);
                 } else {
                     $user->password = Hash::make($request->newpassword);
                     $user->save();
 
-                    return redirect('/edit/' . $user->id)->with('alert', 'Đổi mật khẩu thành công');
+                    return redirect( '/user/'. $user->id.'/edit/')->with('alert', 'Đổi mật khẩu thành công');
                 }
             } else {
                 return redirect()->back()->with('oldsida', 'Mật khẩu cũ không đúng');
@@ -178,7 +178,7 @@ class UsersController extends Controller
               $user->phone = $request->phone;
               $user->save();
 
-              return redirect('/edit/' . $user->id)->with('alert', 'Sửa tài khoản thành công ');
+              return redirect('/user/'. $user->id.'/edit/')->with('alert', 'Sửa tài khoản thành công ');
           }
       }
     }

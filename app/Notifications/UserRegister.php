@@ -18,16 +18,19 @@ class UserRegister extends Notification
      * @return void
      */
     protected $user;
-    public function __construct(User $user)
+    protected $link;
+
+    public function __construct(User $user, $link)
     {
         //
         $this->user = $user;
+        $this->link = $link;
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function via($notifiable)//hàm này để xác định gửi mail hay là gửi vào database
@@ -39,21 +42,22 @@ class UserRegister extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable)//hàm chuyền biến vào mail
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', 'https://laravel.com')
-                    ->line('Thank you for using our application!');
+            ->subject('Thông báo kích hoạt tài khoản')
+            ->line('Chào mừng bạn đến với Laravel sida shop.')
+            ->action('Ấn vào đây để kích hoạt bạn nhé', url($this->link))
+            ->line('Thank you for using our application!');
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)
