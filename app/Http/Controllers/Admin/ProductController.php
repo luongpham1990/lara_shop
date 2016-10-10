@@ -36,8 +36,10 @@ class ProductController extends Controller
     public function showadd()
     {
         $cata = Catalog::all();
+        $product = Product::all();
         return view('admin.product.add')->with([
-            'cata' => $cata
+            'cata' => $cata,
+            'product' =>$product
         ]);//Lương sửa: thừa chữ shop. nhé
     }
 
@@ -47,7 +49,8 @@ class ProductController extends Controller
             'name' => 'string|required',
             'price' => 'numeric|required',
             'description' => 'string|max:3000|required',
-            'image' => 'required|mimes:jpg,png,jpeg,gif,bmp'
+            'image' => 'required|mimes:jpg,png,jpeg,gif,bmp',
+            'brand' =>'required'
         ];
 
         $messages = [
@@ -55,8 +58,7 @@ class ProductController extends Controller
             'name.string' => ':attribute sai định dạng',
             'price.numberic' => ':attribute phải là số',
             'description.string' => ':attribute phải là string',
-            'description.max' => ':attribute không được vượt quá 3000 ký tự',
-//            'image.mimes' => 'Sai định dạng :attribute'
+            'description.max' => ':attribute không được vượt quá 3000 ký tự'
         ];
 
         $validation = Validator::make($request->all(), $rules, $messages);

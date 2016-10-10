@@ -20,7 +20,7 @@ class CataController extends Controller
     {
 
         $cata = Catalog::all();
-        return view('admin.cata.list', ['cata' => $cata]);
+        return view('admin.cata/list', ['cata' => $cata]);
     }
 
     public function showadd()
@@ -50,7 +50,7 @@ class CataController extends Controller
         $cata->catalog_name = $request->name;
         $cata->save();
 
-        return redirect('/admin/cata/list')->with('thongbao', 'Bạn đã thêm thành công');
+        return redirect('/admin/cata')->with('thongbao', 'Bạn đã thêm thành công');
     }
 
     public function showOne($id){
@@ -79,7 +79,7 @@ class CataController extends Controller
             $cata= Catalog::find($request->id);
             $cata->catalog_name = ($request->name);
             $cata->save();
-            return redirect('/admin/cata/list')->with('thongbao', 'Sửa thành công');
+            return redirect('/admin/cata')->with('thongbao', 'Sửa thành công');
 
         }
     }
@@ -87,6 +87,6 @@ class CataController extends Controller
     public function delete($id)
     {
         Catalog::find($id)->delete();
-        return redirect('/admin/cata/list')->with('thongbao', 'Bạn đã xóa thành công');
+        return redirect('/admin/cata')->with('thongbao', 'Bạn đã xóa thành công');
     }
 }

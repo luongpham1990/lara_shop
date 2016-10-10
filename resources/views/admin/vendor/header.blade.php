@@ -58,11 +58,11 @@
                     <a href="{{ url('/admin/edit/'.Auth::user()->id) }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="{{url('/admin/cata/list')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span
+                    <a href="{{url('/admin/cata')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span
                                 class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="{{url('/admin/cata/list')}}">List Category</a>
+                            <a href="{{url('/admin/cata')}}">List Category</a>
                         </li>
                         <li>
                             <a href="{{url('/admin/cata/add')}}">Add Category</a>
@@ -71,11 +71,11 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="{{url('/admin/product/list')}}"><i class="fa fa-cube fa-fw"></i> Product<span
+                    <a href="{{url('/admin/product')}}"><i class="fa fa-cube fa-fw"></i> Product<span
                                 class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="{{url('/admin/product/list')}}">List Product</a>
+                            <a href="{{url('/admin/product')}}">List Product</a>
                         </li>
                         <li>
                             <a href="{{url('/admin/product/add')}}">Add Product</a>

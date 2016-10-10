@@ -51,31 +51,20 @@ Route::get('/cart',function(){
    return view('shop.cart');
 });
 
-
 Route::get('/contact',function(){
    return view('shop.contact-us');
 });
-
 
 Route::get('/shop',function(){
     return view('shop.shop');
 });
 
-Route::get('/product-detail',function(){
-    $product = Product::all();
-    $cata = Catalog::all();
-$product_img = ProductImages::all();
-    return view('shop.product-detail')->with([
-        'product' => $product,
-        'cata' =>$cata,
-        'product_img' =>$product_img
-    ]);
-});
+Route::get('/product-detail','ShopController@showdetail');
 
 //Lương sửa
 Route::group(['prefix' => 'admin'], function(){
     Route::get('/',function (){
-        dd('sida');
+//        dd('sida');
     });
     Route::get('/login', function (){
         return view('admin.login');
@@ -86,25 +75,25 @@ Route::group(['prefix' => 'admin'], function(){
     Route::put('/edit/{id}', 'Admin\UserController@editAdmin');
 //Hùng sửa
     Route::group(['prefix' => 'cata'], function(){
-        Route::get('list','Admin\CataController@show');
+        Route::get('','Admin\CataController@show');
 
         Route::get('add','Admin\CataController@showadd');
         Route::post('add','admin\CataController@add');
 
-        Route::get('edit/{id}','Admin\CataController@showOne');
-        Route::put('edit/{id}','Admin\CataController@edit');
+        Route::get('{id}/edit','Admin\CataController@showOne');
+        Route::put('{id}/edit','Admin\CataController@edit');
 
         Route::delete('delete/{id}','Admin\CataController@delete');
     });
 //Hùng sửa
     Route::group(['prefix' => 'product'], function () {
-        Route::get('list','Admin\ProductController@show');
+        Route::get('','Admin\ProductController@show');
 
         Route::get('add','Admin\ProductController@showadd');
         Route::post('add','Admin\ProductController@add');
 
-        Route::get('edit/{id}', 'Admin\ProductController@showOne');
-        Route::put('edit/{id}', 'Admin\ProductController@edit');
+        Route::get('{id}/edit', 'Admin\ProductController@showOne');
+        Route::put('{id}/edit', 'Admin\ProductController@edit');
 
         Route::delete('delete/{id}', 'Admin\ProductController@delete');
     });

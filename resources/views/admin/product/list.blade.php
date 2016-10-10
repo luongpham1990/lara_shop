@@ -21,12 +21,12 @@
                 <!-- /.col-lg-12 -->
                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                     <thead>
-                    <tr align="center">
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>View</th>
-                        <th>Catalog</th>
+                    <tr align="center" style="text-align: center">
+                        <th style="text-align: center">ID</th>
+                        <th style="text-align: center">Name</th>
+                        <th style="text-align: center">Price</th>
+                        <th style="text-align: center">View</th>
+                        <th style="text-align: center">Catalog</th>
                         <th>Featured image</th>
                         <th>Description</th>
                         <th>Actions</th>

@@ -186,21 +186,27 @@
             <div class="col-sm-7">
                 <div class="product-information"><!--/product-information-->
                     <img src="images/product-details/new.jpg" class="newarrival" alt="" />
-                    <h2>Anne Klein Sleeveless Colorblock Scuba</h2>
-                    <p>Web ID: 1089772</p>
+                    <h2>{{ $products->first()->product_name }}</h2>
+                    <p>Web ID: {{ $products->first()->id }}</p>
                     <img src="images/product-details/rating.png" alt="" />
 								<span>
-									<span>US $59</span>
-									<label>Quantity:</label>
-									<input type="text" value="3" />
-									<button type="button" class="btn btn-fefault cart">
+									<span>{{ $products->first()->price }} VNĐ</span>
+									{{--<label>Quantity:</label>--}}                   // bo sung sau
+									{{--<input type="text" value="3" />--}}
+									<a href="{{url('cart')}}"> <button type="button" class="btn btn-fefault cart">
                                         <i class="fa fa-shopping-cart"></i>
                                         Add to cart
-                                    </button>
+                                    </button></a>
 								</span>
-                    <p><b>Availability:</b> In Stock</p>
-                    <p><b>Condition:</b> New</p>
-                    <p><b>Brand:</b> E-SHOPPER</p>
+                    <p><b>Availability:</b>
+                        @if ($products->first()->status == 1)
+                            {{ 'Visible' }}
+                        @else
+                            {{ "Invisible" }}
+
+                    @endif</p>
+                    {{--<p><b>Condition:</b> New</p>--}}{{--    // bo sung sau--}}
+                    <p><b>Brand: </b>{{ $products->first()->brand}} </p>
                     <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
                 </div><!--/product-information-->
             </div>

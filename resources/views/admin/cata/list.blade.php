@@ -37,10 +37,11 @@
                        <!-- /.col-lg-12 -->
                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                            <thead>
-                           <tr align="center">
-                               <th>ID</th>
-                               <th>Name</th>
-                               <th>Actions</th>
+                           <tr align="center" >
+                               <th style="text-align: center">ID</th>
+                               <th style="text-align: center">Name</th>
+                               <th style="text-align: center">Edit</th>
+                               <th style="text-align: center">Delete</th>
                            </tr>
                            </thead>
                            <tbody>
@@ -49,11 +50,11 @@
                                    <td>{{$ct->catalog_id  }}</td>
                                    <td>{{$ct->catalog_name}}</td>
 
-                                   <td><a href="{{url('/admin/cata/edit/'.$ct->catalog_id)}}" class="edit-modal btn btn-info">
+                                   <td><a href="{{url('/admin/cata/'.$ct->catalog_id).'/edit/'}}" class="edit-modal btn btn-info">
                                            <span class="glyphicon glyphicon-edit"></span> Edit
-                                       </a>
+                                       </a></td>
 
-                                       <button class="delete-modal btn btn-danger" onclick="" data-info="{{ $ct->catalog_id }}">
+                                      <td> <button class="delete-modal btn btn-danger" onclick="" data-info="{{ $ct->catalog_id }}">
                                            <span class="glyphicon glyphicon-trash"></span> Delete
                                        </button>
                                    </td>

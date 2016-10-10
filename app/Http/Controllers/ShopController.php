@@ -19,10 +19,26 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
     {
         $products = Product::paginate(6);
         $categories = Catalog::all();
+        $relate_products = Product::paginate(4);
 
         return view('shop.home')->with([
             'products' => $products,
-            'categories' => $categories
+            'categories' => $categories,
+            'relate_products' => $relate_products
         ]);
+    }
+
+    public function showdetail()
+    {
+        $products = Product::all();
+        $categories = Catalog::all();
+        $relate_products = Product::all();
+        
+        return view('shop.product-detail')->with([
+            'products' => $products,
+            'categories' => $categories,
+            'relate_products' => $relate_products
+        ]);
+
     }
 }

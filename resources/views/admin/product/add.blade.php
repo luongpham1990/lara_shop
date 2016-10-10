@@ -58,6 +58,15 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Product Brand</label>
+                            <select id="brand" class="form-control input-lg" name="brand" >
+                                @foreach($product as $product)
+                                    <option value="{{$product->brand}}">{{$product->brand}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label>Product Status</label>
                             <label class="radio-inline" id="productstatus">
                                 <input name="rdoStatus" value="1" checked="" type="radio">Visible

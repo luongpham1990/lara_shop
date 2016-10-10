@@ -11,4 +11,10 @@ class Catalog extends Model
     protected $primaryKey = 'catalog_id';
 
     public $timestamps=false;
+    public function products(){
+        return $this->hasMany('App\Product','catalog_id');
+    }
+    public function getFeatureProducts(){
+        return $this->products()->get();
+    }
 }
