@@ -22,7 +22,7 @@
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
 
-                        <li><a href="{{ url('/dashboard') }}"> Dashboard </a> </li>
+                        <li><a href="{{ url('/admin/edit/'.Auth::user()->id) }}"> Dashboard </a> </li>
                         <li>
                             <a href="{{url('/logout')}}"
                                onclick="event.preventDefault();
@@ -55,7 +55,7 @@
                     <!-- /input-group -->
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    <a href="{{ url('/admin/edit/'.Auth::user()->id) }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
                     <a href="{{url('/admin/cata/list')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span

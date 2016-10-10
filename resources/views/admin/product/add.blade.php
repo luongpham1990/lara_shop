@@ -37,21 +37,20 @@
                         <div class="form-group">
                             <label>Name</label>
                             <input class="form-control" name="name" id="name"
-                                   placeholder="Please Enter Productname"/>
+                                   placeholder="Please Enter Productname" value="{{old('name')}}"/>
                         </div>
                         <div class="form-group">
                             <label>Price</label>
-                            <input class="form-control" name="price" id="price" placeholder="Please Enter Price"/>
+                            <input class="form-control" name="price" id="price" value="{{old("price")}}" placeholder="Please Enter Price"/>
                         </div>
                         <div class="form-group">
                             <label>Product Description</label>
-                                <textarea class="form-control" name="description" id="description" rows="5"
-                                          name="txtContent"></textarea>
+                                <textarea class="form-control" name="description" id="description" rows="5" value="{{old("description")}}"></textarea>
                         </div>
 
                         <div class="form-group">
                             <label>Product Catalog</label>
-                            <select id="catalog" class="form-control input-lg" name="catalog" id="catalog">
+                            <select id="catalog" class="form-control input-lg" name="catalog" >
                                 @foreach($cata as $ct)
                                     <option value="{{$ct->catalog_id}}">{{$ct->catalog_name}} </option>
                                 @endforeach
@@ -75,7 +74,7 @@
                     <div class="form-group">
                         <label>Featured image</label>
                         <div class="fileupload fileupload-new" data-provides="fileupload">
-                            <input name="image[]" type="file" id="imgInp" multiple>
+                            <input name="image[]" type="file" id="imgInp" multiple value="{{old("image")}}">
                             <div class="fileupload-preview" id="image-holder" >
                             </div>
                         </div>

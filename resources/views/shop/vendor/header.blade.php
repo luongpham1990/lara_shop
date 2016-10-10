@@ -73,7 +73,7 @@
                                   </a>
                                   <ul class="dropdown-menu" role="menu">
 
-                                      <li><a href="{{ url('/edit/'.\Illuminate\Support\Facades\Auth::user()->id) }}"> Dashboard</li>
+                                      <li><a href="{{ url('/edit/'. Auth::user()->id) }}"> Dashboard </a></li>
                                       <li>
                                           <a href="{{url('/logout')}}"
                                              onclick="event.preventDefault();

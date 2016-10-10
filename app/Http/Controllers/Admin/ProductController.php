@@ -47,7 +47,7 @@ class ProductController extends Controller
             'name' => 'string|required',
             'price' => 'numeric|required',
             'description' => 'string|max:3000|required',
-//            'image' => 'required|mimes:jpg,png,jpeg,gif,bmp'
+            'image' => 'required|mimes:jpg,png,jpeg,gif,bmp'
         ];
 
         $messages = [

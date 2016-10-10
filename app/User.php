@@ -30,4 +30,8 @@ class User extends Authenticatable
     function isAdmin(){
         return $this->is_admin;
     }
+
+//    function routeNotificationForMail(){ nếu trong bảng user là email_address thì hàm này thay tên email_address cho notification
+//        return $this->email_address;
+//    }
 }
