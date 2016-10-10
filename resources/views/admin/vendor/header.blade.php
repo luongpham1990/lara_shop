@@ -55,7 +55,7 @@
                     <!-- /input-group -->
                 </li>
                 <li>
-                    <a href="{{ url('/admin/edit/'.Auth::user()->id) }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    <a href="{{ url('/admin/'.Auth::user()->id .'/edit') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
                     <a href="{{url('/admin/cata/list')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span
@@ -84,11 +84,11 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="{{url('/admin/user/list')}}"><i class="fa fa-users fa-fw"></i> User<span
+                    <a href="{{url('/admin/user')}}"><i class="fa fa-users fa-fw"></i> User<span
                                 class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="{{url('/admin/user/list')}}">List User</a>
+                            <a href="{{url('/admin/user/')}}">List User</a>
                         </li>
                         <li>
                             <a href="{{url('/admin/user/add')}}">Add User</a>

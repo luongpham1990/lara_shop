@@ -36,7 +36,7 @@ class UserController extends Controller
             'username' => 'string|required|alpha_num|min:6|max:32|unique:users,username',
             'password' => 'string|required|alpha_num|min:6|max:32|confirmed',
             'email' => 'email|required|unique:users,email',
-            'address' => 'required|max:255|alpha_num',
+            'address' => 'required|max:255|text',
             'phone' => 'numeric|max:15'
         ];
         $message = [
@@ -73,7 +73,7 @@ class UserController extends Controller
             $user->confirmed = true;
             $user->save();
 
-            return redirect('/admin/user/list')->with('alert', 'Đã thêm thành viên thành công');
+            return redirect('/admin/user')->with('alert', 'Đã thêm thành viên thành công');
         }
     }
 
@@ -106,14 +106,12 @@ class UserController extends Controller
             $user->is_admin = ($request->Level == 1) ? true : false;
             $user->save();
 
-            return redirect('/admin/user/list')->with('alert', 'Sửa tài khoản thành công ');
+            return redirect('/admin/user')->with('alert', 'Sửa tài khoản thành công ');
         }
     }
 
     function editUser(Request $request)
     {
-
-
         // sau khi validate thanh cong
         $user = User::findOrFail($request->get('pk'));
         $name = $request->get('name');
@@ -127,7 +125,7 @@ class UserController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'msg' => 'lit pe anh Hung nhe'
+            'msg' => 'lit pe Hung nhe'
         ]);
 
     }
@@ -162,7 +160,7 @@ class UserController extends Controller
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 //                return redirect('/admin/user/list');
                 if (Auth::user()->is_admin) {
-                    return redirect('/admin/user/list');
+                    return redirect('/admin/user');
                 } else {
                     return abort(403);
                 }
@@ -182,7 +180,7 @@ class UserController extends Controller
     function delete($id)
     {
         User::find($id)->delete();
-        return redirect('/admin/user/list')->with('alert', 'Xóa tài khoản thành công ');
+        return redirect('/admin/user')->with('alert', 'Xóa tài khoản thành công ');
     }
 
     function showAdmin(Request $request, $id){
@@ -219,7 +217,7 @@ class UserController extends Controller
                 $user->phone = $request->phone;
                 $user->save();
 
-                return redirect('/admin/edit/' . $user->id)->with('alert', 'Sửa tài khoản thành công ');
+                return redirect('/admin/'. $user->id.'/edit/' )->with('alert', 'Sửa tài khoản thành công ');
             }
         }
     }
