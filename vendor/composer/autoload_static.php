@@ -68,7 +68,6 @@ class ComposerStaticInit4adbd17670757cfa253dff570f787470
         'L' => 
         array (
             'League\\Flysystem\\' => 17,
-            'Laravel\\Homestead\\' => 18,
         ),
         'I' => 
         array (
@@ -202,10 +201,6 @@ class ComposerStaticInit4adbd17670757cfa253dff570f787470
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
         ),
-        'Laravel\\Homestead\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laravel/homestead/src',
-        ),
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
@@ -329,7 +324,6 @@ class ComposerStaticInit4adbd17670757cfa253dff570f787470
         'ClassPreloader\\Parser\\FileVisitor' => __DIR__ . '/..' . '/classpreloader/classpreloader/src/Parser/FileVisitor.php',
         'ClassPreloader\\Parser\\NodeTraverser' => __DIR__ . '/..' . '/classpreloader/classpreloader/src/Parser/NodeTraverser.php',
         'ClassPreloader\\Parser\\StrictTypesVisitor' => __DIR__ . '/..' . '/classpreloader/classpreloader/src/Parser/StrictTypesVisitor.php',
-        'CreateAllTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_29_090232_create_all_table.php',
         'CreateAllTableFinal' => __DIR__ . '/../..' . '/database/migrations/2016_10_10_023155_create_all_table_final.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
@@ -1439,6 +1433,9 @@ class ComposerStaticInit4adbd17670757cfa253dff570f787470
         'Illuminate\\Validation\\DatabasePresenceVerifier' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Validation/DatabasePresenceVerifier.php',
         'Illuminate\\Validation\\Factory' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Validation/Factory.php',
         'Illuminate\\Validation\\PresenceVerifierInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Validation/PresenceVerifierInterface.php',
+        'Illuminate\\Validation\\Rule' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Validation/Rule.php',
+        'Illuminate\\Validation\\Rules\\Exists' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Validation/Rules/Exists.php',
+        'Illuminate\\Validation\\Rules\\Unique' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Validation/Rules/Unique.php',
         'Illuminate\\Validation\\UnauthorizedException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Validation/UnauthorizedException.php',
         'Illuminate\\Validation\\ValidatesWhenResolvedTrait' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Validation/ValidatesWhenResolvedTrait.php',
         'Illuminate\\Validation\\ValidationException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Validation/ValidationException.php',
@@ -1461,7 +1458,6 @@ class ComposerStaticInit4adbd17670757cfa253dff570f787470
         'JakubOnderka\\PhpConsoleColor\\ConsoleColor' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/JakubOnderka/PhpConsoleColor/ConsoleColor.php',
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/JakubOnderka/PhpConsoleColor/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php',
-        'Laravel\\Homestead\\MakeCommand' => __DIR__ . '/..' . '/laravel/homestead/src/MakeCommand.php',
         'League\\Flysystem\\AdapterInterface' => __DIR__ . '/..' . '/league/flysystem/src/AdapterInterface.php',
         'League\\Flysystem\\Adapter\\AbstractAdapter' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/AbstractAdapter.php',
         'League\\Flysystem\\Adapter\\AbstractFtpAdapter' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/AbstractFtpAdapter.php',
@@ -1677,6 +1673,7 @@ class ComposerStaticInit4adbd17670757cfa253dff570f787470
         'PHPUnit_Framework_Constraint_ClassHasStaticAttribute' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/ClassHasStaticAttribute.php',
         'PHPUnit_Framework_Constraint_Composite' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Composite.php',
         'PHPUnit_Framework_Constraint_Count' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Count.php',
+        'PHPUnit_Framework_Constraint_DirectoryExists' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/DirectoryExists.php',
         'PHPUnit_Framework_Constraint_Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/Exception.php',
         'PHPUnit_Framework_Constraint_ExceptionCode' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/ExceptionCode.php',
         'PHPUnit_Framework_Constraint_ExceptionMessage' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/ExceptionMessage.php',
@@ -1694,8 +1691,10 @@ class ComposerStaticInit4adbd17670757cfa253dff570f787470
         'PHPUnit_Framework_Constraint_IsJson' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsJson.php',
         'PHPUnit_Framework_Constraint_IsNan' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsNan.php',
         'PHPUnit_Framework_Constraint_IsNull' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsNull.php',
+        'PHPUnit_Framework_Constraint_IsReadable' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsReadable.php',
         'PHPUnit_Framework_Constraint_IsTrue' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsTrue.php',
         'PHPUnit_Framework_Constraint_IsType' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsType.php',
+        'PHPUnit_Framework_Constraint_IsWritable' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/IsWritable.php',
         'PHPUnit_Framework_Constraint_JsonMatches' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/JsonMatches.php',
         'PHPUnit_Framework_Constraint_JsonMatches_ErrorMessageProvider' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/JsonMatches/ErrorMessageProvider.php',
         'PHPUnit_Framework_Constraint_LessThan' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Constraint/LessThan.php',
