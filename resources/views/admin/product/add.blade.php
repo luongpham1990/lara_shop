@@ -2,11 +2,8 @@
 @section('title')
 @endsection
 
-
 @section('content')
-
-
-
+    <style type="text/css">.thumb-image{float:left;width:150px;position:relative;padding:15px;}</style>
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -59,11 +56,7 @@
 
                         <div class="form-group">
                             <label>Product Brand</label>
-                            <select id="brand" class="form-control input-lg" name="brand" >
-                                @foreach($product as $product)
-                                    <option value="{{$product->brand}}">{{$product->brand}} </option>
-                                @endforeach
-                            </select>
+                            <input id="brand" class="form-control input-lg" name="brand" value="{{old("brand")}}" placeholder="Please Enter Brand">
                         </div>
 
                         <div class="form-group">
@@ -75,18 +68,16 @@
                             </label>
                         </div>
 
-                        <button type="submit" class="btn btn-default">Add Product</button>
-                        <button type="reset" class="btn btn-default">Reset</button>
-
+                        <button type="submit" class="btn btn-primary">Add Product</button>
+                        <button type="reset" class="btn btn-danger">Reset</button>
                     </div>
                     <strong style="font-size: 20px">Featured image: </strong><br/><br/>
                     <div class="form-group">
                         <label>Featured image</label>
-                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                        <div class="fileupload fileupload-new img-responsive" data-provides="fileupload" >
                             <input name="image[]" type="file" id="imgInp" multiple value="{{old("image")}}">
-                            <div class="fileupload-preview" id="image-holder" >
                             </div>
-                        </div>
+                        <div class="fileupload-preview img-responsive" id="image-holder"></div>
                         <br/>
                     </div>
                 </div>

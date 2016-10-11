@@ -7,6 +7,19 @@
           <!-- Page Content -->
               <div id="page-wrapper">
 
+                  @if(count($errors)>0)
+
+                      <div class="alert alert-danger fade in">
+                          <a href="#" class="close" data-dismiss="alert" aria-label="close"
+                             title="close">×</a>
+                          @foreach($errors->all() as $error)
+
+                              <p><strong>{{ $error }}!</strong></p>
+                          @endforeach
+                      </div>
+
+                  @endif
+
                   <div class="container-fluid">
                       <div class="row">
                           <div class="col-lg-12">
@@ -22,8 +35,8 @@
                                       <label>Category Name</label>
                                       <input class="form-control" name="name" placeholder="Please Enter Category Name" type="text" />
                                   </div>
-                                  <button type="submit" class="btn btn-default">Add Category</button>
-                                  <button type="reset" class="btn btn-default">Reset</button>
+                                  <button type="submit" class="btn btn-primary">Add Category</button>
+                                  <button type="reset" class="btn btn-danger">Reset</button>
                                   </form>
                           </div>
                       </div>

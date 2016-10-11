@@ -1,16 +1,31 @@
 @extends('admin.layouts.admin-app')
 @section('title')
+@endsection
+@push('link')
+<style>
+    .center a {
+        color: #FFFFFF;
+    }
+
+    table.dataTable thead .sorting {
+        background: none;
+    }
+
+    table.dataTable thead .sorting_asc {
+        background: none;
+    }
+</style>
+@endpush
 
 @section('content')
     <!-- Page Content -->
     <div id="page-wrapper">
+        @if(session('thongbao'))
+            <div style="padding-top: 10px" class="alert alert-success">
+                {{session('thongbao')}}
+            </div>
+        @endif
         <div class="container-fluid">
-
-            @if(session('thongbao'))
-                <div class="alert alert-success">
-                    {{session('thongbao')}}
-                </div>
-            @endif
 
             <div class="row">
                 <div class="col-lg-12">
@@ -27,16 +42,16 @@
                         <th style="text-align: center">Price</th>
                         <th style="text-align: center">View</th>
                         <th style="text-align: center">Catalog</th>
-                        <th>Featured image</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-
+                        <th style="width: 170px;">Featured image</th>
+                        <th style="text-align: center">Description</th>
+                        <th style="text-align: center">Edit</th>
+                        <th style="text-align: center">Delete</th>
                     </tr>
                     </thead>
                     <tbody>
                     {{--@foreach($product_img as pro_img)--}}
                     @foreach($product as $pro)
-                        <tr class="product{{$pro->id}}">
+                        <tr class="odd gradeX product{{$pro->id}}">
                             <td>{{$pro->id}}</td>
                             <td>{{$pro->product_name}}</td>
                             <td>{{$pro->price}} VNĐ</td>
@@ -45,19 +60,19 @@
                             <td>
                                 {{ \App\Catalog::find($pro->catalog_id)->catalog_name }}
                             </td>
-
-                            <td><img class="img-responsive" style="max-width: 100px;"
-                                     {{ dd($img) }}
-
-                                     src="/images/{{ $product->img}}"></td>
+                            <td>
+                                <img class="img-responsive" src="/images/{{$pro->getImageFeature()}}">
+                            </td>
 
                             <td>{{$pro->description}}</td>
 
-                            <td><a href="/admin/product/edit/{{ $pro->id }}"
-                                   class=" col-md-6 edit-modal btn btn-info">
+                            <td><a href="/admin/product/{{ $pro->id }}/edit/"
+                                   class=" col-md-12 edit-modal btn btn-primary">
                                     <span class="glyphicon glyphicon-edit"></span> Edit
                                 </a>
-                                <button class=" col-md-6 delete-modal btn btn-danger" onclick=""
+                            </td>
+                            <td>
+                                <button class=" col-md-9 delete-modal btn btn-danger" onclick=""
                                         data-info="{{ $pro->id }}">
                                     <span class="glyphicon glyphicon-trash"></span> Delete
                                 </button>

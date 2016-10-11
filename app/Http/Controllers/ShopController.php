@@ -33,7 +33,7 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
         $products = Product::all();
         $categories = Catalog::all();
         $relate_products = Product::all();
-        
+
         return view('shop.product-detail')->with([
             'products' => $products,
             'categories' => $categories,

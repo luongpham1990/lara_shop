@@ -30,8 +30,6 @@ class CataController extends Controller
 
     public function add(Request $request)
     {
-
-        
         $rules = [
             'name' => 'string|required'
         ];

@@ -1,6 +1,21 @@
 @extends('admin.layouts.admin-app')
 @section('title')
     @endsection
+@push('link')
+<style>
+    .center a {
+        color: #FFFFFF;
+    }
+
+    table.dataTable thead .sorting {
+        background: none;
+    }
+
+    table.dataTable thead .sorting_asc {
+        background: none;
+    }
+</style>
+@endpush
 
 
         <!-- Navigation -->
@@ -49,8 +64,8 @@
                                         <input class="form-control" name="name" placeholder="Please Enter Category Name" value="{{$cata->catalog_name}}"/>
                                     </div>
 
-                                    <button type="submit" class="btn btn-default">Category Edit</button>
-                                    <button type="reset" class="btn btn-default">Reset</button>
+                                    <button type="submit" class="btn btn-primary">Category Edit</button>
+                                    <button type="reset" class="btn btn-danger">Reset</button>
                                     </form>
                             </div>
                         </div>

@@ -45,13 +45,19 @@ class ProductController extends Controller
 
     public function add(Request $request)
     {
+
+//        dd($request->all());
         $rules = [
             'name' => 'string|required',
             'price' => 'numeric|required',
             'description' => 'string|max:3000|required',
-            'image' => 'required|mimes:jpg,png,jpeg,gif,bmp',
             'brand' =>'required'
         ];
+
+        $nbr = count($request->input('image')) - 1;
+        foreach(range(0, $nbr) as $index) {
+            $rules['image.' . $index] = 'mimes:jpeg,jpg,png,gif|max:10000';
+        }
 
         $messages = [
             '*.required' => ':attribute không được để trống',
@@ -96,7 +102,18 @@ class ProductController extends Controller
             }
         }
 
-        return redirect('/admin/product/list')->with('thongbao', 'Bạn đã thêm sản phẩm thành công');
+        return redirect('/admin/product')->with('thongbao', 'Bạn đã thêm sản phẩm thành công');
+    }
+
+
+    public function showOne($id)
+    {
+        $cata = Catalog::all();
+        $product = Product::find($id);
+        return view('admin.product.edit', [
+            'pro' => $product,
+            'cata' => $cata
+        ]);
     }
 
     public function edit(Request $request, $id)
@@ -105,7 +122,7 @@ class ProductController extends Controller
             'name' => 'string|required',
             'price' => 'numeric|required',
             'description' => 'string|max:3000|required',
-            'image' => 'required|mimes:jpg,png,jpeg,gif,bmp'
+//            'image' => 'required|mimes:jpg,png,jpeg,gif,bmp'
         ];
 
         $messages = [
@@ -145,19 +162,14 @@ class ProductController extends Controller
             }
         }
         $product->save();
-        return redirect('/admin/product/list')->with('thongbao', 'Bạn đã sửa sản phẩm thành công');
+        return redirect('/admin/product')->with(
+            'thongbao', 'Bạn đã sửa sản phẩm thành công'
+        );
     }
-
-    public function showOne($id)
-    {
-        $product = Product::find($id);
-        return view('admin.product.edit', ['pro' => $product]);
-    }
-
 
     public function delete($id)
     {
         Product::find($id)->delete();
-        return redirect('/admin/product/list')->with('thongbao', 'Bạn đã xóa sản phẩm thành công');
+        return redirect('/admin/product')->with('thongbao', 'Bạn đã xóa sản phẩm thành công');
     }
 }

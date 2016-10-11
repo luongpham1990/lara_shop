@@ -1,6 +1,21 @@
 @extends('admin.layouts.admin-app')
 @section('title')
     @endsection
+@push('link')
+<style>
+    .center a {
+        color: #FFFFFF;
+    }
+
+    table.dataTable thead .sorting {
+        background: none;
+    }
+
+    table.dataTable thead .sorting_asc {
+        background: none;
+    }
+</style>
+@endpush
 
            <!-- Navigation -->
 
@@ -41,7 +56,7 @@
                                <th style="text-align: center">ID</th>
                                <th style="text-align: center">Name</th>
                                <th style="text-align: center">Edit</th>
-                               <th style="text-align: center">Delete</th>
+                               <th style="ext-align: center">Delete</th>
                            </tr>
                            </thead>
                            <tbody>
@@ -50,7 +65,8 @@
                                    <td>{{$ct->catalog_id  }}</td>
                                    <td>{{$ct->catalog_name}}</td>
 
-                                   <td><a href="{{url('/admin/cata/'.$ct->catalog_id).'/edit/'}}" class="edit-modal btn btn-info">
+                                   <td><a href="{{url('/admin/cata/'.$ct->catalog_id).'/edit/'}}"
+                                          class="edit-modal btn btn-primary">
                                            <span class="glyphicon glyphicon-edit"></span> Edit
                                        </a></td>
 

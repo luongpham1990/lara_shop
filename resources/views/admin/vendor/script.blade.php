@@ -18,6 +18,6 @@
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
 
-@stack('script')
+@stack('scripts')
 
 {{--them vi tri de ae them script--}}
