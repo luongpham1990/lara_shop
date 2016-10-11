@@ -15,6 +15,6 @@ class Catalog extends Model
         return $this->hasMany('App\Product','catalog_id');
     }
     public function getFeatureProducts(){
-        return $this->products()->get();
+        return $this->products()->take(4)->get();
     }
 }

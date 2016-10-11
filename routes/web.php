@@ -115,3 +115,5 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
         Route::delete('/{id}/delete', 'Admin\UserController@delete');//xóa user
     });
 });
+
+

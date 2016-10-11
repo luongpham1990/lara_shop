@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\ProductImages;
 use Input;
+use Intervention\Image\Facades\Image;
 use Validator;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -92,7 +93,9 @@ class ProductController extends Controller
                     $product_img->thumbnail_photo_name = $file->getClientOriginalName();
                     $file->move(public_path('images/'), $file->getClientOriginalName());
                     $product_img->save();
-                    
+
+                    $img = Image::make(public_path('/images/'.$file->getClientOriginalName()))->resize(320,480)->insert(public_path('/images/watermark.png'));  // thêm watermark.png','bottom-left', 10, 10  để edit
+                    $img->save();
                     $product_link = new ProductProductPhoto();
 
                     $product_link->product_photo_id = $product_img->id;
