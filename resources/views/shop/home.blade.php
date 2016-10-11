@@ -18,14 +18,14 @@
                         <div class="single-products">
                             <div class="productinfo text-center">
                                 <img src="images/{{$product->getImageFeature()}}" alt=""/>
-                                <h2>{{ $product->price }}</h2>
+                                <h2>{{ number_format($product->price) }} VNĐ</h2>
                                 <p>{{ $product->product_name }}</p>
                                 <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add
                                     to cart</a>
                             </div>
                             <div class="product-overlay">
                                 <div class="overlay-content">
-                                    <h2>{{ $product->price }}</h2>
+                                    <h2>{{ number_format($product->price) }} VNĐ</h2>
                                     <a href="{{url('product-detail')}}"><p>{{ $product->product_name }}</p></a>
                                     <a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add
                                         to cart</a>
@@ -65,8 +65,8 @@
                                     <div class="single-products">
                                         <div class="productinfo text-center">
                                             <img src="images/{{$featureProduct->getImageFeature()}}" alt=""/>
-                                            <h2>{{ $featureProduct->price }}</h2>
-                                            <p>{{ $featureProduct->product_name }}</p>
+                                            <h2>{{ number_format($product->price) }} VNĐ</h2>
+                                            <a href="{{url('product-detail')}}"><p>{{ $featureProduct->product_name }}</p></a>
                                             <a href="#" class="btn btn-default add-to-cart"><i
                                                         class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>

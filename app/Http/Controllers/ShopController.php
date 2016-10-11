@@ -39,6 +39,5 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
             'categories' => $categories,
             'relate_products' => $relate_products
         ]);
-
     }
 }

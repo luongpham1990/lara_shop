@@ -139,4 +139,5 @@
         $('#myModal').modal('show');
     });
 </script>
+
 @endpush

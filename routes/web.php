@@ -64,16 +64,7 @@ Route::get('/shop', function () {
     return view('shop.shop');
 });
 
-Route::get('/product-detail', function () {
-    $product = Product::all();
-    $cata = Catalog::all();
-    $product_img = ProductImages::all();
-    return view('shop.product-detail')->with([
-        'product' => $product,
-        'cata' => $cata,
-        'product_img' => $product_img
-    ]);
-});
+Route::get('/product-detail','ShopController@showdetail');
 
 //Lương sửa
 Route::group(['prefix' => 'admin'], function () {//route group truy cập theo đường dẫn host/admin
