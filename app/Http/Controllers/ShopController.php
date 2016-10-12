@@ -24,9 +24,7 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
         $categories = Catalog::all();
         $relate_products = Product::paginate(4);
 
-
         $list_recommends = [];
-
 
         $calalogs = Catalog::get();
 
@@ -46,16 +44,20 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
         ]);
     }
 
-    public function showdetail()
+    public function showdetail($id)
     {
         $products = Product::all();
         $categories = Catalog::all();
-        $relate_products = Product::all();
+        $product_detail = Product::find($id);
+//        $product_img = $products->getImageFeature();
 
         return view('shop.product-detail')->with([
             'products' => $products,
             'categories' => $categories,
-            'relate_products' => $relate_products
+            'product_detail' => $product_detail,
+//            dd($product_detail)
         ]);
+
+
     }
 }

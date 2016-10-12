@@ -31,7 +31,6 @@ class ProductController extends Controller
                 'product' => $product
             ]
         );
-
     }
 
     public function showadd()
@@ -177,7 +176,6 @@ class ProductController extends Controller
                 }
             }
         }
-
         return redirect('/admin/product')->with('thongbao', 'Bạn đã thêm sản phẩm thành công');
     }
 

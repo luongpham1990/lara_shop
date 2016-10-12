@@ -64,7 +64,7 @@ Route::get('/shop', function () {
     return view('shop.shop');
 });
 
-Route::get('/product-detail','ShopController@showdetail');
+Route::get('products/{id}','ShopController@showdetail');
 
 //Lương sửa
 Route::group(['prefix' => 'admin'], function () {//route group truy cập theo đường dẫn host/admin
