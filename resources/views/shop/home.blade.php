@@ -62,7 +62,7 @@
                     <div class="tab-pane fade {{ $categories->first() == $category ? 'active' : '' }} in"
                          id="{{ str_slug($category->catalog_name) }}">
                         @foreach($category->getFeatureProducts() as $featureProduct)
-                            <div class="col-sm-3">
+                            <div class="col-sm-3" style="margin: 3.6%">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
@@ -92,7 +92,7 @@
 
                             {{--begin foreach--}}
                             @foreach($catalog as $item)
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">

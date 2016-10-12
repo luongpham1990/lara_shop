@@ -96,8 +96,8 @@ class ProductController extends Controller
 
                     $img = Image::make(public_path('/images/'.$file->getClientOriginalName()))->resize(320,480)->insert(public_path('/images/watermark.png'));  // thêm watermark.png','bottom-left', 10, 10  để edit
                     $img->save();
-                    $product_link = new ProductProductPhoto();
 
+                    $product_link = new ProductProductPhoto();
                     $product_link->product_photo_id = $product_img->id;
                     $product_link->product_id = $product->id;
                     $product_link->save();
@@ -125,49 +125,60 @@ class ProductController extends Controller
             'name' => 'string|required',
             'price' => 'numeric|required',
             'description' => 'string|max:3000|required',
-//            'image' => 'required|mimes:jpg,png,jpeg,gif,bmp'
+            'brand' =>'required'
         ];
+
+        $nbr = count($request->input('image')) - 1;
+        foreach(range(0, $nbr) as $index) {
+            $rules['image.' . $index] = 'mimes:jpeg,jpg,png,gif|max:10000';
+        }
 
         $messages = [
             '*.required' => ':attribute không được để trống',
             'name.string' => ':attribute sai định dạng',
             'price.numberic' => ':attribute phải là số',
             'description.string' => ':attribute phải là string',
-            'description.max' => ':attribute không được vượt quá 3000 ký tự',
-//            'image.mimes' =>'Sai định dạng :attribute'
+            'description.max' => ':attribute không được vượt quá 3000 ký tự'
         ];
-
 
         $validation = Validator::make($request->all(), $rules, $messages);
         if ($validation->fails()) {
-            return response()->json(array(
-                'errors' => $validation->getMessageBag()->toArray()
-            ));
+            return redirect()->back()->withErrors($validation)->withInput();
         }
-        $product = Product::find($request->id);
 
+        $product = new Product();
         $product->product_name = $request->name;
         $product->price = $request->price;
         $product->description = $request->input('description');
         $product->brand = $request->brand;
-        $product->status = $request->status;
+        $product->status = $request->rdoStatus;
+        $product->catalog_id = $request->catalog;
+        $product->save();
 
-        $product_img = ProductImages::find($request->id);
+        $product_id = $product->id;
 
         if (Input::hasFile('image')) {
             foreach (Input::file('image') as $file) {
+                $product_img = new ProductImages();
                 if (isset($file)) {
+                    $product_img->product_id = $product_id;
                     $product_img->thumbnail_photo_link = $file->getClientOriginalName();
                     $product_img->thumbnail_photo_name = $file->getClientOriginalName();
                     $file->move(public_path('images/'), $file->getClientOriginalName());
                     $product_img->save();
+
+                    $img = Image::make(public_path('/images/'.$file->getClientOriginalName()))->resize(320,480)->insert(public_path('/images/watermark.png'));  // thêm watermark.png','bottom-left', 10, 10  để edit
+                    $img->save();
+
+                    $product_link = new ProductProductPhoto();
+                    $product_link->product_photo_id = $product_img->id;
+                    $product_link->product_id = $product->id;
+                    $product_link->save();
                 }
             }
         }
-        $product->save();
-        return redirect('/admin/product')->with(
-            'thongbao', 'Bạn đã sửa sản phẩm thành công'
-        );
+
+        return redirect('/admin/product')->with('thongbao', 'Bạn đã thêm sản phẩm thành công');
     }
 
     public function delete($id)
