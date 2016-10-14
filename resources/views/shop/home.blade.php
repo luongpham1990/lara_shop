@@ -22,14 +22,14 @@
                                 <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add
                                     to cart</a>
                             </div>
-                            <div class="product-overlay">
+                            <a href="{{url('products/'.$product->id)}}"><div class="product-overlay">
                                 <div class="overlay-content">
                                     <h2>{{ number_format($product->price) }} VNĐ</h2>
-                                    <a href="{{url('products/'.$product->id)}}"><p>{{ $product->product_name }}</p></a>
+                                    <p>{{ $product->product_name }}</p>
                                     <a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add
                                         to cart</a>
                                 </div>
-                            </div>
+                            </div></a>
                         </div>
                         <div class="choose">
                             <ul class="nav nav-pills nav-justified">

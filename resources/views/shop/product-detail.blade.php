@@ -13,18 +13,17 @@
         <div class="product-details"><!--product-details-->
             <div class="col-sm-5">
                 <div class="view-product">
-                    <img src="../images/{{$product_detail->first()->getImageFeature()}}" alt="" />
+                    <img src="../images/{{$product_detail->getImageFeature()}}" alt="" />
                     <h3>ZOOM</h3>
                 </div>
                 <div id="similar-product" class="carousel slide" data-ride="carousel">
 
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
-                        {{--@foreach($product_detail as $product_detail)--}}
+
                         <div class="item active col-sm-4">
-                            <a href=""><img src="../images/{{$product_detail->getImageFeature()}}" alt=""></a>
+                            {{--<a href=""><img src="../images/{{$product_detail->getImageDetail()}}" alt=""></a>--}}
                         </div>
-                            {{--@endforeach--}}
                     </div>
 
                     <!-- Controls -->
@@ -42,7 +41,7 @@
                     <img src="../images/product-details/new.jpg" class="newarrival" alt="" />
                     <h2>{{ $product_detail->product_name }}</h2>
                     <p>Web ID: {{ $product_detail->id }}</p>
-                    <img src="../images/product-details/rating.png" alt="" />
+                    <img src="../images/product-details/rating.png" alt="" /><br>
 								<span>
 									<span>{{ number_format($product_detail->price) }} VNĐ</span>
 									{{--<label>Quantity:</label>--}}{{--                   // bo sung sau--}}
@@ -81,7 +80,7 @@
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <img src="images/home/gallery1.jpg" alt="" />
+                                    <img src="../images/home/gallery1.jpg" alt="" />
                                     <h2>$56</h2>
                                     <p>Easy Polo Black Edition</p>
                                     <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
@@ -245,7 +244,7 @@
 											<input type="email" placeholder="Email Address"/>
 										</span>
                             <textarea name="" ></textarea>
-                            <b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
+                            <b>Rating: </b> <img src="../images/product-details/rating.png" alt="" />
                             <button type="button" class="btn btn-default pull-right">
                                 Submit
                             </button>

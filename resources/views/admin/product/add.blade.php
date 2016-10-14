@@ -76,8 +76,8 @@
                         <div id="wrapper" style="margin-top: 10px;"><input id="fileUpload" multiple="multiple" type="file" name="image[]"/>
                             <div id="image-holder"></div>
                         </div>
-
                     </div>
+
                 </div>
             </form>
         </div>

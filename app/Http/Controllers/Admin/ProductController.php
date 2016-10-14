@@ -6,6 +6,7 @@ use App\Catalog;
 use Illuminate\Http\Request;
 use App\Product;
 use App\ProductImages;
+use Illuminate\Support\Facades\Storage;
 use Input;
 use Intervention\Image\Facades\Image;
 use Validator;
@@ -13,6 +14,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
 use App\ProductProductPhoto;
+use File;
+
 
 class ProductController extends Controller
 {
@@ -39,7 +42,7 @@ class ProductController extends Controller
         $product = Product::all();
         return view('admin.product.add')->with([
             'cata' => $cata,
-            'product' =>$product
+            'product' => $product
         ]);//Lương sửa: thừa chữ shop. nhé
     }
 
@@ -51,11 +54,11 @@ class ProductController extends Controller
             'name' => 'string|required',
             'price' => 'numeric|required',
             'description' => 'string|max:3000|required',
-            'brand' =>'required'
+            'brand' => 'required'
         ];
 
         $nbr = count($request->input('image')) - 1;
-        foreach(range(0, $nbr) as $index) {
+        foreach (range(0, $nbr) as $index) {
             $rules['image.' . $index] = 'mimes:jpeg,jpg,png,gif|max:10000';
         }
 
@@ -81,41 +84,42 @@ class ProductController extends Controller
         $product->catalog_id = $request->catalog;
         $product->save();
 
-        $product_id = $product->id;
-
         if (Input::hasFile('image')) {
             foreach (Input::file('image') as $file) {
                 $product_img = new ProductImages();
                 if (isset($file)) {
-                    $product_img->product_id = $product_id;
                     $product_img->thumbnail_photo_link = $file->getClientOriginalName();
                     $product_img->thumbnail_photo_name = $file->getClientOriginalName();
                     $file->move(public_path('images/'), $file->getClientOriginalName());
                     $product_img->save();
 
-                    $img = Image::make(public_path('/images/'.$file->getClientOriginalName()))->resize(320,480)->insert(public_path('/images/watermark.png'));  // thêm watermark.png','bottom-left', 10, 10  để edit
+                    $img = Image::make(public_path('/images/' . $file->getClientOriginalName()))->resize(320, 480)->insert(public_path('/images/watermark.png'));  // thêm watermark.png','bottom-left', 10, 10  để edit
                     $img->save();
 
                     $product_link = new ProductProductPhoto();
-                    $product_link->product_photo_id = $product_img->id;
+                    $product_link->product_photo_id = $product_img->product_photo_id;
                     $product_link->product_id = $product->id;
                     $product_link->save();
                 }
             }
         }
-
         return redirect('/admin/product')->with('thongbao', 'Bạn đã thêm sản phẩm thành công');
     }
-
 
     public function showOne($id)
     {
         $cata = Catalog::all();
         $product = Product::find($id);
+//        $product_product = ProductProductPhoto::find();
+//        dd($product_product);
+        $img_detail = $product->getAllImage();
         return view('admin.product.edit', [
             'pro' => $product,
-            'cata' => $cata
+            'cata' => $cata,
+            'img_detail' => $img_detail,
+//            'product_product' =>$product_product
         ]);
+
     }
 
     public function edit(Request $request, $id)
@@ -124,11 +128,11 @@ class ProductController extends Controller
             'name' => 'string|required',
             'price' => 'numeric|required',
             'description' => 'string|max:3000|required',
-            'brand' =>'required'
+            'brand' => 'required'
         ];
 
         $nbr = count($request->input('image')) - 1;
-        foreach(range(0, $nbr) as $index) {
+        foreach (range(0, $nbr) as $index) {
             $rules['image.' . $index] = 'mimes:jpeg,jpg,png,gif|max:10000';
         }
 
@@ -154,19 +158,17 @@ class ProductController extends Controller
         $product->catalog_id = $request->catalog;
         $product->save();
 
-        $product_id = $product->id;
 
         if (Input::hasFile('image')) {
             foreach (Input::file('image') as $file) {
                 $product_img = new ProductImages();
                 if (isset($file)) {
-                    $product_img->product_id = $product_id;
                     $product_img->thumbnail_photo_link = $file->getClientOriginalName();
                     $product_img->thumbnail_photo_name = $file->getClientOriginalName();
                     $file->move(public_path('images/'), $file->getClientOriginalName());
-                    $product_img->save();
 
-                    $img = Image::make(public_path('/images/'.$file->getClientOriginalName()))->resize(320,480)->insert(public_path('/images/watermark.png'));  // thêm watermark.png','bottom-left', 10, 10  để edit
+                    $product_img->save();
+                    $img = Image::make(public_path('/images/' . $file->getClientOriginalName()))->resize(320, 480)->insert(public_path('/images/watermark.png'));  // thêm watermark.png','bottom-left', 10, 10  để edit
                     $img->save();
 
                     $product_link = new ProductProductPhoto();
@@ -176,11 +178,34 @@ class ProductController extends Controller
                 }
             }
         }
-        return redirect('/admin/product')->with('thongbao', 'Bạn đã thêm sản phẩm thành công');
+        return redirect('/admin/product')->with('thongbao', 'Bạn đã sửa sản phẩm thành công');
+    }
+
+    public function DelImg($id)
+    {
+        if (Request::ajax()) {
+            $idHinh = (int)Request::get('idHinh');
+            $image_detail = ProductImages::find();
+            if (!empty($image_detail)){
+                $img = public_path('/images/'.$image_detail->thumbnail_photo_link);
+                if(File::exists($img)){
+                    File::delete($img);
+                }
+                $image_detail->delete();
+            }
+            return "Oke";
+        }
     }
 
     public function delete($id)
     {
+        $img_detail = Product::find($id)->getAllImageinfo();
+
+
+        foreach ($img_detail as $item) {
+            File::delete(public_path('/images/'.$item->thumbnail_photo_link));
+            ProductImages::find($item->product_photo_id)->delete();
+        };
         Product::find($id)->delete();
         return redirect('/admin/product')->with('thongbao', 'Bạn đã xóa sản phẩm thành công');
     }
