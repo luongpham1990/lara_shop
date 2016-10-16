@@ -88,7 +88,7 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
         Route::get('/{id}/edit', 'Admin\CataController@showOne');//Lương sửa đường dẫn show catalog theo chuẩn resful
         Route::put('/{id}/edit', 'Admin\CataController@edit');//Lương sửa đường dẫn edit thông tin catalog theo chuẩn resful
 
-        Route::delete('delete/{id}', 'Admin\CataController@delete');//xóa sp
+        Route::delete('/{id}/delete', 'Admin\CataController@delete');//xóa sp
     });
 //Hùng sửa
     Route::group(['prefix' => 'product'], function () {//vào phần các sp của website /admin/cata
@@ -100,7 +100,8 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
         Route::get('/{id}/edit', 'Admin\ProductController@showOne');//Lương sửa đường dẫn show sp theo chuẩn resful
         Route::put('/{id}/edit', 'Admin\ProductController@edit');//Lương sửa đường dẫn edit thông tin sp theo chuẩn resful
 
-        Route::delete('delete/{id}', 'Admin\ProductController@delete');//xóa sp
+        Route::delete('/{id}/delete', 'Admin\ProductController@delete');//xóa sp
+        Route::get('/{id}/delimg','Admin\ProductController@DelImg');
     });
 //Lương sửa
     Route::group(['prefix' => 'user'], function () {//phần admin điều chỉnh liên quan đến user của website đường dẫn /admin/user

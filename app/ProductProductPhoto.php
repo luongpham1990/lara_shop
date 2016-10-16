@@ -17,6 +17,10 @@ class ProductProductPhoto extends Model
         return $this->hasOne('App\ProductImages','product_photo_id', 'product_photo_id');
     }
 
+    public function product_images(){
+        return $this->hasMany('App\ProductImages','product_photo_id', 'product_photo_id');
+    }
+
     public function getAllImage(){
         $imgs = DB::table('product_photos')->select('product_photos.thumbnail_photo_link')
             ->join('product_product_photos', 'product_photos.product_photo_id', '=', 'product_product_photos.product_photo_id')

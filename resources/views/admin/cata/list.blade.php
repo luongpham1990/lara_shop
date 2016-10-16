@@ -77,7 +77,7 @@
                                 </button>
                             </td>
                             <form id="abc-{{ $ct->catalog_id }}" method="post"
-                                  action="/admin/cata/delete/{{ $ct->catalog_id }}">
+                                  action="/admin/cata/{{ $ct->catalog_id }}/delete/">
                                 {{csrf_field()}}
                                 {{ method_field('DELETE') }}
                             </form>
@@ -99,13 +99,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="deleteContent">
-                            Are you Sure you want to delete <span class="dname"></span> ? <span
+                            Are you sure you want to delete <span class="dname"></span> ? <span
                                     class="hidden did"></span>
                         </div>
                         <div class="modal-footer">
                             <button id="button-delete" type="button" class="btn actionBtn btn-danger"
                                     data-dismiss="modal">
-                                <span id="footer_action_button" class='glyphicon'>Bạn có thực sự muốn xóa</span>
+                                <span id="footer_action_button">Bạn thực sự muốn xóa</span>
                             </button>
                             <button type="button" class="btn btn-warning" data-dismiss="modal">
                                 <span class='glyphicon glyphicon-remove'></span> Close

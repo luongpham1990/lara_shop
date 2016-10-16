@@ -49,15 +49,11 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
         $products = Product::all();
         $categories = Catalog::all();
         $product_detail = Product::find($id);
-//        $product_img = $products->getImageFeature();
 
         return view('shop.product-detail')->with([
             'products' => $products,
             'categories' => $categories,
             'product_detail' => $product_detail,
-//            dd($product_detail)
-        ]);
-
-
+            ]);
     }
 }

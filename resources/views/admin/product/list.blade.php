@@ -20,13 +20,14 @@
 @section('content')
     <!-- Page Content -->
     <div id="page-wrapper">
+
         @if(session('thongbao'))
             <div style="padding-top: 10px" class="alert alert-success">
                 {{session('thongbao')}}
             </div>
         @endif
-        <div class="container-fluid">
 
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Product
@@ -51,7 +52,7 @@
                     <tbody>
                     {{--@foreach($product_img as pro_img)--}}
                     @foreach($product as $pro)
-                        <tr class="odd gradeX product{{$pro->id}}">
+                        <tr class="odd gradeX " align="center">
                             <td>{{$pro->id}}</td>
                             <td>{{$pro->product_name}}</td>
                             <td>{{$pro->price}} VNĐ</td>
@@ -79,7 +80,7 @@
                             </td>
 
                             <form id="product-{{ $pro->id }}" method="post"
-                                  action="/admin/product/delete/{{ $pro->id }}">
+                                  action="/admin/product/{{ $pro->id }}/delete/">
                                 {{csrf_field()}}
                                 {{ method_field('DELETE') }}
                             </form>
@@ -104,13 +105,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="deleteContent">
-                            Are you Sure you want to delete <span class="dname"></span> ? <span
+                            Are you sure you want to delete <span class="dname"></span> ? <span
                                     class="hidden did"></span>
                         </div>
                         <div class="modal-footer">
                             <button id="button-delete" type="button" class="btn actionBtn btn-danger"
                                     data-dismiss="modal">
-                                <span id="footer_action_button" class='glyphicon'>Bạn có thực sự muốn xóa</span>
+                                <span id="footer_action_button">Bạn thực sự muốn xóa</span>
                             </button>
                             <button type="button" class="btn btn-warning" data-dismiss="modal">
                                 <span class='glyphicon glyphicon-remove'></span> Close
@@ -129,6 +130,12 @@
 @endsection
 @push('scripts')
 <script>
+    $(document).ready(function () {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+
     $(document).on('click', '.delete-modal', function () {
         $('.modal-title').text('Delete');
         $('.deleteContent').show();
