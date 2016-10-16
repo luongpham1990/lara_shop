@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\RegisterMail;
+
 use App\User;
 use Validator;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-
+use App\Notifications\UserRegister;
 class UsersController extends Controller
 {
     //dang ky
@@ -36,7 +37,7 @@ class UsersController extends Controller
             'remail.unique' => 'Email đã được sử dụng vui lòng nhập email khác',
         ];
 
-       $validation = Validator::make($request->all(),$rule,$message);
+        $validation = Validator::make($request->all(), $rule, $message);
 
         if ($validation->fails()) {
             return redirect()->back()->withInput()->withErrors($validation);
@@ -51,10 +52,11 @@ class UsersController extends Controller
             $user->is_admin = false;
             $user->save();
 
-            $link = (url('/verify/') . "/" . $confirm_code);
-            Mail::to($user)->send(new RegisterMail($request->rusername, $request->remail, $link));
+            $link = (url('/verify') . "/" . $confirm_code);
+            $user->notify( new UserRegister($user,$link));
+//            Mail::to($user)->send(new RegisterMail($request->rusername, $request->remail, $link));
 
-            return redirect('/login');
+            return redirect('/login')->with('alert', 'Dang ky thanh cong moi ban kich hoat tai khoan');
         }
     }
 
@@ -67,7 +69,7 @@ class UsersController extends Controller
         $user->save();
 
         Auth::loginUsingId($user->id);
-        return redirect('/edit/' . $user->id);
+        return redirect('/user/'. $user->id.'/edit/');
     }
 
     //dang nhap
@@ -92,7 +94,7 @@ class UsersController extends Controller
             if (Auth::attempt(['email' => $request->lemail, 'password' => $request->lpassword, 'confirmed' => true])) {
                 return redirect('/home');
             } else {
-                return redirect('/login')->with('error', 'Bạn đăng nhập lỗi rồi');
+                return redirect('/login')->with('error', 'Bạn đăng nhập lỗi rồi');//['erorrs' => 'Bạn đăng nhập lỗi rồi']
             }
         }
     }
@@ -101,55 +103,89 @@ class UsersController extends Controller
     public function logout(Request $request)
     {
         Auth::logout($request->user());
-       return redirect('home');
+        return redirect('/home');
     }
 
-    public function profile(Request $request,$id)
+    public function profile(Request $request, $id)
     {
-       if($request->user()->id == $id){
-           $user = User::find($id);
-           return view('shop.users.edit', ['user' => $user]);
-       }else {
-          return abort(403);
-       }
+        if ($request->user()->id == $id) {
+            $user = User::find($id);
+            return view('shop.users.edit', ['user' => $user]);
+        } else {
+            return abort(403);
+        }
     }
 
     public function changePass(Request $request, $id)
     {
-     if ($request->user()->id == $id){
-         $user = User::find($id);
-         if (Hash::check($request->oldpassword, $user->password)) {
-             $rule = [
-                 'newpassword' => 'string|required|alpha_num|min:6|max:32|confirmed',
+        if ($request->user()->id == $id) {
+            $user = User::find($id);
+            if (Hash::check($request->oldpassword, $user->password)) {
+                $rule = [
+                    'newpassword' => 'string|required|alpha_num|min:6|max:32|confirmed',
 //                'oldpassword' => 'required|alpha_num|confirmed'
-             ];
-             $message = [
-                 'newpassword.required' => 'Mật khẩu không được để trống',
-                 'newpassword.min' => 'Mật khẩu không được ít hơn :min ký tự',
-                 'newpassword.max' => 'Mật khẩu không được vượt quá :max ký tự',
-                 'newpassword.confirmed' => 'Mật khẩu không trùng khớp',
-             ];
+                ];
+                $message = [
+                    'newpassword.required' => 'Mật khẩu không được để trống',
+                    'newpassword.min' => 'Mật khẩu không được ít hơn :min ký tự',
+                    'newpassword.max' => 'Mật khẩu không được vượt quá :max ký tự',
+                    'newpassword.confirmed' => 'Mật khẩu không trùng khớp',
+                ];
 
-             $validation = Validator::make($request->all(), $rule, $message);
+                $validation = Validator::make($request->all(), $rule, $message);
 
-             if ($validation->fails()) {
-                 return redirect('/edit/' . $user->id)->withInput()->withErrors($validation);
-             } else {
-                 $user->password = Hash::make($request->newpassword);
-                 $user->save();
+                if ($validation->fails()) {
+                    return redirect('/user/'. $user->id.'/edit/')->withInput()->withErrors($validation);
+                } else {
+                    $user->password = Hash::make($request->newpassword);
+                    $user->save();
 
-                 return redirect('/edit/' . $user->id)->with('alert', 'Đổi mật khẩu thành công');
-             }
-         } else {
-             return redirect()->back()->with('oldsida', 'Mật khẩu cũ không đúng');
-         }
-     }else {
-        return abort(403);
-     }
+                    return redirect( '/user/'. $user->id.'/edit/')->with('alert', 'Đổi mật khẩu thành công');
+                }
+            } else {
+                return redirect()->back()->with('oldsida', 'Mật khẩu cũ không đúng');
+            }
+        } else {
+            return abort(403);
+        }
     }
 
-    function delete($id){
-         User::find($id)->delete();
-        return redirect('/admin/user/list')->with('alert','Xóa tài khoản thành công');
+    function edit(Request $request, $id)
+    {
+      if ($request->user()->id == $id){
+          $user = User::find($id);
+          $rule = [
+              'username' => 'string|min:6|max:32|unique:users,username',
+              'address' => 'text|max:255',
+              'phone' => 'numeric|max: 15'
+          ];
+
+          $message = [
+              'username.min' => 'Tên hiển thị không được ít hơn :min ký tự',
+              'username.max' => 'Tên hiển thị không được nhiều hơn :max ký tự',
+              'address.max' => 'Địa chỉ không được nhiều hơn :max ký tự',
+              'phone.max' => 'Số điện thoại không vượt quá :max ký tự'
+          ];
+
+          $validation = Validator::make($request->only(['username'=>$request->username,'address' => $request->address,'phone'=>$request->phone]), $rule, $message);
+
+          if ($validation->fails()) {
+              return redirect()->back()->withErrors($validation);
+          } else {
+
+              $user->username = $request->username;
+              $user->address = $request->address;
+              $user->phone = $request->phone;
+              $user->save();
+
+              return redirect('/user/'. $user->id.'/edit/')->with('alert', 'Sửa tài khoản thành công ');
+          }
+      }
     }
+
+//    function delete($id)
+//    {
+//        User::find($id)->delete();
+//        return redirect('/admin/user/list')->with('alert', 'Xóa tài khoản thành công');
+//    }
 }

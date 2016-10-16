@@ -16,7 +16,7 @@ class UserController extends Controller
 {
     function __construct()
     {
-        $this->middleware(['auth','admin'])->except('login');
+        $this->middleware(['auth', 'admin'])->except('login');
     }
 
     function show()
@@ -36,7 +36,7 @@ class UserController extends Controller
             'username' => 'string|required|alpha_num|min:6|max:32|unique:users,username',
             'password' => 'string|required|alpha_num|min:6|max:32|confirmed',
             'email' => 'email|required|unique:users,email',
-            'address' => 'required|max:255|alpha_num',
+            'address' => 'required|max:255|text',
             'phone' => 'numeric|max:15'
         ];
         $message = [
@@ -73,19 +73,74 @@ class UserController extends Controller
             $user->confirmed = true;
             $user->save();
 
-            return redirect('/admin/user/list')->with('alert', 'Đã thêm thành viên thành công');
+            return redirect('/admin/user')->with('alert', 'Đã thêm thành viên thành công');
         }
     }
 
-     function showone($id)
+    function edit(Request $request)
+    {
+        $rule = [
+            'username' => 'string|min:6|max:32|unique:users,username',
+            'address' => 'text|max:255',
+            'phone' => 'numeric|max: 15'
+        ];
+
+        $message = [
+            'username.min' => 'Tên hiển thị không được ít hơn :min ký tự',
+            'username.max' => 'Tên hiển thị không được nhiều hơn :max ký tự',
+            'address.max' => 'Địa chỉ không được nhiều hơn :max ký tự',
+            'phone.max' => 'Số điện thoại không vượt quá :max ký tự'
+        ];
+
+        $validation = Validator::make($request->all(), $rule, $message);
+
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation);
+        } else {
+
+            $user = new User();
+            $user->username = $request->username;
+            $user->address = $request->address;
+            $user->phone = $request->phone;
+            $user->confirmed = ($request->confirmed == 1) ? true : false;
+            $user->is_admin = ($request->Level == 1) ? true : false;
+            $user->save();
+
+            return redirect('/admin/user')->with('alert', 'Sửa tài khoản thành công ');
+        }
+    }
+
+    function editUser(Request $request)
+    {
+        // sau khi validate thanh cong
+        $user = User::findOrFail($request->get('pk'));
+        $name = $request->get('name');
+
+
+
+        $value = $request->get('value');
+        $user->$name = $value;
+        $user->save();
+
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'lit pe Hung nhe'
+        ]);
+
+    }
+
+    function showone($id)
     {
         $user = User::find($id);
+//        dd($user);
         return view('admin.user.edit', ['user' => $user]);
     }
 
 //    function
 
-    function login(Request $request){
+    function login(Request $request)
+    {
         $rule = [
             'email' => 'required|email',
             'password' => 'string|required'
@@ -97,31 +152,73 @@ class UserController extends Controller
             'password.required' => 'Mật khẩu không được để trống'
         ];
 
-        $validation = Validator::make($request->only(['email','password']),$rule,$message);
+        $validation = Validator::make($request->only(['email', 'password']), $rule, $message);
 
-        if ($validation->fails()){
+        if ($validation->fails()) {
             return redirect()->back()->withInput()->withErrors($validation);
-        }else {
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+        } else {
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 //                return redirect('/admin/user/list');
-                if(Auth::user()->is_admin){
-                    return redirect('/admin/user/list');
-                }else{
+                if (Auth::user()->is_admin) {
+                    return redirect('/admin/user');
+                } else {
                     return abort(403);
                 }
 
-            }else {
+            } else {
                 return redirect()->back()->withErrors(['login' => 'Tài khoản hoặc mật khẩu không đúng']);
             }
         }
     }
-    function logout(Request $request){
+
+    function logout(Request $request)
+    {
         Auth::logout($request->user);
-        return view('admin.login');
+        return redirect('/admin/login');
     }
 
-    function delete($id){
+    function delete($id)
+    {
         User::find($id)->delete();
-        return redirect('/admin/user/list')->with('alert','Xóa tài khoản thành công ');
+        return redirect('/admin/user')->with('alert', 'Xóa tài khoản thành công ');
+    }
+
+    function showAdmin(Request $request, $id){
+        if ($request->user()->id == $id){
+            $user = User::find($id);
+            return view('admin.edit', ['user'=>$user]);
+        }
+    }
+    function editAdmin(Request $request, $id)
+    {
+        if ($request->user()->id == $id){
+            $user = User::find($id);
+            $rule = [
+                'username' => 'string|min:6|max:32|unique:users,username',
+                'address' => 'text|max:255',
+                'phone' => 'numeric|max: 15'
+            ];
+
+            $message = [
+                'username.min' => 'Tên hiển thị không được ít hơn :min ký tự',
+                'username.max' => 'Tên hiển thị không được nhiều hơn :max ký tự',
+                'address.max' => 'Địa chỉ không được nhiều hơn :max ký tự',
+                'phone.max' => 'Số điện thoại không vượt quá :max ký tự'
+            ];
+
+            $validation = Validator::make($request->only(['username'=>$request->username,'address' => $request->address,'phone'=>$request->phone]), $rule, $message);
+
+            if ($validation->fails()) {
+                return redirect()->back()->withErrors($validation);
+            } else {
+
+                $user->username = $request->username;
+                $user->address = $request->address;
+                $user->phone = $request->phone;
+                $user->save();
+
+                return redirect('/admin/'. $user->id.'/edit/' )->with('alert', 'Sửa tài khoản thành công ');
+            }
+        }
     }
 }

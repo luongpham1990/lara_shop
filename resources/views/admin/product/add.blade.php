@@ -1,138 +1,125 @@
 @extends('admin.layouts.admin-app')
 @section('title')
-    @endsection
+@endsection
 
-       @section('content')
+@section('content')
+    <style type="text/css">.thumb-image{float:left;width:170px;position:relative;padding:10px;}</style>
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <form action="/admin/product/add" method="POST" enctype="multipart/form-data" runat="server">
 
+                @if(count($errors)>0)
 
+                    <div class="alert alert-danger fade in">
 
-           <!-- Page Content -->
-               <div id="page-wrapper">
-                   <div class="container-fluid">
-                       @if(count($errors)>0)
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close"
+                           title="close">×</a>
+                        @foreach($errors->all() as $error)
+                            <p><strong>{{ $error }}!</strong></p>
+                        @endforeach
+                    </div>
+                @endif
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Product
+                            <small>Add</small>
+                        </h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                    <div class="col-lg-6" style="padding-bottom:120px">
+                        {{ csrf_field() }}
 
-                           <div class="alert alert-danger fade in">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input class="form-control" name="name" id="name"
+                                   placeholder="Please Enter Productname" value="{{old('name')}}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input class="form-control" name="price" id="price" value="{{old("price")}}" placeholder="Please Enter Price"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Product Description</label>
+                                <textarea class="form-control" name="description" id="description" rows="5" value="{{old("description")}}"></textarea>
+                        </div>
 
-                               <a href="#" class="close" data-dismiss="alert" aria-label="close"
-                                  title="close">×</a>
-                               @foreach($errors->all() as $error)
-                                   <p><strong>{{ $error }}!</strong></p>
-                               @endforeach
-                           </div>
+                        <div class="form-group">
+                            <label>Product Catalog</label>
+                            <select id="catalog" class="form-control input-lg" name="catalog" >
+                                @foreach($cata as $ct)
+                                    <option value="{{$ct->catalog_id}}">{{$ct->catalog_name}} </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                       @endif
-                       <div class="row">
-                           <div class="col-lg-12">
-                               <h1 class="page-header">Product
-                                   <small>Add</small>
-                               </h1>
-                           </div>
-                           <!-- /.col-lg-12 -->
-                           <div class="col-lg-6" style="padding-bottom:120px">
-                               <form action="/admin/product/add" method="POST">
-                                   {{ csrf_field() }}
+                        <div class="form-group">
+                            <label>Product Brand</label>
+                            <input id="brand" class="form-control input-lg" name="brand" value="{{old("brand")}}" placeholder="Please Enter Product Brand">
+                        </div>
 
-                                   <div class="form-group">
-                                       <label>Name</label>
-                                       <input class="form-control" name="name" id="name" placeholder="Please Enter Productname" />
-                                   </div>
-                                   <div class="form-group">
-                                       <label>Price</label>
-                                       <input class="form-control" name="price" id="price" placeholder="Please Enter Price" />
-                                   </div>
-                                   <div class="form-group">
-                                       <label>Product Description</label>
-                                       <textarea class="form-control" name="description" id="description" rows="10" name="txtContent"></textarea>
-                                   </div>
-                                   <div class="form-group">
-                                       <label>Product Brand</label>
-                                           <select id="catalog" class="form-control input-lg" name="catalog">
-                                               <option value="0">Catalogs </option>
-                                               <option value="Quần">Quần </option>
-                                               <option value="Áo">Áo </option>
+                        <div class="form-group">
+                            <label>Product Status</label>
+                            <label class="radio-inline" id="productstatus">
+                                <input name="rdoStatus" value="1" checked="" type="radio">Visible
+                            </label>                            <label class="radio-inline">
+                                <input name="rdoStatus" value="0" type="radio">Invisible
+                            </label>
+                        </div>
 
-                                           </select>
-                                   </div>
-                                   <div class="form-group">
-                                       <label>Product Status</label>
-                                       <label class="radio-inline"id="productstatus">
-                                           <input name="rdoStatus" value="1" checked="" type="radio">Visible
-                                       </label>
-                                       <label class="radio-inline">
-                                           <input name="rdoStatus" value="2" type="radio">Invisible
-                                       </label>
-                                   </div>
-                                   {{--<div class="form-group">--}}
-                                       {{--<label>Featured image</label>--}}
-                                       {{--<div class="fileupload fileupload-new" data-provides="fileupload">--}}
-                                                 {{--<input name="image" type="file">--}}
-                                           {{--<div class="fileupload-preview">--}}
-                                               {{--<img src="" alt="" id="blah" class="img-responsive">--}}
-                                           {{--</div>--}}
-                                       {{--</div>--}}
-                                   {{--</div>--}}
+                        <button type="submit" class="btn btn-primary">Add Product</button>
+                        <button type="reset" class="btn btn-danger">Reset</button>
+                    </div>
+                    <strong style="font-size: 20px">Featured image: </strong><br/><br/>
+                    <div class="form-group">
+                        <label>Featured image</label>
+                        <div id="wrapper" style="margin-top: 10px;"><input id="fileUpload" multiple="multiple" type="file" name="image[]"/>
+                            <div id="image-holder"></div>
+                        </div>
 
-                                   {{--<div class="col-md-1"></div>--}}
-                                   {{--<div class="col-md-4">--}}
-                                       {{--@for($i=1; $i<=3; $i++)--}}
-                                       {{--<div class="form-group">--}}
-                                           {{--<label>Thumbnail Product Photo</label>--}}
-                                           {{--<input type="file" name="thumbnailproductphoto"/>--}}
-                                       {{--</div>--}}
-                                           {{--@endfor--}}
-                                   {{--</div>--}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection
 
-                                   <button type="submit" class="btn btn-default">Add Product</button>
-                                   <button type="reset" class="btn btn-default">Reset</button>
-
-
-                                   </form>
-                           </div>
-                       </div>
-                       <!-- /.row -->
-                   </div>
-                   <!-- /.container-fluid -->
-               </div>
-               <!-- /#page-wrapper -->
-           @endsection
-
-@push('script')
+@push('scripts')
 <script>
-    $(document).ready(function () {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
+$(document).ready(function() {
+    $("#fileUpload").on('change', function() {
+        //Get count of selected files
+        var countFiles = $(this)[0].files.length;
+        var imgPath = $(this)[0].value;
+        var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+        var image_holder = $("#image-holder");
+        image_holder.empty();
+            if (typeof(FileReader) != "undefined") {
+                //loop for each file selected for uploaded.
+                for (var i = 0; i < countFiles; i++)
+                {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $("<img />", {
+                            "src": e.target.result,
+                            "class": "thumb-image"
+                        }).appendTo(image_holder);
+                    }
+                    image_holder.show();
+                    reader.readAsDataURL($(this)[0].files[i]);
+                }
+            } else {
+                alert("This browser does not support FileReader.");
+        }
     });
+});
 
-    $(document).on('click', '.delete-modal', function () {
-        $('.modal-title').text('Delete');
-        $('.deleteContent').show();
-        var id = $(this).data('info');
-        console.log(id);
-
-        $('#button-delete').attr('onclick', "document.getElementById('abc-" + id + "').submit()");
-        $('#myModal').modal('show');
-    });
-
-    function fillmodalData(details) {
-        $('#fid').val(details[0]);
-        $('#title').val(details[1]);
-        $('#image').val(details[2]);
-        $('#author').val(details[3]);
-        $('#content').val(details[4]);
-        $('#category_id').val(details[5]);
-    }
-
-    $(document).on('click', '.delete-modal', function () {
-        $('.modal-title').text('Delete');
-        $('.deleteContent').show();
-        var id = $(this).data('info');
-        console.log(id);
-
-        $('#button-delete').attr('onclick', "document.getElementById('product-" + id + "').submit()");
-        $('#myModal').modal('show');
-    });
+</script>
+<script>
 
 </script>
 
 @endpush
+
+
+

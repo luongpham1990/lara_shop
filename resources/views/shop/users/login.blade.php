@@ -12,6 +12,9 @@
                         @if(session('error'))
                             <p>{{session('error')}}</p>
                         @endif
+                        @if(session('alert'))
+                            <p>{{session('alert')}}</p>
+                        @endif
 
                         <form method="post" action="{{url('/login')}}">
                             {{ csrf_field() }}

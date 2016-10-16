@@ -12,6 +12,6 @@ class ProductImages extends Model
 
     public function product()
     {
-        return $this->belongsTo('App\Product');
+        return $this->belongsTo('App\ProductProductPhoto','product_photo_id');
     }
 }

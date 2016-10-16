@@ -1,17 +1,31 @@
 @extends('admin.layouts.admin-app')
 @section('title')
 @endsection
-<!-- Navigation --
-    @section('content')
+@push('link')
+<style>
+    .center a {
+        color: #FFFFFF;
+    }
+
+    table.dataTable thead .sorting {
+        background: none;
+    }
+
+    table.dataTable thead .sorting_asc {
+        background: none;
+    }
+</style>
+@endpush
+
+@section('content')
     <!-- Page Content -->
     <div id="page-wrapper">
+        @if(session('thongbao'))
+            <div style="padding-top: 10px" class="alert alert-success">
+                {{session('thongbao')}}
+            </div>
+        @endif
         <div class="container-fluid">
-
-            @if(session('thongbao'))
-                <div class="alert alert-success">
-                    {{session('thongbao')}}
-                </div>
-            @endif
 
             <div class="row">
                 <div class="col-lg-12">
@@ -22,32 +36,43 @@
                 <!-- /.col-lg-12 -->
                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                     <thead>
-                    <tr align="center">
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Description</th>
-                        <th>View</th>
-                        <th>Brand</th>
-                        <th>Actions</th>
-
+                    <tr align="center" style="text-align: center">
+                        <th style="text-align: center">ID</th>
+                        <th style="text-align: center">Name</th>
+                        <th style="text-align: center">Price</th>
+                        <th style="text-align: center">View</th>
+                        <th style="text-align: center">Catalog</th>
+                        <th style="width: 170px;">Featured image</th>
+                        <th style="text-align: center">Description</th>
+                        <th style="text-align: center">Edit</th>
+                        <th style="text-align: center">Delete</th>
                     </tr>
                     </thead>
                     <tbody>
+                    {{--@foreach($product_img as pro_img)--}}
                     @foreach($product as $pro)
-                        <tr class="product{{$pro->id}}">
+                        <tr class="odd gradeX product{{$pro->id}}">
                             <td>{{$pro->id}}</td>
                             <td>{{$pro->product_name}}</td>
-                            <td>{{$pro->price}}</td>
-                            <td>{{$pro->description}}</td>
+                            <td>{{$pro->price}} VNĐ</td>
                             <td>{{$pro->view}}</td>
-                            <td>{{$pro->brand}}</td>
 
-                            <td><a href="/admin/product/edit/{{ $pro->id }}"
-                                   class=" col-md-6 edit-modal btn btn-info">
+                            <td>
+                                {{ \App\Catalog::find($pro->catalog_id)->catalog_name }}
+                            </td>
+                            <td>
+                                <img class="img-responsive" src="/images/{{$pro->getImageFeature()}}">
+                            </td>
+
+                            <td>{{$pro->description}}</td>
+
+                            <td><a href="/admin/product/{{ $pro->id }}/edit/"
+                                   class=" col-md-12 edit-modal btn btn-primary">
                                     <span class="glyphicon glyphicon-edit"></span> Edit
                                 </a>
-                                <button class=" col-md-6 delete-modal btn btn-danger" onclick=""
+                            </td>
+                            <td>
+                                <button class=" col-md-9 delete-modal btn btn-danger" onclick=""
                                         data-info="{{ $pro->id }}">
                                     <span class="glyphicon glyphicon-trash"></span> Delete
                                 </button>
@@ -59,8 +84,10 @@
                                 {{ method_field('DELETE') }}
                             </form>
                         </tr>
+
                     @endforeach
                     </tbody>
+
                 </table>
             </div>
             <!-- /.row -->
@@ -100,33 +127,8 @@
 
 
 @endsection
-@push('script')
+@push('scripts')
 <script>
-    $(document).ready(function () {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
-
-    $(document).on('click', '.delete-modal', function () {
-        $('.modal-title').text('Delete');
-        $('.deleteContent').show();
-        var id = $(this).data('info');
-        console.log(id);
-
-        $('#button-delete').attr('onclick', "document.getElementById('abc-" + id + "').submit()");
-        $('#myModal').modal('show');
-    });
-
-    function fillmodalData(details) {
-        $('#fid').val(details[0]);
-        $('#title').val(details[1]);
-        $('#image').val(details[2]);
-        $('#author').val(details[3]);
-        $('#content').val(details[4]);
-        $('#category_id').val(details[5]);
-    }
-
     $(document).on('click', '.delete-modal', function () {
         $('.modal-title').text('Delete');
         $('.deleteContent').show();
@@ -136,7 +138,6 @@
         $('#button-delete').attr('onclick', "document.getElementById('product-" + id + "').submit()");
         $('#myModal').modal('show');
     });
-
 </script>
 
 @endpush
