@@ -110,8 +110,7 @@
                         </form>
                     </div>
                     <form id="product-{{ $pro->id }}" method="get"
-                          action="/admin/product/{{$pro->id}}/delimg"
-                          name="_token">
+                          action="/admin/product/{{$img_detail->id}}/delimg">
                         {{csrf_field()}}
                         {{ method_field('DELETE') }}
                         <strong> Image details: </strong><br/><br/>
