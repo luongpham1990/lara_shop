@@ -138,10 +138,8 @@
                                             </h3>
                                         </div>
                                         <div class="panel-body">
-
-
                                             <div class="form-group">
-                                                <form action="{{url('/user/'.$user->id.'/edit')}}" class="form-horizontal"
+                                                <form action="{{url('/user/'.$user->id.'/changepass')}}" class="form-horizontal"
                                                       method="post">
                                                     {{csrf_field()}}
                                                     {{method_field('PUT')}}

@@ -41,7 +41,7 @@ Route::group(['prefix' => 'user'], function () {
     //Lương sửa
     Route::get('/{id}/edit', 'UsersController@profile');
 //Lương sửa
-    Route::put('/{id}/edit', 'UsersController@changePass');
+    Route::put('/{id}/changepass', 'UsersController@changePass');
 //Lương sửa
     Route::put('/{id}/edit', 'UsersController@edit');
 });
