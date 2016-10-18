@@ -47,7 +47,7 @@ class Product extends Model
         return 'noimage.jpg';
     }
 
-    public function getAllImageinfo()
+    public function getAllImageInfo()
     {
         $arr_img=[];
         $product_product_photo = $this->product_product_photos()->get(); // lay cai product_product dau tin ma no co
@@ -61,5 +61,5 @@ class Product extends Model
         }
         return 'noimage.jpg';
     }
-    
+
 }

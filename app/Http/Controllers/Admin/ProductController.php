@@ -112,8 +112,8 @@ class ProductController extends Controller
         $product = Product::find($id);
 //        $product_product = ProductProductPhoto::find();
 //        dd($product_product);
-        $img_detail = $product->getAllImage();
-        dd($img_detail);
+        $img_detail = $product->getAllImageInfo();
+//        dd($img_detail);
         return view('admin.product.edit', [
             'pro' => $product,
             'cata' => $cata,
@@ -125,7 +125,9 @@ class ProductController extends Controller
 
     public function DelImg($id)
     {
-
+        $img = ProductImages::find($id);
+        $img->delete();
+        return redirect()->back()->with('thongbao', 'Bạn đã xóa ảnh thành công');
     }
 
     public function edit(Request $request, $id)
