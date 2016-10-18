@@ -13,7 +13,6 @@ class Product extends Model
         'id', 'catalog_id', 'product_name', 'price', 'description', 'brand', 'status', 'view'
     ];
 
-
     public function product_product_photos()
     {
         return $this->hasMany('App\ProductProductPhoto');
@@ -62,4 +61,5 @@ class Product extends Model
         }
         return 'noimage.jpg';
     }
+    
 }
