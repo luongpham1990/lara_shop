@@ -7,7 +7,24 @@
 @section('content')
 
     @include('shop.vendor.left-sidebar')
-
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong> {{ session('error') }}  </strong>
+        </div>
+    @endif
+    @if(session('alert'))
+        <div class="alert alert-success alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong> {{ session('alert') }}  </strong>
+        </div>
+    @endif
     <div class="col-sm-9 padding-right">
         <div class="features_items"><!--features_items-->
             <h2 class="title text-center">Features Items</h2>
