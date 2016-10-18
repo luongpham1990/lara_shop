@@ -63,30 +63,43 @@
                             <li><a href="/wishlist"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            @if(Auth::guest())
-                                <li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>
+                            @if (Auth::guest())
+                                <li><a href="{{ url('/login') }}">login</a></li>
                             @else
-                              <li>
-                                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                     aria-expanded="false">
-                                      {{Auth::user()->username}} <span class="caret"></span>
-                                  </a>
-                                  <ul class="dropdown-menu" role="menu">
+                            <!-- User Account Menu -->
+                                <li class=" user user-menu">
+                                    <!-- Menu Toggle Button -->
+                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       style="position: relative; padding-left: 50px;">
+                                        <!-- The user image in the navbar-->
+                                        <img src="/avatars/{{Auth::user()->avatar}}"
+                                             class="user-image img-responsive" alt="User Image"
+                                             style="width:20px;height: 20px;border-radius: 50%; position: absolute;left: 10px; "/>
+                                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                        {{ Auth::user()->username }}
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
 
-                                      <li><a href="{{ url('/user/'. Auth::user()->id).'/edit' }}"> Dashboard </a></li>
-                                      <li>
-                                          <a href="{{url('/logout')}}"
-                                             onclick="event.preventDefault();
-                                           document.getElementById('logout-form').submit();">
-                                              Logout
-                                          </a>
-                                          <form id="logout-form" action="{{url('/logout')}}" method="post"
-                                                style="display: none">
-                                              {{csrf_field()}}
-                                          </form>
-                                      </li>
-                                  </ul>
-                              </li>
+                                        <li><a href="{{ url('/home') }}"><i class="fa fa-btn fa-tachometer"></i>
+                                                Dashboard </a></li>
+                                        <li><a href="{{ url('/user/'.Auth::user()->id.'/edit/') }}"><i
+                                                        class="fa fa-btn fa-user"></i> Profile </a></li>
+                                        {{--<li class="user-header"><p>{{ Auth::user()->name }}</p></li>--}}
+                                        <li>
+                                            <a href="{{url('/logout')}}"
+                                               onclick="event.preventDefault();
+                                           document.getElementById('logout-form').submit();"><i
+                                                        class="fa fa-btn fa-sign-out"></i>
+                                                Logout
+                                            </a>
+                                            <form id="logout-form" action="{{url('/logout')}}" method="post"
+                                                  style="display: none">
+                                                {{csrf_field()}}
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
                             @endif
                         </ul>
                     </div>

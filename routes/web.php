@@ -76,7 +76,7 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
     });
     Route::post('/login', 'Admin\UserController@login');//  đăng nhập vào admin /admin/login
     Route::post('/logout', 'Admin\UserController@logout');//  view đăng xuất vào admin /admin/login
-    Route::get('/{id}/edit', 'Admin\UserController@showAdmin');// show ra view profile của admin /admin/{id}/edit
+    Route::get('/{id}/edit', 'Admin\UserController@profile');// show ra view profile của admin /admin/{id}/edit
     Route::put('/{id}/edit', 'Admin\UserController@editAdmin');// sửa profile của admin /admin/{id}/edit
 //Hùng sửa
     Route::group(['prefix' => 'cata'], function () {//vào phần cata các sp của website /admin/cata
@@ -107,12 +107,12 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
     Route::group(['prefix' => 'user'], function () {//phần admin điều chỉnh liên quan đến user của website đường dẫn /admin/user
         Route::get('/', 'Admin\UserController@show');//show ra danh sách user /admin/user/
 
-        Route::get('add', 'Admin\UserController@showadd');// show ra view add user của website  /admin/product/user
-        Route::post('add', 'Admin\UserController@add');//  add  các user của website /admin/product/user
+        Route::get('/add', 'Admin\UserController@showadd');// show ra view add user của website  /admin/product/user
+        Route::post('/add', 'Admin\UserController@add');//  add  các user của website /admin/product/user
 
         Route::get('/{id}/edit', 'Admin\UserController@showOne');// show ra view edit progile  các user của website  /admin/product/add
-        Route::put('{id}/edit', 'Admin\UserController@edit');// edit profile  các user của website  /admin/product/add
-        Route::put('edituser', 'Admin\UserController@editUser');//x editable edit user
+        Route::put('/{id}/edit', 'Admin\UserController@edit');// edit profile  các user của website  /admin/product/add
+        Route::put('/edituser', 'Admin\UserController@editUser');//x editable edit user
         Route::delete('/{id}/delete', 'Admin\UserController@delete');//xóa user
     });
 });

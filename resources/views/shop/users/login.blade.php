@@ -6,16 +6,27 @@
     <section id="form"><!--form-->
         <div class="container">
             <div class="row">
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong> {{ session('error') }}  </strong>
+                    </div>
+                @endif
+                @if(session('alert'))
+                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong> {{ session('alert') }}  </strong>
+                    </div>
+                @endif
                 <div class="col-sm-4 col-sm-offset-1">
                     <div class="login-form"><!--login form-->
                         <h2>Login to your account</h2>
-                        @if(session('error'))
-                            <p>{{session('error')}}</p>
-                        @endif
-                        @if(session('alert'))
-                            <p>{{session('alert')}}</p>
-                        @endif
-
                         <form method="post" action="{{url('/login')}}">
                             {{ csrf_field() }}
                             <div>
