@@ -113,18 +113,12 @@ class ProductController extends Controller
 //        $product_product = ProductProductPhoto::find();
 //        dd($product_product);
         $img_detail = $product->getAllImage();
-        dd($img_detail);
         return view('admin.product.edit', [
             'pro' => $product,
             'cata' => $cata,
             'img_detail' => $img_detail,
 //            'product_product' =>$product_product
         ]);
-
-    }
-
-    public function DelImg($id)
-    {
 
     }
 
@@ -187,10 +181,26 @@ class ProductController extends Controller
         return redirect('/admin/product')->with('thongbao', 'Bạn đã sửa sản phẩm thành công');
     }
 
+    public function DelImg($id)
+    {
+        if (Request::ajax()) {
+            $idHinh = (int)Request::get('idHinh');
+            $image_detail = ProductImages::find();
+            if (!empty($image_detail)){
+                $img = public_path('/images/'.$image_detail->thumbnail_photo_link);
+                if(File::exists($img)){
+                    File::delete($img);
+                }
+                $image_detail->delete();
+            }
+            return "Oke";
+        }
+    }
 
     public function delete($id)
     {
         $img_detail = Product::find($id)->getAllImageinfo();
+
 
         foreach ($img_detail as $item) {
             File::delete(public_path('/images/'.$item->thumbnail_photo_link));
