@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'Asia/Ho_Chi_Minh',
+    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -164,7 +164,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -229,8 +228,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Input' => Illuminate\Support\Facades\Input::class,
-        'Image' => Intervention\Image\Facades\Image::class,
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

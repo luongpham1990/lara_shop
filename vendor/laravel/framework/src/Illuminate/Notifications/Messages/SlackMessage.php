@@ -49,13 +49,6 @@ class SlackMessage
     public $attachments = [];
 
     /**
-     * Additional request options for the Guzzle HTTP client.
-     *
-     * @var array
-     */
-    public $http = [];
-
-    /**
      * Indicate that the notification gives information about a successful operation.
      *
      * @return $this
@@ -151,18 +144,5 @@ class SlackMessage
             case 'error':
                 return '#F35A00';
         }
-    }
-
-    /**
-     * Set additional request options for the Guzzle HTTP client.
-     *
-     * @param  array  $options
-     * @return $this
-     */
-    public function http(array $options)
-    {
-        $this->http = $options;
-
-        return $this;
     }
 }
