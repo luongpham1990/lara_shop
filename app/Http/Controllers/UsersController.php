@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\UserRegister;
+use Image;
 class UsersController extends Controller
 {
     //dang ky
@@ -135,6 +136,7 @@ class UsersController extends Controller
                 $validation = Validator::make($request->all(), $rule, $message);
 
                 if ($validation->fails()) {
+
                     return redirect('/user/'. $user->id.'/edit/')->withInput()->withErrors($validation);
                 } else {
                     $user->password = Hash::make($request->newpassword);
@@ -176,6 +178,15 @@ class UsersController extends Controller
               $user->username = $request->username;
               $user->address = $request->address;
               $user->phone = $request->phone;
+              if ($request->hasFile('avatars')){
+                  $avatar = $request->file('avatars');
+                  $filename = uniqid() .'.'. $avatar->getClientOriginalName();
+
+                  Image::make($avatar)->resize(300,300)->save(public_path('avatars/'.$filename));
+
+                  $user = Auth::user();
+                  $user->avatar = $filename;
+              }
               $user->save();
 
               return redirect('/user/'. $user->id.'/edit/')->with('alert', 'Sửa tài khoản thành công ');

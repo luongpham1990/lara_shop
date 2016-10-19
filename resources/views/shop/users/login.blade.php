@@ -6,16 +6,27 @@
     <section id="form"><!--form-->
         <div class="container">
             <div class="row">
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong> {{ session('error') }}  </strong>
+                    </div>
+                @endif
+                @if(session('alert'))
+                    <div class="alert alert-success alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong> {{ session('alert') }}  </strong>
+                    </div>
+                @endif
                 <div class="col-sm-4 col-sm-offset-1">
                     <div class="login-form"><!--login form-->
                         <h2>Login to your account</h2>
-                        @if(session('error'))
-                            <p>{{session('error')}}</p>
-                        @endif
-                        @if(session('alert'))
-                            <p>{{session('alert')}}</p>
-                        @endif
-
                         <form method="post" action="{{url('/login')}}">
                             {{ csrf_field() }}
                             <div>
@@ -39,6 +50,14 @@
 								Keep me signed in
 							</span>
                             <button type="submit" class="btn btn-default">Login</button>
+                            <div class="social-auth-links text-center">
+                                <p>- OR -</p>
+                                <a href="{{ url('/login/facebook') }}" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
+                                    Facebook</a>
+                                <a href="{{ url('/login/google') }}" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
+                                    Google+</a>
+                                <a href="{{ url('/login/github') }}" class="btn btn-block btn-social btn-github btn-flat"><i class="fa fa-github"></i>Sign in using Github</a>
+                            </div>
                         </form>
                     </div><!--/login form-->
                 </div>

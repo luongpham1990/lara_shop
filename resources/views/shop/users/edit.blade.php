@@ -38,7 +38,7 @@
                                                 </div>
                                             @endif
                                             @if(session('alert'))
-                                                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                                <div class="alert alert-success alert-dismissible fade in" role="alert">
                                                     <button type="button" class="close" data-dismiss="alert"
                                                             aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -46,88 +46,83 @@
                                                     <strong> {{ session('alert') }}  </strong>
                                                 </div>
                                             @endif
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <div class="fileupload-preview thumbnail img-file">
-                                                            <img class="img-responsive"
-                                                                 src="{{ url('/images/shop/noimagefound.jpg') }}"
-                                                                 data-src=""
-                                                                 alt="dm huy HUng nhe">
-                                                        </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="signup-form"><!--sign up form-->
+                                                            <form method="post"
+                                                                  action="{{url('/user/'.$user->id.'/edit')}}"
+                                                                  enctype="multipart/form-data">
+                                                                {{ csrf_field() }}
+                                                                {{method_field('PUT')}}
+                                                                {{--@if(count($errors))--}}
+                                                                {{--@foreach ($errors->all() as $error)--}}
+                                                                {{--<div>{{ $error }}</div>--}}
+                                                                {{--@endforeach--}}
+                                                                {{--@endif--}}
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <label><strong style="font-size: 20px">Profile
+                                                                                Image </strong></label><br/><br/>
+                                                                        <img src="/avatars/{{$user->avatar}}"
+                                                                             class="img-responsive" alt="avatars"
+                                                                             style="border-radius: 50%; margin-bottom: 20px ">
+                                                                        <input type="file" name="avatars">
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <label><strong style="font-size: 20px">Profile
+                                                                                Information </strong></label><br/><br/>
+                                                                        <div class="form-group">
+                                                                            <label for="username"> Tên tài khoản</label>
+                                                                            <input class='form-control ' id="username"
+                                                                                   name="username"
+                                                                                   value="{{$user->username}}"
+                                                                                   type="text"/>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="email">Email </label>
+                                                                            <input class='form-control' id="email"
+                                                                                   name="email"
+                                                                                   value="{{$user->email}}"
+                                                                                   type="email" disabled/>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="password">Mật khẩu</label>
+                                                                            <input class='form-control' id="password"
+                                                                                   name="password"
+                                                                                   value="123456789" type="password"
+                                                                                   disabled/>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="userphone"> Số điện thoại</label>
+                                                                            <input class='form-control' id="userphone"
+                                                                                   name="phone"
+                                                                                   value="{{$user->phone}}" type="number"
+                                                                            />
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="address"> Địa chỉ</label>
+                                                                            <input class='form-control' id="address"
+                                                                                   name="address"
+                                                                                   value="{{$user->address}}" type="text"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
 
-                                                        <div class="fileupload fileupload-new"
-                                                             data-provides="fileupload">
-                                                                    <span class="btn btn-primary btn-file">
-                                                                <span class="fileupload-new">Select file</span>
-                                                                <span class="fileupload-exists">Change</span>
-                                                                 <input name="image" type="file">
-                                                            </span>
-                                                            <a href="#" class="close fileupload-exists"
-                                                               data-dismiss="fileupload"
-                                                               style="float: none">×</a>
-                                                        </div>
+                                                                    <button type="submit" class="btn btn-primary" style=" display: inline-block">
+                                                                        Submit
+                                                                    </button>
+                                                                    <button type="reset"
+                                                                            class="btn btn-primary reset_btn" style=" display: inline-block">
+                                                                        Reset
+                                                                    </button>
+
+                                                                </div>
+
+                                                            </form>
+                                                        </div><!--/sign up form-->
+
                                                     </div>
                                                 </div>
-                                                <div class="col-md-8">
-
-                                                    <div class="signup-form"><!--sign up form-->
-                                                        <form method="post" action="{{url('/edit/'.$user->id)}}">
-                                                            {{ csrf_field() }}
-                                                            {{method_field('put')}}
-                                                            {{--@if(count($errors))--}}
-                                                            {{--@foreach ($errors->all() as $error)--}}
-                                                            {{--<div>{{ $error }}</div>--}}
-                                                            {{--@endforeach--}}
-                                                            {{--@endif--}}
-                                                            <div class="form-group">
-                                                                <label for="username"> Tên tài khoản</label>
-                                                                <input class='form-control ' id="username"
-                                                                       name="username" value="{{$user->username}}"
-                                                                       type="text"/>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="email">Email </label>
-                                                                <input id="email" name="email" value="{{$user->email}}"
-                                                                       type="email" disabled/>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="password">Mật khẩu</label>
-                                                                <input id="password" name="password"
-                                                                       value="123456789" type="password"
-                                                                       disabled/>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="userphone"> Số điện thoại</label>
-                                                                <input id="userphone" name="phone"
-                                                                       value="{{$user->phone}}" type="number"
-                                                                />
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="address"> Địa chỉ</label>
-                                                                <input id="address"
-                                                                       name="address"
-                                                                       value="{{$user->address}}" type="text"
-                                                                />
-                                                            </div>
-                                                            <div class="form-actions">
-                                                                {{--<div class="col-md-offset-3 col-md-3">--}}
-                                                                    <button type="submit" class="btn btn-primary">Submit
-                                                                    </button>
-                                                                    &nbsp;
-                                                                    {{--<button type="button" class="btn btn-danger">Cancel--}}
-                                                                    {{--</button>--}}
-                                                                    &nbsp;
-                                                                    {{--<button type="reset" class="btn btn-primary reset_btn--}}
-                                                           {{--" value="Reset">--}}
-                                                                        {{--Reset--}}
-                                                                    {{--</button>--}}
-                                                                {{--</div>--}}
-                                                            </div>
-                                                        </form>
-                                                    </div><!--/sign up form-->
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -143,10 +138,8 @@
                                             </h3>
                                         </div>
                                         <div class="panel-body">
-
-
                                             <div class="form-group">
-                                                <form action="{{url('/edit/'.$user->id)}}" class="form-horizontal"
+                                                <form action="{{url('/user/'.$user->id.'/changepass')}}" class="form-horizontal"
                                                       method="post">
                                                     {{csrf_field()}}
                                                     {{method_field('PUT')}}
@@ -196,10 +189,6 @@
                                                         <div class="col-md-offset-3 col-md-9">
                                                             <button type="submit" class="btn btn-primary">Submit
                                                             </button>
-                                                            &nbsp;
-                                                            {{--<button type="button" class="btn btn-danger">Cancel--}}
-                                                            {{--</button>--}}
-                                                            &nbsp;
                                                             <button type="reset" class="btn btn-primary reset_btn
                                                            " value="Reset">
                                                                 Reset
@@ -220,3 +209,33 @@
     </section>
 
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function () {
+        $("#fileUpload").on('change', function () {
+            //Get count of selected files
+            var countFiles = $(this)[0].files.length;
+            var imgPath = $(this)[0].value;
+            var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+            var image_holder = $("#image-holder");
+            image_holder.empty();
+            if (typeof(FileReader) != "undefined") {
+                //loop for each file selected for uploaded.
+                for (var i = 0; i < countFiles; i++) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("<img />", {
+                            "src": e.target.result,
+                            "class": "img-responsive"
+                        }).appendTo(image_holder);
+                    }
+                    image_holder.show();
+                    reader.readAsDataURL($(this)[0].files[i]);
+                }
+            } else {
+                alert("This browser does not support FileReader.");
+            }
+        });
+    });
+</script>
+@endpush

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Image;
 
 class UserController extends Controller
 
@@ -117,7 +118,6 @@ class UserController extends Controller
         $name = $request->get('name');
 
 
-
         $value = $request->get('value');
         $user->$name = $value;
         $user->save();
@@ -136,8 +136,6 @@ class UserController extends Controller
 //        dd($user);
         return view('admin.user.edit', ['user' => $user]);
     }
-
-//    function
 
     function login(Request $request)
     {
@@ -183,30 +181,35 @@ class UserController extends Controller
         return redirect('/admin/user')->with('alert', 'Xóa tài khoản thành công ');
     }
 
-    function showAdmin(Request $request, $id){
-        if ($request->user()->id == $id){
+    function profile(Request $request, $id)
+    {
+        if ($request->user()->id == $id) {
             $user = User::find($id);
-            return view('admin.edit', ['user'=>$user]);
+            return view('admin.edit', ['user' => $user]);
         }
     }
+
     function editAdmin(Request $request, $id)
     {
-        if ($request->user()->id == $id){
+        if ($request->user()->id == $id) {
             $user = User::find($id);
             $rule = [
                 'username' => 'string|min:6|max:32|unique:users,username',
                 'address' => 'text|max:255',
-                'phone' => 'numeric|max: 15'
+                'phone' => 'numeric|max: 15',
+                'avatars' => 'mimes:jpg, jpeg, png,|max:10000'
             ];
 
             $message = [
                 'username.min' => 'Tên hiển thị không được ít hơn :min ký tự',
                 'username.max' => 'Tên hiển thị không được nhiều hơn :max ký tự',
                 'address.max' => 'Địa chỉ không được nhiều hơn :max ký tự',
-                'phone.max' => 'Số điện thoại không vượt quá :max ký tự'
+                'phone.max' => 'Số điện thoại không vượt quá :max ký tự',
+                'avatars.mimes' => 'Ảnh không đúng định dạng',
+                'avatars.max' => 'Ảnh không được vượt quá :max'
             ];
 
-            $validation = Validator::make($request->only(['username'=>$request->username,'address' => $request->address,'phone'=>$request->phone]), $rule, $message);
+            $validation = Validator::make($request->only(['username' => $request->username, 'address' => $request->address, 'phone' => $request->phone]), $rule, $message);
 
             if ($validation->fails()) {
                 return redirect()->back()->withErrors($validation);
@@ -215,9 +218,18 @@ class UserController extends Controller
                 $user->username = $request->username;
                 $user->address = $request->address;
                 $user->phone = $request->phone;
+                if ($request->hasFile('avatars')) {
+                    $avatar = $request->file('avatars');
+                    $filename = uniqid() . '.' . $avatar->getClientOriginalName();
+                    Image::make($avatar)->resize(300, 300)->save(public_path('avatars/' . $filename));
+
+                    $user = Auth::user();
+                    $user->avatar = $filename;
+                }
+
                 $user->save();
 
-                return redirect('/admin/'. $user->id.'/edit/' )->with('alert', 'Sửa tài khoản thành công ');
+                return redirect('/admin/' . $user->id . '/edit/')->with('alert', 'Sửa tài khoản thành công ');
             }
         }
     }

@@ -14,6 +14,9 @@
     table.dataTable thead .sorting_asc {
         background: none;
     }
+    /*.thumb-image{*/
+        /*float:left;width:170px;position:relative;padding:10px;*/
+    /*}*/
 </style>
 @endpush
 @section('content')
@@ -54,7 +57,7 @@
                                                 </div>
                                             @endif
                                             @if(session('alert'))
-                                                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                                <div class="alert alert-info alert-dismissible fade in" role="alert">
                                                     <button type="button" class="close" data-dismiss="alert"
                                                             aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -63,70 +66,99 @@
                                                 </div>
                                             @endif
                                             <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <div class="fileupload-preview thumbnail img-file">
-                                                            <img class="img-responsive"
-                                                                 src="{{ url('/images/shop/noimagefound.jpg') }}"
-                                                                 data-src=""
-                                                                 alt="dm huy HUng nhe">
-                                                        </div>
+                                                {{--<div class="col-md-4">--}}
+                                                {{--<div class="form-group">--}}
+                                                {{--<strong style="font-size: 20px">Avatar </strong><br/><br/>--}}
+                                                {{--<div class="form-group">--}}
+                                                {{--<div id="image-holder" class="img-responsive">--}}
+                                                {{--</div>--}}
+                                                {{--<div id="wrapper" style="margin-top: 10px;">--}}
+                                                {{--<input id="fileUpload" multiple="multiple" type="file" name="image"/>--}}
+                                                {{--</div>--}}
 
-                                                        <div class="fileupload fileupload-new"
-                                                             data-provides="fileupload">
-                                                                    <span class="btn btn-primary btn-file">
-                                                                <span class="fileupload-new">Select file</span>
-                                                                {{--<span class="fileupload-exists">Change</span>--}}
-                                                                 <input name="image" type="file">
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8">
-
+                                                {{--</div>--}}
+                                                {{--<button type="submit" class="btn btn-primary">Add Image</button>--}}
+                                                {{--<label>Featured image</label>--}}
+                                                {{--<div id="wrapper" style="margin-top: 10px;"><input id="fileUpload" multiple="multiple" type="file" name="image[]"/>--}}
+                                                {{--<img class="img-responsive"--}}
+                                                {{--src="{{ url('/images/shop/noimagefound.jpg') }}"--}}
+                                                {{--data-src=""--}}
+                                                {{--alt="dm huy HUng nhe">--}}
+                                                {{--<div id="image-holder"></div>--}}
+                                                {{--</div>--}}
+                                                {{--</div>--}}
+                                                {{--</div>--}}
+                                                <div class="col-md-12">
                                                     <div class="signup-form"><!--sign up form-->
-                                                        <form method="post" action="{{url('/user/'.$user->id.'/edit')}}">
+                                                        <form method="post"
+                                                              action="{{url('/admin/'.$user->id.'/edit')}}"
+                                                              enctype="multipart/form-data">
                                                             {{ csrf_field() }}
-                                                            {{method_field('put')}}
+                                                            {{method_field('PUT')}}
                                                             {{--@if(count($errors))--}}
                                                             {{--@foreach ($errors->all() as $error)--}}
                                                             {{--<div>{{ $error }}</div>--}}
                                                             {{--@endforeach--}}
                                                             {{--@endif--}}
-                                                            <div class="form-group">
-                                                                <label for="username"> Tên tài khoản</label>
-                                                                <input class='form-control ' id="username"
-                                                                       name="username" value="{{$user->username}}"
-                                                                       type="text"/>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="email">Email </label>
-                                                                <input class='form-control' id="email" name="email"
-                                                                       value="{{$user->email}}"
-                                                                       type="email" disabled/>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="password">Mật khẩu</label>
-                                                                <input class='form-control' id="password"
-                                                                       name="password"
-                                                                       value="123456789" type="password"
-                                                                       disabled/>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="userphone"> Số điện thoại</label>
-                                                                <input class='form-control' id="userphone" name="phone"
-                                                                       value="{{$user->phone}}" type="number"
-                                                                />
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="address"> Địa chỉ</label>
-                                                                <input class='form-control' id="address"
-                                                                       name="address"
-                                                                       value="{{$user->address}}" type="text"
-                                                                />
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label><strong style="font-size: 20px">Profile
+                                                                            Image </strong></label><br/><br/>
+                                                                    <img src="/avatars/{{$user->avatar}}"
+                                                                         class="img-responsive" alt="avatars"
+                                                                         style="border-radius: %; margin-bottom: 20px ">
+                                                                    <input type="file" name="avatars">
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <label><strong style="font-size: 20px">Profile
+                                                                            Information </strong></label><br/><br/>
+                                                                    <div class="form-group">
+                                                                        <label for="username"> Tên tài khoản</label>
+                                                                        <input class='form-control ' id="username"
+                                                                               name="username"
+                                                                               value="{{$user->username}}"
+                                                                               type="text"/>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="email">Email </label>
+                                                                        <input class='form-control' id="email"
+                                                                               name="email"
+                                                                               value="{{$user->email}}"
+                                                                               type="email" disabled/>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="password">Mật khẩu</label>
+                                                                        <input class='form-control' id="password"
+                                                                               name="password"
+                                                                               value="123456789" type="password"
+                                                                               disabled/>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="userphone"> Số điện thoại</label>
+                                                                        <input class='form-control' id="userphone"
+                                                                               name="phone"
+                                                                               value="{{$user->phone}}" type="number"
+                                                                        />
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="address"> Địa chỉ</label>
+                                                                        <input class='form-control' id="address"
+                                                                               name="address"
+                                                                               value="{{$user->address}}" type="text"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                                <button class="btn btn-primary " type="submit">
+                                                                    Submit
+                                                                </button>
+                                                                <button type="reset" class="btn btn-primary reset_btn
+                                                           " value="Reset">
+                                                                    Reset
+                                                                </button>
                                                             </div>
                                                         </form>
                                                     </div><!--/sign up form-->
+
                                                 </div>
                                             </div>
                                         </div>
@@ -147,7 +179,7 @@
 
 
                                             <div class="form-group">
-                                                <form action="{{url('/user/'.$user->id.'/edit')}}" class="form-horizontal"
+                                                <form action="{{url('/admin/'.$user->id.'/edit')}}" class="form-horizontal"
                                                       method="post">
                                                     {{csrf_field()}}
                                                     {{method_field('PUT')}}
@@ -223,7 +255,7 @@
 
 
 @endsection
-@push('script')
+@push('scripts')
 <script>
     var a = {};
 
@@ -304,6 +336,35 @@
     //        ]
     //    });
 
+</script>
+<script>
+    $(document).ready(function() {
+        $("#fileUpload").on('change', function() {
+            //Get count of selected files
+            var countFiles = $(this)[0].files.length;
+            var imgPath = $(this)[0].value;
+            var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+            var image_holder = $("#image-holder");
+            image_holder.empty();
+            if (typeof(FileReader) != "undefined") {
+                //loop for each file selected for uploaded.
+                for (var i = 0; i < countFiles; i++)
+                {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $("<img />", {
+                            "src": e.target.result,
+                            "class": "img-responsive"
+                        }).appendTo(image_holder);
+                    }
+                    image_holder.show();
+                    reader.readAsDataURL($(this)[0].files[i]);
+                }
+            } else {
+                alert("This browser does not support FileReader.");
+            }
+        });
+    });
 </script>
 
 @endpush

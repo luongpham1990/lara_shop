@@ -13,31 +13,40 @@
 
     <ul class="nav navbar-top-links navbar-right">
 
-            @if(Auth::guest())
-                <li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>
-            @else
-                <li>
+        @if(Auth::guest())
+            <li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>
+        @else
+            <li>
+                <a class=" dropdown-toggle" data-toggle="dropdown" style="position:relative; padding-left: 50px;"
+                   role="button">
+                    <img src="/avatars/{{Auth::user()->avatar}}"
+                         class="img-responsive" alt="avatars"
+                         style="width:32px;height: 32px;border-radius: 50%; position: absolute; top: 10px;left: 10px; ">
+                    {{Auth::user()->username}}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
 
-                    <a class=" dropdown-toggle" data-toggle="dropdown"> {{Auth::user()->username}}
-                        <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-
-                        <li><a href="{{ url('/admin/edit/'.Auth::user()->id) }}"> Dashboard </a> </li>
-                        <li>
-                            <a href="{{url('/logout')}}"
-                               onclick="event.preventDefault();
-                                           document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
-                            <form id="logout-form" action="{{url('/logout')}}" method="post"
-                                  style="display: none">
-                                {{csrf_field()}}
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            @endif
-        </ul>
+                    <li><a href="{{ url('/admin/'.Auth::user()->id.'/edit/') }}"><i class="fa fa-btn fa-tachometer"></i>
+                            Dashboard </a></li>
+                    <li><a href="{{ url('/admin/'.Auth::user()->id.'/edit/') }}"><i class="fa fa-btn fa-user"></i>
+                            Profile </a></li>
+                    <li>
+                        <a href="{{url('/logout')}}"
+                           onclick="event.preventDefault();
+                                           document.getElementById('logout-form').submit();"><i
+                                    class="fa fa-btn fa-sign-out"></i>
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{url('/logout')}}" method="post"
+                              style="display: none">
+                            {{csrf_field()}}
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        @endif
+    </ul>
     <!-- /.navbar-top-links -->
 
     <div class="navbar-default sidebar" role="navigation">
@@ -55,7 +64,8 @@
                     <!-- /input-group -->
                 </li>
                 <li>
-                    <a href="{{ url('/admin/'.Auth::user()->id .'/edit') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    <a href="{{ url('/admin/'.Auth::user()->id .'/edit') }}"><i class="fa fa-dashboard fa-fw"></i>
+                        Dashboard</a>
                 </li>
                 <li>
                     <a href="{{url('/admin/cata')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span

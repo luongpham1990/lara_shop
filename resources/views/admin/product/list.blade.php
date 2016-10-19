@@ -55,7 +55,7 @@
                         <tr class="odd gradeX " align="center">
                             <td>{{$pro->id}}</td>
                             <td>{{$pro->product_name}}</td>
-                            <td>{{$pro->price}} VNĐ</td>
+                            <td>{{number_format($pro->price,0,",",".")}} VNĐ</td>
                             <td>{{$pro->view}}</td>
 
                             <td>

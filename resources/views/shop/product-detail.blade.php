@@ -44,7 +44,7 @@
                     <p>Web ID: {{ $product_detail->id }}</p>
                     <img src="../images/product-details/rating.png" alt="" /><br>
 								<span>
-									<span>{{ number_format($product_detail->price) }} VNĐ</span>
+									<span>{{number_format($product_detail->price,0,",",".")}} VNĐ</span>
 									{{--<label>Quantity:</label>--}}{{--                   // bo sung sau--}}
 									{{--<input type="text" value="3" />--}}
 									<a href="{{url('cart')}}"> <button type="button" class="btn btn-fefault cart">

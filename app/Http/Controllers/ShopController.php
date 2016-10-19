@@ -92,17 +92,30 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
         ]);
     }
 
-    public function cart(){
-        return view ('shop.cart');
-    }
-
     public function muahang($id) {
         $product_detail = Product::find($id);
         $img_detail=$product_detail->getImageFeature();
 //        dd($img_detail);
         $product_buy = DB::table('products')->where('id',$id)->first();
-        Cart::add(array('id'=>$id, 'name' =>$product_buy->product_name,'qty' =>1 , 'price' =>$product_buy->price,'options'=>array('img' =>$img_detail)));
+        Cart::add(array('id'=>$id, 'name' =>$product_buy->product_name,'qty' =>1 , 'price' =>$product_buy->price,'options'=>array('img' => $img_detail)));
         $content = Cart::content();
-        dd($content);
+//        print_r($content);
+
+//        dd($content[img]);
+        return redirect()->route('cart')->with([
+            'img_detail' =>$img_detail
+        ]);
+    }
+
+    public function cart(){
+
+//        Cart::destroy();
+        $content = Cart::content();
+        $total = Cart::total();
+//        dd($content);
+        return view ('shop.cart')->with([
+            'content' =>$content,
+            'total' =>$total
+        ]);
     }
 }

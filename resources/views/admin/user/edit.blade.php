@@ -123,7 +123,7 @@
     <!-- /#page-wrapper -->
 @endsection
 
-@push('script')
+@push('scripts')
 <script>
     var a = {};
 
