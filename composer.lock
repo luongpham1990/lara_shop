@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e45e7945b1b7af4378be499383da73aa",
+    "hash": "c53427b81150ea4d20d7af85ab28736f",
     "content-hash": "c5231bb114cb3e19cb756be59f696ef5",
     "packages": [
         {
@@ -723,20 +723,20 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.29",
+            "version": "1.0.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "b732cc946c48cf102ddffd41ffcd54901a28ccdb"
+                "reference": "75138bb14160f3ba963750aa95e08d1d394fb198"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/b732cc946c48cf102ddffd41ffcd54901a28ccdb",
-                "reference": "b732cc946c48cf102ddffd41ffcd54901a28ccdb",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/75138bb14160f3ba963750aa95e08d1d394fb198",
+                "reference": "75138bb14160f3ba963750aa95e08d1d394fb198",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6.0"
+                "php": ">=5.5.9"
             },
             "conflict": {
                 "league/flysystem-sftp": "<1.0.6"
@@ -802,7 +802,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2016-10-17 23:14:19"
+            "time": "2016-10-18 16:20:02"
         },
         {
             "name": "league/oauth1-client",
