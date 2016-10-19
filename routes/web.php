@@ -59,7 +59,9 @@ Route::get('/contact', function () {
 });
 
 
-Route::get('/catalogs/{id}', 'ShopController@showcatalog');
+Route::get('/shop', function () {
+    return view('shop.shop');
+});
 
 Route::get('products/{id}','ShopController@showdetail');
 
@@ -71,10 +73,10 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
     Route::get('/login', function () {// show ra view đăng nhập vào admin /admin/login
         return view('admin.login');
     });
-    Route::post('/login', 'Admin\UserController@login');//  đăng nhập vào admin /admin/login
-    Route::post('/logout', 'Admin\UserController@logout');//  view đăng xuất vào admin /admin/login
-    Route::get('/{id}/edit', 'Admin\UserController@profile');// show ra view profile của admin /admin/{id}/edit
-    Route::put('/{id}/edit', 'Admin\UserController@editAdmin');// sửa profile của admin /admin/{id}/edit
+    Route::post('/login', 'Admin\AdminController@login');//  đăng nhập vào admin /admin/login
+    Route::post('/logout', 'Admin\AdminController@logout');//  view đăng xuất vào admin /admin/login
+    Route::get('/{id}/edit', 'Admin\AdminController@profile');// show ra view profile của admin /admin/{id}/edit
+    Route::put('/{id}/edit', 'Admin\AdminController@editAdmin');// sửa profile của admin /admin/{id}/edit
 //Hùng sửa
     Route::group(['prefix' => 'cata'], function () {//vào phần cata các sp của website /admin/cata
         Route::get('/', 'Admin\CataController@show'); // show ra view catalog các sp của website  /admin/cata
@@ -114,9 +116,4 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
     });
 });
 
-Route::get('/login/google', 'SocialiteController@redirectToGoogle');
-Route::get('/google/callback', 'SocialiteController@getGoogleCallback');
-Route::get('/login/facebook', 'SocialiteController@redirectToFacebook');
-Route::get('/facebook/callback', 'SocialiteController@getFacebookCallback');
-Route::get('/login/github', 'SocialiteController@redirectToGithub');
-Route::get('/github/callback', 'SocialiteController@getGithubCallback');
+

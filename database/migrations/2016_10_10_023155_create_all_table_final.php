@@ -18,6 +18,8 @@ class CreateAllTableFinal extends Migration
             $table->string('confirm_code',100)->nullable();
             $table->tinyInteger('confirmed');
             $table->tinyInteger('is_admin')->nullable();
+            $table->string('social_id')->nullable();
+            $table->string('avatar')->nullable();
             $table->rememberToken()->nullable();
             $table->timestamps();
         });

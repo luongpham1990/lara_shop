@@ -15,24 +15,26 @@ use Image;
 class UserController extends Controller
 
 {
+    //kết nối vào middleware admin để phân quyền thôi
     function __construct()
     {
-        $this->middleware(['auth', 'admin'])->except('login');
+        $this->middleware(['auth', 'admin'])->except('login');//trong này yêu cầu phải đăng nhập và là admin ý mà
     }
-
+    //show hàng tất cả user trong csdl
     function show()
     {
-        $user = User::all();
-        return view('admin.user.list', ['user' => $user]);
+        $user = User::all();//lấy tất cả
+        return view('admin.user.list', ['user' => $user]);//trả về view admin.user.list kèm theo biến user (gồm tất cả thông tin của user) lấy dc ở dòng trên
     }
-
+    //show ra cái trang thêm user
     function showadd()
     {
-        return view('admin.user.add');
+        return view('admin.user.add');//trả về view admin.user.add
     }
-
+    //thêm mới user
     function add(Request $request)
     {
+        //tạo rule nhé
         $rule = [
             'username' => 'string|required|alpha_num|min:6|max:32|unique:users,username',
             'password' => 'string|required|alpha_num|min:6|max:32|confirmed',
@@ -40,6 +42,7 @@ class UserController extends Controller
             'address' => 'required|max:255|text',
             'phone' => 'numeric|max:15'
         ];
+        //tạo message nhé
         $message = [
             'username.unique' => 'Tên hiển thị đã được sử dụng vui lòng nhập tên khác',
             'username.required' => 'Tên hiển thị không được để trống',
@@ -57,60 +60,61 @@ class UserController extends Controller
 //            'address.regex' => 'Địa chỉ bao gồm :regex',
             'phone.max' => 'Số điện thoại không được vượt quá :max ký tự'
         ];
-
+        //check xác nhận khớp ko nhé
         $validation = Validator::make($request->all(), $rule, $message);
-
+        //nếu ko khớp này
         if ($validation->fails()) {
             return redirect()->back()->withInput()->withErrors($validation);
-        } else {
-
+        } else {//nếu khớp này
+            //tạo mới user này
             $user = new User;
-            $user->username = $request->username;
-            $user->password = Hash::make($request->password);
-            $user->email = $request->email;
-            $user->address = $request->address;
-            $user->is_admin = ($request->Level == 1) ? true : false;
-            $user->confirm_code = null;
-            $user->confirmed = true;
-            $user->save();
+            $user->username = $request->username;//tên nhập vào
+            $user->password = Hash::make($request->password);//password nhập vào
+            $user->email = $request->email;//email nhập vào
+            $user->address = $request->address;//địa chỉ nhập vào
+            $user->is_admin = ($request->Level == 1) ? true : false;//ở đây vì là admin lập user mới trong gd admin nên có thêm nút chọn cho nó là user hay là admin: nếu level cho là 1 thì true còn ko thì false nhé
+            $user->confirm_code = null;//confirm_code cho null luôn, mình lập mà
+            $user->confirmed = true;//đã kích hoạt luôn nhé
+            $user->save();//save user này
 
-            return redirect('/admin/user')->with('alert', 'Đã thêm thành viên thành công');
+            return redirect('/admin/user')->with('alert', 'Đã thêm thành viên thành công');//chirlaf điều hướng thôi
         }
     }
-
+    //sửa thông tin của user nhé
     function edit(Request $request)
     {
+        //tạo rule này
         $rule = [
             'username' => 'string|min:6|max:32|unique:users,username',
             'address' => 'text|max:255',
             'phone' => 'numeric|max: 15'
         ];
-
+        //tạo message luôn
         $message = [
             'username.min' => 'Tên hiển thị không được ít hơn :min ký tự',
             'username.max' => 'Tên hiển thị không được nhiều hơn :max ký tự',
             'address.max' => 'Địa chỉ không được nhiều hơn :max ký tự',
             'phone.max' => 'Số điện thoại không vượt quá :max ký tự'
         ];
-
+        //check xác thực
         $validation = Validator::make($request->all(), $rule, $message);
 
-        if ($validation->fails()) {
-            return redirect()->back()->withErrors($validation);
-        } else {
-
+        if ($validation->fails()) {  //ko trùng nhé
+            return redirect()->back()->withErrors($validation);//điều hướng luôn
+        } else {//nếu trùng nhé
+            //tạo user này
             $user = new User();
-            $user->username = $request->username;
-            $user->address = $request->address;
-            $user->phone = $request->phone;
-            $user->confirmed = ($request->confirmed == 1) ? true : false;
-            $user->is_admin = ($request->Level == 1) ? true : false;
-            $user->save();
+            $user->username = $request->username;//tên này
+            $user->address = $request->address;//địa chỉ này
+            $user->phone = $request->phone;//số dt này
+            $user->confirmed = ($request->confirmed == 1) ? true : false;//thích kích hoạt chưa
+            $user->is_admin = ($request->Level == 1) ? true : false;//thích admin hay người thường nào
+            $user->save();//save thôi
 
-            return redirect('/admin/user')->with('alert', 'Sửa tài khoản thành công ');
+            return redirect('/admin/user')->with('alert', 'Sửa tài khoản thành công ');//điều hướng nhé
         }
     }
-
+    //cũng là edit user nhưng mình dùng gói editable của larvel sửa cho đẹp
     function editUser(Request $request)
     {
         // sau khi validate thanh cong
@@ -129,108 +133,17 @@ class UserController extends Controller
         ]);
 
     }
-
+    //show ra thong tin cuar 1 user
     function showone($id)
     {
-        $user = User::find($id);
-//        dd($user);
-        return view('admin.user.edit', ['user' => $user]);
+        $user = User::find($id);//tìm user có id là id đã nhập vào nhé
+        return view('admin.user.edit', ['user' => $user]);//trả về view admin.user.edit kèm theo biến user đã lấy dc ở trên
     }
-
-    function login(Request $request)
-    {
-        $rule = [
-            'email' => 'required|email',
-            'password' => 'string|required'
-        ];
-
-        $message = [
-            'emai.required' => 'Email không được để trống',
-            'email.email' => 'Email không đúng định dạng',
-            'password.required' => 'Mật khẩu không được để trống'
-        ];
-
-        $validation = Validator::make($request->only(['email', 'password']), $rule, $message);
-
-        if ($validation->fails()) {
-            return redirect()->back()->withInput()->withErrors($validation);
-        } else {
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-//                return redirect('/admin/user/list');
-                if (Auth::user()->is_admin) {
-                    return redirect('/admin/user');
-                } else {
-                    return abort(403);
-                }
-
-            } else {
-                return redirect()->back()->withErrors(['login' => 'Tài khoản hoặc mật khẩu không đúng']);
-            }
-        }
-    }
-
-    function logout(Request $request)
-    {
-        Auth::logout($request->user);
-        return redirect('/admin/login');
-    }
-
+    //xóa 1 user
     function delete($id)
     {
-        User::find($id)->delete();
-        return redirect('/admin/user')->with('alert', 'Xóa tài khoản thành công ');
+        User::find($id)->delete();//tìm user có id mà mình đã click vào và xóa
+        return redirect('/admin/user')->with('alert', 'Xóa tài khoản thành công ');//xóa xong rồi nhé về trang show user
     }
 
-    function profile(Request $request, $id)
-    {
-        if ($request->user()->id == $id) {
-            $user = User::find($id);
-            return view('admin.edit', ['user' => $user]);
-        }
-    }
-
-    function editAdmin(Request $request, $id)
-    {
-        if ($request->user()->id == $id) {
-            $user = User::find($id);
-            $rule = [
-                'username' => 'string|min:6|max:32|unique:users,username',
-                'address' => 'text|max:255',
-                'phone' => 'numeric|max: 15',
-                'avatars' => 'mimes:jpg, jpeg, png,|max:10000'
-            ];
-
-            $message = [
-                'username.min' => 'Tên hiển thị không được ít hơn :min ký tự',
-                'username.max' => 'Tên hiển thị không được nhiều hơn :max ký tự',
-                'address.max' => 'Địa chỉ không được nhiều hơn :max ký tự',
-                'phone.max' => 'Số điện thoại không vượt quá :max ký tự',
-                'avatars.mimes' => 'Ảnh không đúng định dạng',
-                'avatars.max' => 'Ảnh không được vượt quá :max'
-            ];
-
-            $validation = Validator::make($request->only(['username' => $request->username, 'address' => $request->address, 'phone' => $request->phone]), $rule, $message);
-
-            if ($validation->fails()) {
-                return redirect()->back()->withErrors($validation);
-            } else {
-
-                $user->username = $request->username;
-                $user->address = $request->address;
-                $user->phone = $request->phone;
-                if ($request->hasFile('avatars')) {
-                    $avatar = $request->file('avatars');
-                    $filename = uniqid() . '.' . $avatar->getClientOriginalName();
-                    Image::make($avatar)->resize(300, 300)->save(public_path('avatars/' . $filename));
-
-                    $user = Auth::user();
-                    $user->avatar = $filename;
-                }
-
-                $user->save();
-
-                return redirect('/admin/' . $user->id . '/edit/')->with('alert', 'Sửa tài khoản thành công ');
-            }
-        }
-    }
 }
