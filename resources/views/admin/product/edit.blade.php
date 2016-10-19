@@ -29,6 +29,8 @@
 
 @section('content')
 
+
+
     <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -108,7 +110,8 @@
                         </form>
                     </div>
                     <form id="product-{{ $pro->id }}" method="get"
-                          action="/admin/product/{{$img_detail->id}}/delimg">
+                          action="/admin/product/{{$pro->id}}/delimg"
+                          name="_token">
                         {{csrf_field()}}
                         {{ method_field('DELETE') }}
                         <strong> Image details: </strong><br/><br/>
