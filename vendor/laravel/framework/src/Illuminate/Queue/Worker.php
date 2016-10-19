@@ -70,8 +70,10 @@ class Worker
         $lastRestart = $this->getTimestampOfLastQueueRestart();
 
         while (true) {
+            $this->registerTimeoutHandler($options);
+
             if ($this->daemonShouldRun()) {
-                $this->runNextJobForDaemon($connectionName, $queue, $options);
+                $this->runNextJob($connectionName, $queue, $options);
             } else {
                 $this->sleep($options->sleep);
             }
@@ -81,6 +83,29 @@ class Worker
                 $this->stop();
             }
         }
+    }
+
+    /**
+     * Register the worker timeout handler (PHP 7.1+).
+     *
+     * @param  WorkerOptions  $options
+     * @return void
+     */
+    protected function registerTimeoutHandler(WorkerOptions $options)
+    {
+        if (version_compare(PHP_VERSION, '7.1.0') < 0 || ! extension_loaded('pcntl')) {
+            return;
+        }
+
+        pcntl_async_signals(true);
+
+        pcntl_signal(SIGALRM, function () {
+            $this->exceptions->report(new TimeoutException('A queue worker timed out while processing a job.'));
+
+            exit(1);
+        });
+
+        pcntl_alarm($options->timeout + $options->sleep);
     }
 
     /**
@@ -101,54 +126,6 @@ class Worker
         }
 
         return true;
-    }
-
-    /**
-     * Run the next job for the daemon worker.
-     *
-     * @param  string  $connectionName
-     * @param  string  $queue
-     * @param  \Illuminate\Queue\WorkerOptions  $options
-     * @return void
-     */
-    protected function runNextJobForDaemon($connectionName, $queue, WorkerOptions $options)
-    {
-        return $this->runNextJob($connectionName, $queue, $options);
-
-        // Removing forking for now because it doesn't work with SQS...
-        if (! $options->timeout) {
-            $this->runNextJob($connectionName, $queue, $options);
-        } elseif ($processId = pcntl_fork()) {
-            $this->waitForChildProcess($processId, $options->timeout);
-        } else {
-            $this->runNextJob($connectionName, $queue, $options);
-
-            exit;
-        }
-    }
-
-    /**
-     * Wait for the given child process to finish.
-     *
-     * @param  int  $processId
-     * @param  int  $timeout
-     * @return void
-     */
-    protected function waitForChildProcess($processId, $timeout)
-    {
-        declare(ticks=1) {
-            pcntl_signal(SIGALRM, function () use ($processId, $timeout) {
-                posix_kill($processId, SIGKILL);
-
-                $this->exceptions->report(new TimeoutException("Queue child process timed out after {$timeout} seconds."));
-            }, true);
-
-            pcntl_alarm($timeout);
-
-            pcntl_waitpid($processId, $status);
-
-            pcntl_alarm(0);
-        }
     }
 
     /**
