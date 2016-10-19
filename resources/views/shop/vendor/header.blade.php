@@ -72,7 +72,7 @@
                                     <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                                        style="position: relative; padding-left: 50px;">
                                         <!-- The user image in the navbar-->
-                                        <img src="/avatars/{{Auth::user()->avatar}}"
+                                        <img src="{{Auth::user()->avatar}}"
                                              class="user-image img-responsive" alt="User Image"
                                              style="width:20px;height: 20px;border-radius: 50%; position: absolute;left: 10px; "/>
                                         <!-- hidden-xs hides the username on small devices so only the image appears. -->

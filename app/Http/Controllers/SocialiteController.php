@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Routing;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\RedirectsUsers;
+
+
 
 class SocialiteController extends Controller
 {
@@ -51,17 +56,17 @@ class SocialiteController extends Controller
 
     public function redirectToFacebook()
     {
-        return Socialite::driver('facebook')->user();
+        return Socialite::driver('facebook')->redirect();
     }
 
     public function getFacebookCallback()
     {
         $data = Socialite::driver('facebook')->user();
-
+//dd($data);
         $user = User::where('email', $data->email)->first();
 
         if (!is_null($user)) {
-            $user->username = $data->user['displayName'];
+            $user->username = $data->user['name'];
             $user->avatar = $data->avatar;
             $user->social_id = $data->id;
             $user->save();
@@ -71,8 +76,8 @@ class SocialiteController extends Controller
             $user = User::where('social_id', $data->id)->first();
             if (is_null($user)) {
                 $user = new User();
-                $user->username = $data->user['displayName'];
-                $user->emai = $data->email;
+                $user->username = $data->user['name'];
+                $user->email = $data->email;
                 $user->password = bcrypt($data->email);
                 $user->avatar = $data->avatar;
                 $user->confirm_code = null;
@@ -87,26 +92,26 @@ class SocialiteController extends Controller
 
     public function redirectToGithub()
     {
-        return Socialite::driver('github')->user();
+        return Socialite::driver('github')->redirect();
     }
 
     public function getGithubCallback()
     {
         $data = Socialite::driver('github')->user();
-
+//        dd($data);
         $user = User::where('email', $data->email)->first();
         if (!is_null($user)) {
-            $user->username = $data->user['displayName'];
+            $user->username = $data->user['login'];
             $user->avatar = $data->avatar;
             $user->social_id = $data->id;
             $user->save();
             Auth::login($user);
             return redirect('/')->with('alert', 'Ban dang nhap = github');
         } else {
-            $user = $user::where('social_id', $data->id)->first();
+            $user = User::where('social_id', $data->id)->first();
             if (is_null($user)) {
                 $user = new User();
-                $user->username = $data->user['displayName'];
+                $user->username = $data->user['login'];
                 $user->email = $data->email;
                 $user->password = bcrypt($data->email);
                 $user->confirm_code = null;
