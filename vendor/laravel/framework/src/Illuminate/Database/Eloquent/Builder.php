@@ -207,7 +207,7 @@ class Builder
             return $result;
         }
 
-        throw (new ModelNotFoundException)->setModel(get_class($this->model), $id);
+        throw (new ModelNotFoundException)->setModel(get_class($this->model));
     }
 
     /**
@@ -223,9 +223,7 @@ class Builder
             return $model;
         }
 
-        return $this->model->newInstance()->setConnection(
-            $this->query->getConnection()->getName()
-        );
+        return $this->model->newInstance();
     }
 
     /**
@@ -240,9 +238,7 @@ class Builder
             return $instance;
         }
 
-        return $this->model->newInstance($attributes)->setConnection(
-            $this->query->getConnection()->getName()
-        );
+        return $this->model->newInstance($attributes);
     }
 
     /**
@@ -258,9 +254,7 @@ class Builder
             return $instance;
         }
 
-        $instance = $this->model->newInstance($attributes + $values)->setConnection(
-            $this->query->getConnection()->getName()
-        );
+        $instance = $this->model->newInstance($attributes + $values);
 
         $instance->save();
 
@@ -763,7 +757,7 @@ class Builder
     /**
      * Add a basic where clause to the query.
      *
-     * @param  string|\Closure  $column
+     * @param  string  $column
      * @param  string  $operator
      * @param  mixed   $value
      * @param  string  $boolean
@@ -787,7 +781,7 @@ class Builder
     /**
      * Add an "or where" clause to the query.
      *
-     * @param  string|\Closure  $column
+     * @param  string  $column
      * @param  string  $operator
      * @param  mixed   $value
      * @return \Illuminate\Database\Eloquent\Builder|static
