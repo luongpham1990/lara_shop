@@ -115,9 +115,4 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cáº­p theo Ä
     });
 });
 
-Route::get('/login/google', 'SocialiteController@redirectToGoogle');
-Route::get('/google/callback', 'SocialiteController@getGoogleCallback');
-Route::get('/login/facebook', 'SocialiteController@redirectToFacebook');
-Route::get('/facebook/callback', 'SocialiteController@getFacebookCallback');
-Route::get('/login/github', 'SocialiteController@redirectToGithub');
-Route::get('/github/callback', 'SocialiteController@getGithubCallback');
+
