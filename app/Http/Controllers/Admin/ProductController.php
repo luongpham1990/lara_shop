@@ -24,7 +24,7 @@ class ProductController extends Controller
         $this->middleware(['admin', 'auth'])->except('login');
     }
 
-    public function show()
+    public function show() 
     {
         $product = Product::all();
 
