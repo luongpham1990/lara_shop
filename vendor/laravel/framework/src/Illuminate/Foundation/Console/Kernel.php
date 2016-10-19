@@ -210,12 +210,6 @@ class Kernel implements KernelContract
     {
         $this->bootstrap();
 
-        if (! $this->commandsLoaded) {
-            $this->commands();
-
-            $this->commandsLoaded = true;
-        }
-
         return $this->getArtisan()->call($command, $parameters);
     }
 
