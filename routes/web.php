@@ -60,7 +60,9 @@ Route::get('/contact', function () {
 });
 
 
-Route::get('/catalogs/{id}', 'ShopController@showcatalog');
+Route::get('/shop', function () {
+    return view('shop.shop');
+});
 
 Route::get('products/{id}','ShopController@showdetail');
 
