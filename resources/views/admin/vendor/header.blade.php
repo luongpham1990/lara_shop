@@ -19,7 +19,7 @@
             <li>
                 <a class=" dropdown-toggle" data-toggle="dropdown" style="position:relative; padding-left: 50px;"
                    role="button">
-                    <img src="/avatars/{{Auth::user()->avatar}}"
+                    <img src="{{Auth::user()->avatar}}"
                          class="img-responsive" alt="avatars"
                          style="width:32px;height: 32px;border-radius: 50%; position: absolute; top: 10px;left: 10px; ">
                     {{Auth::user()->username}}

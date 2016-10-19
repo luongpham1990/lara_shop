@@ -63,7 +63,7 @@
                                                                     <div class="col-md-4">
                                                                         <label><strong style="font-size: 20px">Profile
                                                                                 Image </strong></label><br/><br/>
-                                                                        <img src="/avatars/{{$user->avatar}}"
+                                                                        <img src="{{$user->avatar}}"
                                                                              class="img-responsive" alt="avatars"
                                                                              style="border-radius: 50%; margin-bottom: 20px ">
                                                                         <input type="file" name="avatars">
