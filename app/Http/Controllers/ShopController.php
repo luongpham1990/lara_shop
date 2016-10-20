@@ -113,9 +113,16 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
         $content = Cart::content();
         $total = Cart::total();
 //        dd($content);
+
         return view ('shop.cart')->with([
             'content' =>$content,
             'total' =>$total
         ]);
+
+    }
+
+    public function xoasanpham($id){
+        Cart::remove($id);
+        return redirect()->route('cart');
     }
 }

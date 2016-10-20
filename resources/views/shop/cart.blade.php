@@ -26,6 +26,8 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <form method="POST" action="">
+                        <input name="_token" type="hidden" value="{{csrf_token()}}"/>
                     @foreach($content as $item)
                         <tr>
                             <td class="cart_product">
@@ -40,20 +42,21 @@
                             </td>
                             <td class="cart_quantity">
                                 <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" href=""> + </a>
+                                    <a class="cart_quantity_up" href='{{url("cart?product_id=$item->id&increment=1")}}'> + </a>
                                     <input class="cart_quantity_input" type="text" name="quantity" value="{{$item->qty}}"
                                            autocomplete="off" size="2">
-                                    <a class="cart_quantity_down" href=""> - </a>
+                                    <a class="cart_quantity_down" href='{{url("cart?product_id=$item->id&decrease=1")}}'> - </a>
                                 </div>
                             </td>
                             <td class="cart_total">
                                 <p class="cart_total_price">{{number_format($item->price*$item->qty,0,",",".")}}</p>
                             </td>
                             <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                                <a class="cart_quantity_delete" href="{{url ('xoa-san-pham',['id'=>$item->rowId])}}"><i class="fa fa-times"></i></a>
                             </td>
                         </tr>
                     @endforeach
+                    </form>
                     <tr>
                         <td colspan="4">&nbsp;</td>
                         <td colspan="2">
@@ -99,3 +102,11 @@
 
 @endsection
 
+{{--<script>--}}
+    {{--$(document).ready(function () {--}}
+        {{--$(".cart_quantity_delete").click(function () {--}}
+            {{--alert(111)--}}
+        {{--})--}}
+    {{--})--}}
+
+{{--</script>--}}

@@ -53,11 +53,10 @@ Route::get('/checkout', function () {
 Route::get('/cart','ShopController@cart')->name('cart');
 
 Route::get('/mua-hang/{id}','ShopController@muahang');
-
+Route::get('xoa-san-pham/{id}','ShopController@xoasanpham');
 Route::get('/contact', function () {
     return view('shop.contact-us');
 });
-
 
 Route::get('/shop', function () {
     return view('shop.shop');

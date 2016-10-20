@@ -145,6 +145,10 @@
         $('#button-delete').attr('onclick', "document.getElementById('product-" + id + "').submit()");
         $('#myModal').modal('show');
     });
+
+    $(document).ready(function () {
+        $
+    })
 </script>
 
 @endpush
