@@ -1,9 +1,8 @@
-@extends('admin.layouts.admin-app')
-{{--@section('title','add')--}}
-
-@section('title')
-    @endsection
-@section('content')
+@extends('admin.layouts.app')
+@section('htmlheader_title')
+    Admin Profile
+@endsection
+@section('main-content')
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">

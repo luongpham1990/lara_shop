@@ -40,16 +40,48 @@ class CreateAllTableFinal extends Migration
             $table->integer('current_price');
         });
 
-        // Create blogs table
+        // Create cateblogs table
 
-        Schema::create('blogs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title', 255);
-            $table->text('content');
-            $table->string('author', 255);
-            $table->dateTime('created_time')->nullable();
-            $table->dateTime('last_edit_time')->nullable();
-        });
+        Schema::create('cateblogs', function(Blueprint $table){
+                    $table->increments('id');
+                    $table->string('name')->unique();
+                    $table->string('slug');
+                    $table->text('description')->nullable();
+                    $table->string('image')->default('/img/NOIMAGE.JPG');
+                    $table->timestamps();
+                });
+
+        // Create posts table
+
+         Schema::create('posts', function (Blueprint $table) {
+                    $table->increments('id');
+                    $table->integer('author_id')->unsigned()->default(0);
+                    $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
+                    $table->integer('category_id')->unsigned()->default(0);
+                    $table->foreign('category_id')->references('id')->on('cateblogs')->onDelete('cascade')->onUpdate('cascade');
+                    $table->string('banner')->default('/img/noimage.jpg');
+                    $table->string('title')->unique();
+                    $table->text('body');
+                    $table->string('slug')->unique();
+                    $table->boolean('active');
+                    $table->dateTime('last_edit_time')->nullable();
+                    $table->timestamps();
+         });
+
+         // Create comments table
+
+           Schema::create('comments', function (Blueprint $table) {
+                     $table->increments('id');
+                     $table->integer('on_post')->unsigned()->default(0);
+                     $table->foreign('on_post')->references('id')->on('posts')->onDelete('cascade');
+                     $table->integer('from_user')->unsigned()->default(0);
+                     $table->foreign('from_user')->references('id')->on('users')->onDelete('cascade');
+                     $table->text('body');
+                     $table->timestamps();
+                 });
+
+
+
         // Create catalogs table
 
         Schema::create('catalogs', function (Blueprint $hh) {
@@ -173,7 +205,6 @@ class CreateAllTableFinal extends Migration
         // });
         // Schema::dropIfExists('users');
         // Schema::dropIfExists('wishlists');
-        // Schema::dropIfExists('blogs');
         // Schema::dropIfExists('catalogs');
         // Schema::dropIfExists('transactions');
         // Schema::dropIfExists('orders');

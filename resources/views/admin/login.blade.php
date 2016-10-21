@@ -1,97 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Khóa Học Lập Trình Laravel Framework 5.x Tại Khoa Phạm">
-    <meta name="author" content="Vu Quoc Tuan">
-    <title>@yield('tittle')| Admin Login </title>
+@extends('admin.layouts.auth')
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/admin/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('htmlheader_title')
+    Log in
+@endsection
 
-    <!-- MetisMenu CSS -->
-    <link href="/admin/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+@section('main-content')
+    <body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="{{ url('/admin/landing') }}"><b>Admin</b>LTE</a>
+        </div><!-- /.login-logo -->
 
-    <!-- Custom CSS -->
-    <link href="/admin/dist/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- DataTables CSS -->
-    <link href="/admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css"
-          rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="/admin/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
-
-    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
-          rel="stylesheet"/>
-
-</head>
-
-<body>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="login-panel panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Please Sign In</h3>
-                </div>
-                <div class="panel-body">
-                    <form role="form" action="{{ url('/admin/login') }}" method="POST">
-                        {{ csrf_field() }}
-
-                        @if(count($errors))
-                            <div class="alert alert-danger">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                @foreach($errors->all() as $error)
-                                    <strong>{{ $error }}!</strong>
-                                @endforeach
-                            </div>
-                        @endif
-
-
-                        <fieldset>
-                            <div class="form-group">
-                                <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" placeholder="Password" name="password" type="password"
-                                       value="">
-                            </div>
-                            <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
-                        </fieldset>
-                    </form>
-                </div>
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> {{ trans('adminlte_lang::message.someproblems') }}<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
-        </div>
-    </div>
-</div>
+        @endif
 
-<!-- jQuery -->
-<script src="/admin/bower_components/jquery/dist/jquery.min.js"></script>
+        <div class="login-box-body">
+            <p class="login-box-msg"> {{ trans('adminlte_lang::message.siginsession') }} </p>
+            <form action="{{ url('/admin/login') }}" method="post">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="form-group has-feedback">
+                    <input type="email" class="form-control" placeholder="{{ trans('adminlte_lang::message.email') }}" name="email"/>
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" placeholder="{{ trans('adminlte_lang::message.password') }}" name="password"/>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                <input type="checkbox" name="remember"> {{ trans('adminlte_lang::message.remember') }}
+                            </label>
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('adminlte_lang::message.buttonsign') }}</button>
+                    </div><!-- /.col -->
+                </div>
+            </form>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+            @include('admin.auth.partials.social_login')
 
-<!-- Metis Menu Plugin JavaScript -->
-<script src="/admin/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+            <a href="{{ url('/password/reset') }}">{{ trans('adminlte_lang::message.forgotpassword') }}</a><br>
+            <a href="{{ url('/register') }}" class="text-center">{{ trans('adminlte_lang::message.registermember') }}</a>
 
-<!-- Custom Theme JavaScript -->
-<script src="/admin/dist/js/sb-admin-2.js"></script>
+        </div><!-- /.login-box-body -->
 
-<!-- DataTables JavaScript -->
-<script src="/admin/bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
-<script src="/admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    </div><!-- /.login-box -->
 
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    @include('admin.layouts.partials.scripts_auth')
 
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
+    </body>
 
-</body>
-
-</html>
+@endsection

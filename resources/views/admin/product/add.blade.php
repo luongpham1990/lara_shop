@@ -1,8 +1,9 @@
-@extends('admin.layouts.admin-app')
-@section('title')
+@extends('admin.layouts.app')
+@section('htmlheader_title')
+    Admin Profile
 @endsection
 
-@section('content')
+@section('main-content')
     <style type="text/css">.thumb-image{float:left;width:170px;position:relative;padding:10px;}</style>
     <!-- Page Content -->
     <div id="page-wrapper">

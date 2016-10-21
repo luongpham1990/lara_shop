@@ -1,5 +1,6 @@
-@extends('admin.layouts.admin-app')
-@section('title')
+@extends('admin.layouts.app')
+@section('htmlheader_title')
+    Admin Profile
 @endsection
 @push('link')
 <style>
@@ -19,7 +20,7 @@
     /*}*/
 </style>
 @endpush
-@section('content')
+@section('main-content')
     <div id="page-wrapper">
         {{--<section id="form">--}}
         <div class="container-fluid">
@@ -179,7 +180,7 @@
 
 
                                             <div class="form-group">
-                                                <form action="{{url('/admin/'.$user->id.'/edit')}}" class="form-horizontal"
+                                                <form action="{{url('/admin/'.$user->id.'/changepass')}}" class="form-horizontal"
                                                       method="post">
                                                     {{csrf_field()}}
                                                     {{method_field('PUT')}}
@@ -198,7 +199,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="inputnewpassword"
+                                                            <label for="newpassword"
                                                                    class="col-md-3 control-label">
                                                                 Password
                                                                 {{--<span class='require'>*</span>--}}
@@ -220,7 +221,7 @@
                                                                 <div class="form-group">
                                                                     <input type="password" id="inputrepassword"
                                                                            placeholder="Confirm Password"
-                                                                           class="form-control" name="renewpassword"/>
+                                                                           class="form-control" name="newpassword_confirmation"/>
                                                                 </div>
                                                             </div>
                                                         </div>

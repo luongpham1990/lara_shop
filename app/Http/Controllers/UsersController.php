@@ -110,7 +110,7 @@ class UsersController extends Controller
     public function logout(Request $request)
     {
         Auth::logout($request->user());//logout user
-        return redirect('/home');
+        return redirect('/');
     }
 
     //hiện profile của user
@@ -193,7 +193,7 @@ class UsersController extends Controller
                     $avatar = $request->file('avatars');//cột avatar trong csdl = input file[name]
                     $filename = uniqid() . '.' . $avatar->getClientOriginalName();//đặt tên cho file up lên, hàm uniquid() tương tự như time()
 
-                    Image::make($avatar)->resize(100, 100)->save(public_path('avatars/' . $filename));//luu ảnh vào forder public/avatars, hàm này dùng bằng gói intervation/image laravel
+                    Image::make($avatar)->resize(300, 300)->save(public_path('avatars/' . $filename));//luu ảnh vào forder public/avatars, hàm này dùng bằng gói intervation/image laravel
 
                     $user = Auth::user();//nói chung là đã có up avatar lên xác nhận cái user
                     $user->avatar = url('avatars/' . $filename);// xuất ra avatar = đường dẫn trên csdl

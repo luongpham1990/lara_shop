@@ -1,5 +1,6 @@
-@extends('admin.layouts.admin-app')
-@section('title')
+@extends('admin.layouts.app')
+@section('htmlheader_title')
+    Admin Profile
 @endsection
 @push('link')
 <style>
@@ -19,7 +20,7 @@
 
 <!-- Navigation -->
 
-@section('content')
+@section('main-content')
     <!-- Page Content -->
     <div id="page-wrapper">
 
