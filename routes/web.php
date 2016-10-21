@@ -63,6 +63,7 @@ Route::get('/shop', function () {
     return view('shop.shop');
 });
 
+Route::get('catalog/{id}','ShopController@showcatalog');
 Route::get('products/{id}','ShopController@showdetail');
 
 //Lương sửa

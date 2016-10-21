@@ -32,7 +32,7 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
         }
 //        dd($arr);
 
-        return view('shop.shop')->with([
+        return view('shop.home')->with([
             'products' => $products,
             'categories' => $categories,
             'relate_products' => $relate_products,
@@ -67,25 +67,24 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
     public function showcatalog($id)
     {
         $products = Product::paginate(2);
-        $categories = Catalog::all();
+        $categories = Catalog::find($id);
         $product = Product::all();
 
-        $all_catalogproducts = DB::table('products')->select('id', 'catalog_id', 'product_name', 'price', 'view', 'review', 'brand', 'status')->where('catalog_id', $id)->orderBy('view', 'DESC')->get();
-        foreach ($all_catalogproducts as $all_catalogproducts){
-            $img_id=$all_catalogproducts->id;
-            $imgs = DB::table('product_photos')
-                ->join('product_product_photos', 'product_photos.product_photo_id', '=', 'product_product_photos.product_photo_id')
-                ->join('products', 'product_product_photos.product_id', '=', 'products.id')
-                ->where('product_id',$img_id)
-                ->first();
-        }
-
-        dd($imgs->thumbnail_photo_link);
+        $all_catalogproducts = DB::table('products')->where('catalog_id', $id)->orderBy('view', 'DESC')->get();
+//        foreach ($all_catalogproducts as $all_catalogproducts){
+//            $img_id=$all_catalogproducts->id;
+//            $imgs = DB::table('product_photos')
+//                ->join('product_product_photos', 'product_photos.product_photo_id', '=', 'product_product_photos.product_photo_id')
+//                ->join('products', 'product_product_photos.product_id', '=', 'products.id')
+//                ->where('product_id',$img_id)
+//                ->first();
+//        }
+        
         return view('shop.shop')->with([
             'products' => $products,
             'categories' => $categories,
             'all_catalogproducts' => $all_catalogproducts,
-            'imgs' =>$imgs,
+//            'imgs' =>$imgs,
         ]);
     }
 

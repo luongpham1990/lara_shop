@@ -16,6 +16,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
+                                <a href="{{url('products/'.$product->id)}}">
                                 <img src="images/{{$product->getImageFeature()}}" alt=""/>
                                 <h2> {{number_format($product->price,0,",",".")}} VNĐ</h2>
                                 <p>{{ $product->product_name }}</p>
@@ -27,22 +28,23 @@
                                         Add to cart
                                     </button></a>
                                 {{--</form>--}}
+                                </a>
                             </div>
-                            <div class="product-overlay">
-                                <div class="overlay-content">
-                                    <a href="{{url('products/'.$product->id)}}">
-                                        <h2>{{number_format($product->price,0,",",".")}} VNĐ</h2>
-                                        <p>{{ $product->product_name }}</p></a>
+                            {{--<div class="product-overlay">--}}
+                                {{--<div class="overlay-content">--}}
+                                    {{--<a href="{{url('products/'.$product->id)}}">--}}
+                                        {{--<h2>{{number_format($product->price,0,",",".")}} VNĐ</h2>--}}
+                                        {{--<p>{{ $product->product_name }}</p></a>--}}
                                     {{--<form method="POST">--}}
-                                        <input type="hidden" name="product_id" value="{{$product->id}}">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <a href="{{url('mua-hang',[$product->id])}}"><button type="submit" class="btn btn-default add-to-cart">
-                                            <i class="fa fa-shopping-cart"></i>
-                                            Add to cart
-                                        </button></a>
+                                        {{--<input type="hidden" name="product_id" value="{{$product->id}}">--}}
+                                        {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
+                                        {{--<a href="{{url('mua-hang',[$product->id])}}"><button type="submit" class="btn btn-default add-to-cart">--}}
+                                            {{--<i class="fa fa-shopping-cart"></i>--}}
+                                            {{--Add to cart--}}
+                                        {{--</button></a>--}}
                                     {{--</form>--}}
-                                </div>
-                            </div>
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
                         <div class="choose">
                             <ul class="nav nav-pills nav-justified">
@@ -111,7 +113,7 @@
 
                             {{--begin foreach--}}
                             @foreach($catalog as $item)
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
