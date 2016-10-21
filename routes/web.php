@@ -68,14 +68,22 @@ Route::get('products/{id}','ShopController@showdetail');
 
 //Lương sửa
 Route::group(['prefix' => 'admin'], function () {//route group truy cập theo đường dẫn host/admin
-    Route::get('/', function () {
-        dd('sida');
-    });
+    Route::get('/home', function () {
+        return view('admin.home');
+    })->middleware('admin');
     Route::get('/login', function () {// show ra view đăng nhập vào admin /admin/login
-        return view('admin.login');
+
+//        Auth::logout();
+
+        if(Auth::guest()){
+            return view('admin.login');
+        }else{
+            return redirect('/admin/home');
+        }
+
     });
     Route::post('/login', 'Admin\AdminController@login');//  đăng nhập vào admin /admin/login
-    Route::post('/logout', 'Admin\AdminController@logout');//  view đăng xuất vào admin /admin/login
+    Route::post('/logout', 'Admin\AdminController@logout');//  view đăng xuất vào admin /admin/logout
     Route::get('/{id}/edit', 'Admin\AdminController@profile');// show ra view profile của admin /admin/{id}/edit
     Route::put('/{id}/edit', 'Admin\AdminController@editAdmin');// sửa profile của admin /admin/{id}/edit
 //Hùng sửa
@@ -115,6 +123,36 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
         Route::put('/edituser', 'Admin\UserController@editUser');//x editable edit user
         Route::delete('/{id}/delete', 'Admin\UserController@delete');//xóa user
     });
+    //Lương sửa
+    Route::group(['prefix' => 'catablog'], function () {//phần admin điều chỉnh liên quan đến user của website đường dẫn /admin/catablog
+        Route::get('/', 'Admin\CatablogController@show');//show ra danh sách user /admin/catablog/
+
+        Route::get('/add', 'Admin\CatablogController@showadd');// show ra view add user của website  /admin/user
+        Route::post('/add', 'Admin\CatablogController@add');//  add  các user của website /admin/catablog
+
+        Route::get('/{id}/edit', 'Admin\CatablogController@showOne');// show ra view edit profile  các user của website  /admin/product/add
+        Route::put('/{id}/edit', 'Admin\CatablogController@edit');// edit profile  các user của website  /admin/catablog/add
+//        Route::put('/edituser', 'Admin\CatablogController@editUser');//x editable edit user
+        Route::delete('/{id}/delete', 'Admin\CatablogController@delete');//xóa user
+    });
+    //Lương sửa
+    Route::group(['prefix' => 'post'], function () {//vào phần các sp của website /admin/post
+        Route::get('/', 'Admin\PostController@show');// show ra view list các sp của website v /admin/post/
+
+        Route::get('add', 'Admin\PostController@showadd');// show ra view add  các sp của website  /admin/post/add
+        Route::post('add', 'Admin\PostController@add');//  add  các sp của website  /admin/post/add
+
+        Route::get('/{id}/edit', 'Admin\PostController@showOne');//Lương sửa đường dẫn show sp theo chuẩn resful
+        Route::put('/{id}/edit', 'Admin\PostController@edit');//Lương sửa đường dẫn edit thông tin sp theo chuẩn resful
+
+        Route::delete('/{id}/delete', 'Admin\PostController@delete');//xóa sp
+        Route::get('/{id}/delimg','Admin\PostController@DelImg');
+    });
 });
 
-
+Route::get('/login/google', 'SocialiteController@redirectToGoogle');
+Route::get('/google/callback', 'SocialiteController@getGoogleCallback');
+Route::get('/login/facebook', 'SocialiteController@redirectToFacebook');
+Route::get('/facebook/callback', 'SocialiteController@getFacebookCallback');
+Route::get('/login/github', 'SocialiteController@redirectToGithub');
+Route::get('/github/callback', 'SocialiteController@getGithubCallback');

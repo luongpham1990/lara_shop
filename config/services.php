@@ -34,5 +34,22 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    'github' => [
+        'client_id' => 'df337e45e3d155eabb60',//github id nhe
+        'client_secret' => 'aa4334c96ea87f6eb15aa70afeae6abbbd4795ef',//github secret
+        'redirect' => 'http://localhost:8000/github/callback',//duong dan dang nhap
+    ],
+
+    'facebook' => [
+        'client_id' => '183970218676569',//app id
+        'client_secret' => '9d438e0ce8008cd5be764fe982f24e97',//ap secret
+        'redirect' => 'http://localhost:8000/facebook/callback',
+    ],
+
+    'google' => [
+        'client_id' => '951347144313-0pepktiuo9igstgvprnmpt3cgn8p91d8.apps.googleusercontent.com',//app id
+        'client_secret' => '8MOqz9GOqs-9ISthILfM_bx2',//ap secret
+        'redirect' => 'http://localhost:8000/google/callback',
+    ]
 
 ];

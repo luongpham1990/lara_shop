@@ -1,23 +1,30 @@
-@extends('admin.layouts.admin-app')
-@section('title')
-    @endsection
+@extends('admin.layouts.app')
+@section('htmlheader_title')
+    Admin Profile
+@endsection
 
-      @section('content')
+      @section('main-content')
 
           <!-- Page Content -->
               <div id="page-wrapper">
 
-                  @if(count($errors)>0)
-
-                      <div class="alert alert-danger fade in">
-                          <a href="#" class="close" data-dismiss="alert" aria-label="close"
-                             title="close">×</a>
-                          @foreach($errors->all() as $error)
-
-                              <p><strong>{{ $error }}!</strong></p>
-                          @endforeach
+                  @if(session('error'))
+                      <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                          <button type="button" class="close" data-dismiss="alert"
+                                  aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                          <strong> {{ session('error') }}  </strong>
                       </div>
-
+                  @endif
+                  @if(session('alert'))
+                      <div class="alert alert-info alert-dismissible fade in" role="alert">
+                          <button type="button" class="close" data-dismiss="alert"
+                                  aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                          <strong> {{ session('alert') }}  </strong>
+                      </div>
                   @endif
 
                   <div class="container-fluid">

@@ -19,7 +19,7 @@ class AdminMiddleware
         if ($request->user()->is_admin && Auth::check()){
             return $next($request);
         }else {
-            return redirect('/home');
+            return redirect('/');
         }
     }
 }

@@ -98,7 +98,7 @@ class AdminController extends Controller
                 if ($request->hasFile('avatars')) {//nếu có up ảnh lên
                     $avatar = $request->file('avatars');//avatar = dữ liệu dc gửi = input có tên là avatars
                     $filename = uniqid() . '.' . $avatar->getClientOriginalName();//tạo tên cho ảnh khi chuyển vào csdl
-                    Image::make($avatar)->resize(100, 100)->save(public_path('avatars/' . $filename));//up lên và save nó vào foder public/avatar
+                    Image::make($avatar)->resize(300, 300)->save(public_path('avatars/' . $filename));//up lên và save nó vào foder public/avatar
 
                     $user = Auth::user();//đồng bộ thằng user
                     $user->avatar = url('avatars/' . $filename);//xuất ra avatar cố tên đường dẫn
@@ -106,6 +106,39 @@ class AdminController extends Controller
                 $user->save();//save ông admin vào
                 return redirect('/admin/' . $user->id . '/edit/')->with('alert', 'Sửa tài khoản thành công ');//điều hướng
             }
+        }
+    }
+    //doi pass admin
+    function changePass(Request $request, $id){
+        if ($request->user()->id == $id ){
+            $user = User::find($id); //->user($request->password);
+
+            if (Hash::check($request->oldpassword, $user->password)) {
+                $rule = [
+                    'newpassword' => 'string|require|alpha_num|min:6|max:32|confirmed'
+                ];
+                $message = [
+                    'newpassword.required' => 'Mật khẩu không được để trống',
+                    'newpassword.min' => 'Mật khẩu không được ít hơn :min ký tự',
+                    'newpassword.max' => 'Mật khẩu không được vượt quá :max ký tự',
+                    'newpassword.confirmed' => 'Mật khẩu không trùng khớp',
+                ];
+
+                $validation = Validator::make($request->all(),$rule, $message);
+
+                if ($validation->fails()){
+                    return redirect('/admin/'.$user->id.'/edit/')->withInput()->withErrors($validation);
+                }else {
+                    $user->password = Hash::make($request->newpassword);
+                    $user->save();
+
+                    return redirect('/admin'.$user->id.'/edit/')->with('alert','Đổi mật khẩu thành công');
+                }
+            }else{
+                return redirect()->back()->with('oldsida', 'Mật khẩu cũ không đúng');
+            }
+        }else{
+            return abort(403);
         }
     }
 }

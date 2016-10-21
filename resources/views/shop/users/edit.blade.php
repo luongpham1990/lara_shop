@@ -180,7 +180,7 @@
                                                                 <div class="form-group">
                                                                     <input type="password" id="inputrepassword"
                                                                            placeholder="Confirm Password"
-                                                                           class="form-control" name="renewpassword"/>
+                                                                           class="form-control" name="newpassword_confirmation"/>
                                                                 </div>
                                                             </div>
                                                         </div>
