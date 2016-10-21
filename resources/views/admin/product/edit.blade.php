@@ -29,11 +29,16 @@
 
 @section('main-content')
 
-
-
     <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
+
+                @if(session('thongbao'))
+                    <div style="padding-top: 10px" class="alert alert-success">
+                        {{session('thongbao')}}
+                    </div>
+                @endif
+
                 @if(count($errors)>0)
 
                     <div class="alert alert-danger fade in">
@@ -109,22 +114,31 @@
 
                         </form>
                     </div>
-                    <form id="product-{{ $pro->id }}" method="get"
-                          action="/admin/product/{{$pro->id}}/delimg"
-                          name="_token">
-                        {{csrf_field()}}
-                        {{ method_field('DELETE') }}
-                        <strong> Image details: </strong><br/><br/>
-                        @foreach($img_detail as $product_photo_id => $img_detail)
-                            <div class="form-group col-lg-2" id="hinh{{$product_photo_id}}">
-                                <img class="img-responsive" src="/images/{{$img_detail}}">
-                                <a id="del_img" class="btn btn-danger btn-circle icon_del" data-info="{{ $pro->id }}">
+
+                    <strong> Image details: </strong><br/><br/>
+                    @foreach($img_detail as $item)
+
+                        <form style="margin-bottom: 0" id="product-{{ $item->product_photo_id }}" method="post"
+                              action="/admin/product/{{ $item->product_photo_id }}/edit">
+                            {{csrf_field()}}
+                            {{ method_field('PUT') }}
+                            <div class="form-group col-lg-2" id="hinh-{{$item->product_photo_id}}">
+                                <img class="img-responsive" src="/images/{{$item->thumbnail_photo_link}}">
+                                <a id="del_img" class="btn btn-danger btn-circle icon_del" data-info="{{ $item->product_photo_id}}">
                                     <i class="fa fa-times"></i></a>
-                                <input type="file" name="image">
+                                <input type="file" name="image" method="post" id="edit_img">
+                                <button style="margin-top: 10px" class="btn btn-primary " type="submit">Sửa ảnh</button>
                             </div>
-                            {{--<button> Edit Image</button>--}}
-                        @endforeach
-                    </form>
+                        </form>
+
+                        <form style="display: none" method="post" action="/admin/product/{{$item->product_photo_id}}/delimg" id="del-product-{{$item->product_photo_id}}">
+                            {{csrf_field()}}
+                            {{method_field('delete')}}
+                        </form>
+
+                        {{--<button> Edit Image</button>--}}
+                    @endforeach
+
                 </div>
                 <!-- /.row -->
             </div>
@@ -174,10 +188,16 @@
             console.log(id);
 
 
-            $('#button-delete').attr('onclick', "document.getElementById('product-" + id + "').submit()");
+            $('#button-delete').attr('onclick', "document.getElementById('del-product-" + id + "').submit()");
             $('#myModal').modal('show');
         });
     })
+
+    $(document).ready(function () {
+        $("edit_img").on('click', "document.getElementById('edit-product-" + id + "').submit()");
+    })
+
+
 </script>
 @endpush
 

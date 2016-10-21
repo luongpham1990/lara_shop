@@ -17,19 +17,32 @@
                         <div class="single-products">
                             <div class="productinfo text-center">
                                 <img src="images/{{$product->getImageFeature()}}" alt=""/>
-                                <h2>{{ number_format($product->price) }} VNĐ</h2>
+                                <h2> {{number_format($product->price,0,",",".")}} VNĐ</h2>
                                 <p>{{ $product->product_name }}</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add
-                                    to cart</a>
+                                {{--<form method="POST" action="{{url('cart',[$product->id])}}">--}}
+                                    <input type="hidden" name="product_id" value="{{$product->id}}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <a href="{{url('mua-hang',[$product->id])}}"><button type="submit" class="btn btn-default add-to-cart">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        Add to cart
+                                    </button></a>
+                                {{--</form>--}}
                             </div>
-                            <a href="{{url('products/'.$product->id)}}"><div class="product-overlay">
+                            <div class="product-overlay">
                                 <div class="overlay-content">
-                                    <h2>{{ number_format($product->price) }} VNĐ</h2>
-                                    <p>{{ $product->product_name }}</p>
-                                    <a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add
-                                        to cart</a>
+                                    <a href="{{url('products/'.$product->id)}}">
+                                        <h2>{{number_format($product->price,0,",",".")}} VNĐ</h2>
+                                        <p>{{ $product->product_name }}</p></a>
+                                    {{--<form method="POST">--}}
+                                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <a href="{{url('mua-hang',[$product->id])}}"><button type="submit" class="btn btn-default add-to-cart">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            Add to cart
+                                        </button></a>
+                                    {{--</form>--}}
                                 </div>
-                            </div></a>
+                            </div>
                         </div>
                         <div class="choose">
                             <ul class="nav nav-pills nav-justified">
@@ -61,15 +74,22 @@
                     <div class="tab-pane fade {{ $categories->first() == $category ? 'active' : '' }} in"
                          id="{{ str_slug($category->catalog_name) }}">
                         @foreach($category->getFeatureProducts() as $featureProduct)
-                            <div class="col-sm-3" style="margin: 3.6%">
+                            <div class="col-sm-2" style="margin: 2.5%">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/{{$featureProduct->getImageFeature()}}" alt=""/>
-                                            <h2>{{ number_format($product->price) }} VNĐ</h2>
-                                            <a href="{{url('products/'.$product->id)}}"><p>{{ $featureProduct->product_name }}</p></a>
-                                            <a href="#" class="btn btn-default add-to-cart"><i
-                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <a href="{{url('products/'.$product->id)}}">
+                                                <img src="images/{{$featureProduct->getImageFeature()}}" alt=""/>
+                                                <h2>{{number_format($product->price,0,",",".")}} VNĐ</h2>
+                                                <p>{{ $featureProduct->product_name }}</p> </a>
+                                            {{--<form method="POST" action="{{url('cart/'.$product->id)}}">--}}
+                                                <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <a href="{{url('mua-hang',[$product->id])}}"><button type="submit" class="btn btn-default add-to-cart">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                    Add to cart
+                                                </button></a>
+                                            {{--</form>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -97,12 +117,17 @@
                                             <div class="productinfo text-center">
                                                 <img src="images/{{$item->getImageFeature()}}"
                                                      alt="{{$item->product_name}}"/>
-                                                <h2>{{ number_format($item->price) }} VND</h2>
+                                                <h2>{{number_format($item->price,0,",",".")}} VND</h2>
                                                 <p>{{$item->product_name}}</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                {{--<form method="POST" action="{{url('cart/'.$product->id)}}">--}}
+                                                    <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <a href="{{url('mua-hang',[$product->id])}}"><button type="submit" class="btn btn-default add-to-cart">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                        Add to cart
+                                                    </button></a>
+                                                {{--</form>--}}
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>

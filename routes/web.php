@@ -50,15 +50,13 @@ Route::get('/checkout', function () {
     return view('shop.checkout');
 });
 
-Route::get('/cart', function () {
-    return view('shop.cart');
-});
+Route::get('/cart','ShopController@cart')->name('cart');
 
-
+Route::get('/mua-hang/{id}','ShopController@muahang');
+Route::get('xoa-san-pham/{id}','ShopController@xoasanpham');
 Route::get('/contact', function () {
     return view('shop.contact-us');
 });
-
 
 Route::get('/shop', function () {
     return view('shop.shop');
@@ -109,7 +107,7 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
         Route::put('/{id}/edit', 'Admin\ProductController@edit');//Lương sửa đường dẫn edit thông tin sp theo chuẩn resful
 
         Route::delete('/{id}/delete', 'Admin\ProductController@delete');//xóa sp
-        Route::get('/{id}/delimg','Admin\ProductController@DelImg');
+        Route::delete('/{id}/delimg','Admin\ProductController@DelImg');
     });
 //Lương sửa
     Route::group(['prefix' => 'user'], function () {//phần admin điều chỉnh liên quan đến user của website đường dẫn /admin/user
