@@ -11,7 +11,7 @@ class Cateblog extends Model
     protected $fillable = [
         'name','slug','description','image',
     ];
-    protected $primaryKey = 'id';
+//    protected $primaryKey = 'id';
 
     public function post() {
         return $this->hasMany('App\Post');

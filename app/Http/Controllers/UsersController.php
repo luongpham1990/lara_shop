@@ -195,7 +195,7 @@ class UsersController extends Controller
 
                     Image::make($avatar)->resize(300, 300)->save(public_path('avatars/' . $filename));//luu ảnh vào forder public/avatars, hàm này dùng bằng gói intervation/image laravel
 
-                    $user = Auth::user();//nói chung là đã có up avatar lên xác nhận cái user
+//                    $user = Auth::user();//nói chung là đã có up avatar lên xác nhận cái user
                     $user->avatar = url('avatars/' . $filename);// xuất ra avatar = đường dẫn trên csdl
                 }
                 $user->save();//chỉnh xong thì save user lại thôi

@@ -50,15 +50,13 @@ Route::get('/checkout', function () {
     return view('shop.checkout');
 });
 
-Route::get('/cart', function () {
-    return view('shop.cart');
-});
+Route::get('/cart','ShopController@cart')->name('cart');
 
-
+Route::get('/mua-hang/{id}','ShopController@muahang');
+Route::get('xoa-san-pham/{id}','ShopController@xoasanpham');
 Route::get('/contact', function () {
     return view('shop.contact-us');
 });
-
 
 Route::get('/shop', function () {
     return view('shop.shop');
@@ -84,8 +82,10 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
     });
     Route::post('/login', 'Admin\AdminController@login');//  đăng nhập vào admin /admin/login
     Route::post('/logout', 'Admin\AdminController@logout');//  view đăng xuất vào admin /admin/logout
+
     Route::get('/{id}/edit', 'Admin\AdminController@profile');// show ra view profile của admin /admin/{id}/edit
     Route::put('/{id}/edit', 'Admin\AdminController@editAdmin');// sửa profile của admin /admin/{id}/edit
+//    Route::post('/post/uploadimage', 'Admin\PostController@uploadImage');//uppload avatar
 //Hùng sửa
     Route::group(['prefix' => 'cata'], function () {//vào phần cata các sp của website /admin/cata
         Route::get('/', 'Admin\CataController@show'); // show ra view catalog các sp của website  /admin/cata
@@ -109,7 +109,7 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
         Route::put('/{id}/edit', 'Admin\ProductController@edit');//Lương sửa đường dẫn edit thông tin sp theo chuẩn resful
 
         Route::delete('/{id}/delete', 'Admin\ProductController@delete');//xóa sp
-        Route::get('/{id}/delimg','Admin\ProductController@DelImg');
+        Route::delete('/{id}/delimg','Admin\ProductController@DelImg');
     });
 //Lương sửa
     Route::group(['prefix' => 'user'], function () {//phần admin điều chỉnh liên quan đến user của website đường dẫn /admin/user
@@ -141,6 +141,8 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
 
         Route::get('add', 'Admin\PostController@showadd');// show ra view add  các sp của website  /admin/post/add
         Route::post('add', 'Admin\PostController@add');//  add  các sp của website  /admin/post/add
+
+//        Route::post('/post/uploadimage', 'Admin\PostController@uploadImage')->name('post_upload_image');
 
         Route::get('/{id}/edit', 'Admin\PostController@showOne');//Lương sửa đường dẫn show sp theo chuẩn resful
         Route::put('/{id}/edit', 'Admin\PostController@edit');//Lương sửa đường dẫn edit thông tin sp theo chuẩn resful
