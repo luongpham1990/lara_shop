@@ -17,9 +17,9 @@ use App\Catalog;
 
 Route::get('/', 'ShopController@index');
 //Lương sửa
-Route::get('/home', function () {
-    return view('shop.home');
-});
+//Route::get('/home', function () {
+//    return view('shop.home');
+//});
 //Lương sửa
 Route::get('/register', function () {
     return view('shop.users.login');
@@ -54,6 +54,7 @@ Route::get('/cart','ShopController@cart')->name('cart');
 
 Route::get('/mua-hang/{id}','ShopController@muahang');
 Route::get('xoa-san-pham/{id}','ShopController@xoasanpham');
+Route::get('xoa-cart','ShopController@xoacart');
 Route::get('/contact', function () {
     return view('shop.contact-us');
 });

@@ -24,18 +24,15 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
         $categories = Catalog::all();
         $relate_products = Product::paginate(4);
         $list_recommends = [];
-
         $calalogs = Catalog::get();
 
         foreach ($calalogs as $catalog) {
             $recommend_products = $catalog->products()->orderBy('view', 'desc')->take(3)->get();
             array_push($list_recommends, $recommend_products);
         }
-
-
 //        dd($arr);
 
-        return view('shop.home')->with([
+        return view('shop.shop')->with([
             'products' => $products,
             'categories' => $categories,
             'relate_products' => $relate_products,
@@ -93,6 +90,7 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
     }
 
     public function muahang($id) {
+        $categories = Catalog::all();
         $product_detail = Product::find($id);
         $img_detail=$product_detail->getImageFeature();
 //        dd($img_detail);
@@ -103,7 +101,8 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
 
 //        dd($content[img]);
         return redirect()->route('cart')->with([
-            'img_detail' =>$img_detail
+            'img_detail' =>$img_detail,
+            'categories' =>$categories
         ]);
     }
 
@@ -124,5 +123,13 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
     public function xoasanpham($id){
         Cart::remove($id);
         return redirect()->route('cart');
+    }
+
+    public function xoacart(){
+        $categories = Catalog::all();
+        Cart::destroy();
+        return redirect('/')->with([
+            'categories' =>$categories
+        ]);
     }
 }
