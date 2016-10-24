@@ -85,7 +85,7 @@ class SocialiteController extends Controller
                 $user->social_id = $data->id;
                 $user->save();
                 Auth::login($user);
-                return redirect()->with('alert', 'Bạn lập thành công = tk fb');
+                return redirect('/')->with('alert', 'Bạn lập thành công = tk fb');
             }
         }
     }

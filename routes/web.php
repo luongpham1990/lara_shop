@@ -15,7 +15,7 @@ use App\Catalog;
 |
 */
 
-Route::get('/', 'ShopController@index');
+Route::get('/', 'ShopController@index');    // route đến trang chủ
 //Lương sửa
 //Route::get('/home', function () {
 //    return view('shop.home');
@@ -48,13 +48,13 @@ Route::group(['prefix' => 'user'], function () {
 
 Route::get('/checkout', function () {
     return view('shop.checkout');
-});
+});                       // route trang check out
 
-Route::get('/cart','ShopController@cart')->name('cart');
+Route::get('/cart','ShopController@cart')->name('cart');   // route trang cart
 
-Route::get('/mua-hang/{id}','ShopController@muahang');
-Route::get('xoa-san-pham/{id}','ShopController@xoasanpham');
-Route::get('xoa-cart','ShopController@xoacart');
+Route::get('/mua-hang/{id}','ShopController@muahang');    // route mua hàng
+Route::get('xoa-san-pham/{id}','ShopController@xoasanpham');   // route xóa sản phẩm trong giỏ hàng
+Route::get('xoa-cart','ShopController@xoacart');                // route xóa cart
 Route::get('/contact', function () {
     return view('shop.contact-us');
 });
@@ -63,8 +63,8 @@ Route::get('/shop', function () {
     return view('shop.shop');
 });
 
-Route::get('catalog/{id}','ShopController@showcatalog');
-Route::get('products/{id}','ShopController@showdetail');
+Route::get('catalog/{id}','ShopController@showcatalog');   // route sản phẩm theo cata
+Route::get('products/{id}','ShopController@showdetail');   // route chi tiết sản phẩm
 
 //Lương sửa
 Route::group(['prefix' => 'admin'], function () {//route group truy cập theo đường dẫn host/admin

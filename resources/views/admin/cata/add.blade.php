@@ -7,7 +7,7 @@
 
           <!-- Page Content -->
               <div id="page-wrapper">
-
+                  {{--nếu tồn tại lỗi thì show--}}
                   @if(session('error'))
                       <div class="alert alert-danger alert-dismissible fade in" role="alert">
                           <button type="button" class="close" data-dismiss="alert"
@@ -35,6 +35,7 @@
                               </h1>
                           </div>
                           <!-- /.col-lg-12 -->
+                          {{--action, method--}}
                           <div class="col-lg-7" style="padding-bottom:120px">
                               <form action="/admin/cata/add" method="POST">
                                   {{ csrf_field() }}
