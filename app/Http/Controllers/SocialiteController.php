@@ -28,7 +28,7 @@ class SocialiteController extends Controller
 //dd($data);
         $user = User::where('email', $data->email)->first();//tìm user có email = email của tài khoản google lấy dc ở trên
 
-        if (!is_null($user)) {//nếu ko có user nào có email tài khoản google
+        if (!is_null($user)) {//nếu có user nào có email tài khoản google
             $user->username = $data->user['displayName'];//cập nhật tên user = tên của tài khoản google
             $user->avatar = $data->avatar;//cập nhật avatar = avatar sử dụng trên google
             $user->social_id = $data->id;//cập nhật social_id = id của tk google
@@ -56,12 +56,12 @@ class SocialiteController extends Controller
 
     public function redirectToFacebook()
     {
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::with('facebook')->redirect();
     }
 
     public function getFacebookCallback()
     {
-        $data = Socialite::driver('facebook')->user();
+        $data = Socialite::with('facebook')->user();
 //dd($data);
         $user = User::where('email', $data->email)->first();
 

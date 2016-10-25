@@ -39,7 +39,7 @@ class UserController extends Controller
             'username' => 'string|required|alpha_num|min:6|max:32|unique:users,username',
             'password' => 'string|required|alpha_num|min:6|max:32|confirmed',
             'email' => 'email|required|unique:users,email',
-            'address' => 'required|max:255|text',
+            'address' => 'required|max:255|string',
             'phone' => 'numeric|max:15'
         ];
         //tạo message nhé
@@ -75,6 +75,14 @@ class UserController extends Controller
             $user->is_admin = ($request->Level == 1) ? true : false;//ở đây vì là admin lập user mới trong gd admin nên có thêm nút chọn cho nó là user hay là admin: nếu level cho là 1 thì true còn ko thì false nhé
             $user->confirm_code = null;//confirm_code cho null luôn, mình lập mà
             $user->confirmed = true;//đã kích hoạt luôn nhé
+            if ($request->hasFile('avatars')){
+                $avatar = $request->file('avatars');
+                $filename = uniqid() .'_avatar'.$avatar->getClientOriginalName();
+
+                Image::make()->resize(300,300)->move(public_path('/avatars' . $filename));
+//                $user = Auth::user();//đồng bộ thằng user
+                $user->avatar = url('avatars/' . $filename);//xuất ra avatar cố tên đường dẫn
+            }
             $user->save();//save user này
 
             return redirect('/admin/user')->with('alert', 'Đã thêm thành viên thành công');//chirlaf điều hướng thôi
