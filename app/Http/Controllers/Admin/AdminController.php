@@ -72,7 +72,7 @@ class AdminController extends Controller
             $rule = [
                 'username' => 'string|min:6|max:32|unique:users,username',
                 'address' => 'text|max:255',
-                'phone' => 'numeric|max: 15',
+                'phone' => 'numeric|max:15',
                 'avatars' => 'mimes:jpg, jpeg, png,|max:10000'
             ];
             //message nhé
@@ -90,23 +90,23 @@ class AdminController extends Controller
             if ($validation->fails()) {//xịt
                 return redirect()->back()->withErrors($validation);
             } else {//ko xịt
+//                dd($user);
                 $user->username = $request->username;//sửa username
                 $user->address = $request->address;//sửa địa chỉ
                 $user->phone = $request->phone;//sửa số dt
-
 //                      dd(public_path('avatars/' . $filename));
                 if ($request->hasFile('avatars')) {//nếu có up ảnh lên
                     $avatar = $request->file('avatars');//avatar = dữ liệu dc gửi = input có tên là avatars
-                    $filename = uniqid() . '.' . $avatar->getClientOriginalName();//tạo tên cho ảnh khi chuyển vào csdl
+                    $filename = uniqid() . '_avatars' . $avatar->getClientOriginalName();//tạo tên cho ảnh khi chuyển vào csdl
                     Image::make($avatar)->resize(300, 300)->save(public_path('avatars/' . $filename));//up lên và save nó vào foder public/avatar
-
-                    $user = Auth::user();//đồng bộ thằng user
+//                    $user = Auth::user();//đồng bộ thằng user
                     $user->avatar = url('avatars/' . $filename);//xuất ra avatar cố tên đường dẫn
                 }
                 $user->save();//save ông admin vào
                 return redirect('/admin/' . $user->id . '/edit/')->with('alert', 'Sửa tài khoản thành công ');//điều hướng
             }
         }
+        abort(403);
     }
     //doi pass admin
     function changePass(Request $request, $id){

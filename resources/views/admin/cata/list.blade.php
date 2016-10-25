@@ -1,7 +1,8 @@
 @extends('admin.layouts.app')
-@section('htmlheader_title')
-    Admin Profile
-@endsection
+@section('htmlheader_title','List Categories')
+
+@section('contentheader_title','list Category')
+@section('contentheader_description','Danh sách category')
 @push('link')
 <style>
     .center a {
@@ -22,73 +23,80 @@
 
 @section('main-content')
     <!-- Page Content -->
-    <div id="page-wrapper">
 
-        @if(session('thongbao'))
-            <div class="alert alert-success">
-                {{session('thongbao')}}
-            </div>
-        @endif
-
-        @if(count($errors)>0)
-
-            <div class="alert alert-danger fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close"
-                   title="close">×</a>
-                @foreach($errors->all() as $error)
-
-                    <p><strong>{{ $error }}!</strong></p>
-                @endforeach
-            </div>
-
-        @endif
-
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Category
-                        <small>List</small>
-                    </h1>
+    <section class="content paddingleft_right15">
+        <div class="row">
+            @if(session('thongbao'))
+                <div class="alert alert-success">
+                    {{session('thongbao')}}
                 </div>
-                <!-- /.col-lg-12 -->
-                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                    <thead>
-                    <tr align="center">
-                        <th style="text-align: center">ID</th>
-                        <th style="text-align: center">Name</th>
-                        <th style="text-align: center">Edit</th>
-                        <th style="ext-align: center">Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($cata as $ct)
-                        <tr class="odd gradeX" align="center">
-                            <td>{{$ct->catalog_id  }}</td>
-                            <td>{{$ct->catalog_name}}</td>
+            @endif
 
-                            <td><a href="{{url('/admin/cata/'.$ct->catalog_id).'/edit/'}}"
-                                   class="edit-modal btn btn-primary">
-                                    <span class="glyphicon glyphicon-edit"></span> Edit
-                                </a></td>
+            @if(count($errors)>0)
 
-                            <td>
-                                <button class="delete-modal btn btn-danger" onclick=""
-                                        data-info="{{ $ct->catalog_id }}">
-                                    <span class="glyphicon glyphicon-trash"></span> Delete
-                                </button>
-                            </td>
-                            <form id="abc-{{ $ct->catalog_id }}" method="post"
-                                  action="/admin/cata/{{ $ct->catalog_id }}/delete/">
-                                {{csrf_field()}}
-                                {{ method_field('DELETE') }}
-                            </form>
-                        </tr>
+                <div class="alert alert-danger fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close"
+                       title="close">×</a>
+                    @foreach($errors->all() as $error)
+
+                        <p><strong>{{ $error }}!</strong></p>
                     @endforeach
-                    </tbody>
-                </table>
+                </div>
+
+            @endif
+
+            <div class="panel panel-primary ">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="livicon" data-name="user" data-size="16" data-loop="true"
+                                               data-c="#fff" data-hc="white" id="livicon-47"
+                                               style="width: 16px; height: 16px;">
+                        </i>
+                        Products List
+                    </h4>
+                </div>
+                <br>
+                <div class="panel-body">
+                    <!-- /.col-lg-12 -->
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                        <tr align="center">
+                            <th style="text-align: center">ID</th>
+                            <th style="text-align: center">Name</th>
+                            <th style="text-align: center">Edit</th>
+                            <th style="ext-align: center">Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($cata as $ct)
+                            <tr class="odd gradeX" align="center">
+                                <td>{{$ct->catalog_id  }}</td>
+                                <td>{{$ct->catalog_name}}</td>
+
+                                <td><a href="{{url('/admin/cata/'.$ct->catalog_id).'/edit/'}}"
+                                       class="edit-modal btn btn-primary">
+                                        <span class="glyphicon glyphicon-edit"></span> Edit
+                                    </a></td>
+
+                                <td>
+                                    <button class="delete-modal btn btn-danger" onclick=""
+                                            data-info="{{ $ct->catalog_id }}">
+                                        <span class="glyphicon glyphicon-trash"></span> Delete
+                                    </button>
+                                </td>
+                                <form id="abc-{{ $ct->catalog_id }}" method="post"
+                                      action="/admin/cata/{{ $ct->catalog_id }}/delete/">
+                                    {{csrf_field()}}
+                                    {{ method_field('DELETE') }}
+                                </form>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <!-- /.row -->
         </div>
+        <!-- /.row -->
+
         <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
@@ -117,7 +125,7 @@
             </div>
         </div>
         <!-- /.container-fluid -->
-    </div>
+    </section>
     <!-- /#page-wrapper -->
 @endsection
 @push('scripts')

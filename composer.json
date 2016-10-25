@@ -8,10 +8,15 @@
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
         "intervention/image": "^2.3",
+<<<<<<< HEAD
         "laravel/socialite": "^2.0",
         "gloudemans/shoppingcart": "^2.2",
+=======
+        "barryvdh/laravel-ide-helper": "^2.2",
+>>>>>>> 3b7b0f621bcaa71b343a8e3df4e6cd3137ae3f71
         "acacha/admin-lte-template-laravel": "2.*",
-        "uxweb/sweet-alert": "~1.1"
+        "uxweb/sweet-alert": "~1.1",
+        "gloudemans/shoppingcart": "^2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
