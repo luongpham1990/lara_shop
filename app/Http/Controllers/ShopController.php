@@ -24,15 +24,12 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
         $categories = Catalog::all();
         $relate_products = Product::paginate(4);
         $list_recommends = [];
-
         $calalogs = Catalog::get();
 
         foreach ($calalogs as $catalog) {
             $recommend_products = $catalog->products()->orderBy('view', 'desc')->take(3)->get();
             array_push($list_recommends, $recommend_products);
         }
-
-
 //        dd($arr);
 
         return view('shop.home')->with([
@@ -70,29 +67,29 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
     public function showcatalog($id)
     {
         $products = Product::paginate(2);
-        $categories = Catalog::all();
+        $categories = Catalog::find($id);
         $product = Product::all();
 
-        $all_catalogproducts = DB::table('products')->select('id', 'catalog_id', 'product_name', 'price', 'view', 'review', 'brand', 'status')->where('catalog_id', $id)->orderBy('view', 'DESC')->get();
-        foreach ($all_catalogproducts as $all_catalogproducts){
-            $img_id=$all_catalogproducts->id;
-            $imgs = DB::table('product_photos')
-                ->join('product_product_photos', 'product_photos.product_photo_id', '=', 'product_product_photos.product_photo_id')
-                ->join('products', 'product_product_photos.product_id', '=', 'products.id')
-                ->where('product_id',$img_id)
-                ->first();
-        }
-
-        dd($imgs->thumbnail_photo_link);
+        $all_catalogproducts = DB::table('products')->where('catalog_id', $id)->orderBy('view', 'DESC')->get();
+//        foreach ($all_catalogproducts as $all_catalogproducts){
+//            $img_id=$all_catalogproducts->id;
+//            $imgs = DB::table('product_photos')
+//                ->join('product_product_photos', 'product_photos.product_photo_id', '=', 'product_product_photos.product_photo_id')
+//                ->join('products', 'product_product_photos.product_id', '=', 'products.id')
+//                ->where('product_id',$img_id)
+//                ->first();
+//        }
+        
         return view('shop.shop')->with([
             'products' => $products,
             'categories' => $categories,
             'all_catalogproducts' => $all_catalogproducts,
-            'imgs' =>$imgs,
+//            'imgs' =>$imgs,
         ]);
     }
 
     public function muahang($id) {
+        $categories = Catalog::all();
         $product_detail = Product::find($id);
         $img_detail=$product_detail->getImageFeature();
 //        dd($img_detail);
@@ -103,7 +100,8 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
 
 //        dd($content[img]);
         return redirect()->route('cart')->with([
-            'img_detail' =>$img_detail
+            'img_detail' =>$img_detail,
+            'categories' =>$categories
         ]);
     }
 
@@ -124,5 +122,13 @@ class ShopController extends Controller //chuyen de viet nhung cai hien thi ngoa
     public function xoasanpham($id){
         Cart::remove($id);
         return redirect()->route('cart');
+    }
+
+    public function xoacart(){
+        $categories = Catalog::all();
+        Cart::destroy();
+        return redirect('/')->with([
+            'categories' =>$categories
+        ]);
     }
 }

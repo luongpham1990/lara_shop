@@ -70,7 +70,7 @@
                                     <td><span>{{$total}}</span></td>
                                 </tr>
                             </table>
-                            <a class="btn btn-default update" href="{{url('clear-cart')}}">Clear Cart</a>
+                            <a class="btn btn-default update" href="{{url('xoa-cart')}}">Clear Cart</a>
                             <a class="btn btn-default check_out" href="{{url('checkout')}}">Check Out</a>
                         </td>
                     </tr>
@@ -102,11 +102,11 @@
 
 @endsection
 
-{{--<script>--}}
-    {{--$(document).ready(function () {--}}
-        {{--$(".cart_quantity_delete").click(function () {--}}
-            {{--alert(111)--}}
-        {{--})--}}
-    {{--})--}}
+<script>
+    $(document).ready(function () {
+        $(".cart_quantity_delete").click(function () {
+            alert(111)
+        })
+    })
 
-{{--</script>--}}
+</script>

@@ -5,6 +5,57 @@
 
 @section('main-content')
 
+<<<<<<< HEAD
+          <!-- Page Content -->
+              <div id="page-wrapper">
+                  {{--nếu tồn tại lỗi thì show--}}
+                  @if(session('error'))
+                      <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                          <button type="button" class="close" data-dismiss="alert"
+                                  aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                          <strong> {{ session('error') }}  </strong>
+                      </div>
+                  @endif
+                  @if(session('alert'))
+                      <div class="alert alert-info alert-dismissible fade in" role="alert">
+                          <button type="button" class="close" data-dismiss="alert"
+                                  aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                          <strong> {{ session('alert') }}  </strong>
+                      </div>
+                  @endif
+
+                  <div class="container-fluid">
+                      <div class="row">
+                          <div class="col-lg-12">
+                              <h1 class="page-header">Category
+                                  <small>Add</small>
+                              </h1>
+                          </div>
+                          <!-- /.col-lg-12 -->
+                          {{--action, method--}}
+                          <div class="col-lg-7" style="padding-bottom:120px">
+                              <form action="/admin/cata/add" method="POST">
+                                  {{ csrf_field() }}
+                                  <div class="form-group">
+                                      <label>Category Name</label>
+                                      <input class="form-control" name="name" placeholder="Please Enter Category Name" type="text" />
+                                  </div>
+                                  <button type="submit" class="btn btn-primary">Add Category</button>
+                                  <button type="reset" class="btn btn-danger">Reset</button>
+                                  </form>
+                          </div>
+                      </div>
+                      <!-- /.row -->
+                  </div>
+                  <!-- /.container-fluid -->
+              </div>
+              <!-- /#page-wrapper -->
+          @endsection
+=======
     <!-- Page Content -->
     <section class="content paddingleft_right15">
         <div class="row">
@@ -70,6 +121,7 @@
         <!-- /.row -->
     </section>
 @endsection
+>>>>>>> 3b7b0f621bcaa71b343a8e3df4e6cd3137ae3f71
 
 @push('script')
 <script>

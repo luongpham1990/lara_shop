@@ -157,7 +157,7 @@ class ProductController extends Controller
             return redirect()->back()->withErrors($validation)->withInput();
         }
 
-        $product = new Product();
+        $product = Product::find($id);
         $product->product_name = $request->name;
         $product->price = $request->price;
         $product->description = $request->input('description');
@@ -165,7 +165,6 @@ class ProductController extends Controller
         $product->status = $request->rdoStatus;
         $product->catalog_id = $request->catalog;
         $product->save();
-
 
         if (Input::hasFile('image')) {
             foreach (Input::file('image') as $file) {
