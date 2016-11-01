@@ -126,30 +126,30 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
         Route::delete('/{id}/delete', 'Admin\UserController@delete');//xóa user
     });
     //Lương sửa
-    Route::group(['prefix' => 'catablog'], function () {//phần admin điều chỉnh liên quan đến user của website đường dẫn /admin/catablog
-        Route::get('/', 'Admin\CatablogController@show');//show ra danh sách user /admin/catablog/
+    Route::group(['prefix' => 'catablog'], function () {//phần admin điều chỉnh liên quan đến catablog của website đường dẫn /admin/catablog
+        Route::get('/', 'Admin\CatablogController@show');//show ra danh sách catablog /admin/catablog/
 
-        Route::get('/add', 'Admin\CatablogController@showadd');// show ra view add user của website  /admin/user
-        Route::post('/add', 'Admin\CatablogController@add');//  add  các user của website /admin/catablog
+        Route::get('/add', 'Admin\CatablogController@showadd');// show ra view add catablog của website  /admin/user
+        Route::post('/add', 'Admin\CatablogController@add');//  add  các catablog của website /admin/catablog
 
-        Route::get('/{id}/edit', 'Admin\CatablogController@showOne');// show ra view edit profile  các user của website  /admin/product/add
-        Route::put('/{id}/edit', 'Admin\CatablogController@edit');// edit profile  các user của website  /admin/catablog/add
+        Route::get('/{id}/edit', 'Admin\CatablogController@showOne');// show ra view edit catablog của website  /admin/product/add
+        Route::put('/{id}/edit', 'Admin\CatablogController@edit');// edit catablog của website  /admin/catablog/add
 //        Route::put('/edituser', 'Admin\CatablogController@editUser');//x editable edit user
-        Route::delete('/{id}/delete', 'Admin\CatablogController@delete');//xóa user
+        Route::delete('/{id}/delete', 'Admin\CatablogController@delete');//xóa catablog
     });
     //Lương sửa
-    Route::group(['prefix' => 'post'], function () {//vào phần các sp của website /admin/post
-        Route::get('/', 'Admin\PostController@show');// show ra view list các sp của website v /admin/post/
+    Route::group(['prefix' => 'post'], function () {//vào phần các post cua blog của website /admin/post
+        Route::get('/', 'Admin\PostController@show');// show ra view list các post cua blog của website v /admin/post/
 
-        Route::get('add', 'Admin\PostController@showadd');// show ra view add  các sp của website  /admin/post/add
-        Route::post('add', 'Admin\PostController@add');//  add  các sp của website  /admin/post/add
+        Route::get('add', 'Admin\PostController@showadd');// show ra view add  các post cua blog của website  /admin/post/add
+        Route::post('add', 'Admin\PostController@add');//  add  các post cua blog của website  /admin/post/add
 
 //        Route::post('/post/uploadimage', 'Admin\PostController@uploadImage')->name('post_upload_image');
 
-        Route::get('/{id}/edit', 'Admin\PostController@showOne');//Lương sửa đường dẫn show sp theo chuẩn resful
-        Route::put('/{id}/edit', 'Admin\PostController@edit');//Lương sửa đường dẫn edit thông tin sp theo chuẩn resful
+        Route::get('/{id}/edit', 'Admin\PostController@showOne');//Lương sửa đường dẫn show post cua blog theo chuẩn resful
+        Route::put('/{id}/edit', 'Admin\PostController@edit');//Lương sửa đường dẫn edit post cua blog theo chuẩn resful
 
-        Route::delete('/{id}/delete', 'Admin\PostController@delete');//xóa sp
+        Route::delete('/{id}/delete', 'Admin\PostController@delete');//xóa post cua blog
         Route::get('/{id}/delimg','Admin\PostController@DelImg');
     });
 });

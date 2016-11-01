@@ -60,7 +60,7 @@
                                     </td>
                                     <td>{{ $item->slug }}</td>
                                     <td>{{ $item->description }}</td>
-                                    <td><a href="/admin/product/{{ $item->id }}/edit/"
+                                    <td><a href="/admin/catablog/{{ $item->id }}/edit/"
                                            class=" col-md-12 edit-modal btn btn-primary">
                                             <span class="glyphicon glyphicon-edit"></span> Edit
                                         </a>
@@ -124,5 +124,10 @@
 
     }
 
+</script>
+<script>
+    $(document).ready(function () {
+        $('#all-posts').DataTable();
+    });
 </script>
 @endpush

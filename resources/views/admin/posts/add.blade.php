@@ -261,7 +261,7 @@
                     </div>
                     <br>
                     <div class="panel-body">
-                        <form id="form_post" method="POST" action="{{ url('/admin/posts/add') }}" accept-charset="UTF-8"
+                        <form id="form_post" method="POST" action="{{ url('/admin/post/add') }}" accept-charset="UTF-8"
                               class="bf"
                               enctype="multipart/form-data" runat="server">
                             {{ csrf_field() }}
