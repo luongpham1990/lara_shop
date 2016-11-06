@@ -56,10 +56,10 @@
                 </ul>
             </li>
             <li class="treeview">
-                <a href="#"><i class='fa fa-link'></i> <span>Catalog Blog</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class='fa fa-link'></i> <span>Catelog Blog</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{url('/admin/catablog')}}">List Catalog</a></li>
-                    <li><a href="{{url('/admin/catablog/add')}}">Add Catalog</a></li>
+                    <li><a href="{{url('/admin/cateblog')}}">List Cateblog</a></li>
+                    <li><a href="{{url('/admin/cateblog/add')}}">Add Cateblog</a></li>
                 </ul>
             </li>
             <li class="treeview">

@@ -1,7 +1,8 @@
 @extends('admin.layouts.app')
-@section('htmlheader_title','Add Posts')
+@section('htmlheader_title','Create Post')
 
-@section('contentheader_title','Add post')
+@section('contentheader_title','Post')
+@section('contentheader_description','Tạo mới Post')
 {{--@section('contentheader_description','Add one post')--}}
 
 @push('links')
@@ -230,13 +231,15 @@
         <div class="row">
             <!-- errors -->
             <div class="has-error">
-                @if(session('error'))
+                @if(count($errors))
                     <div class="alert alert-danger alert-dismissible fade in" role="alert">
                         <button type="button" class="close" data-dismiss="alert"
                                 aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <strong> {{ session('error') }}  </strong>
+                        @foreach( $errors->all() as $item)
+                            <li> {{ $item }}  </li>
+                        @endforeach
                     </div>
                 @endif
                 @if(session('alert'))
@@ -256,7 +259,7 @@
                                                    data-c="#fff" data-hc="white" id="livicon-47"
                                                    style="width: 16px; height: 16px;">
                             </i>
-                            Tickets List
+                            Create Post
                         </h4>
                     </div>
                     <br>
@@ -272,11 +275,8 @@
                                                placeholder="Post title here..." name="title" type="text">
                                     </div>
                                     <div class="box-body pad">
-                                        {{--<textarea id="summnernote" class="textarea form-control" rows="5" placeholder="Place some text here"--}}
-                                        {{--name="content" cols="50"></textarea>--}}
-
-                                        <textarea class="form-control" placeholder="Post description" id="summernote" name="content"></textarea>
-
+                                        <textarea class="form-control" placeholder="Post description" id="summernote"
+                                                  name="content"></textarea>
                                     </div>
                                 </div>
                                 <!-- /.col-sm-8 -->
@@ -285,10 +285,9 @@
                                         <label for="blog_category_id">Post category</label>
                                         <select class="form-control select2" id="blog_category_id" name="category">
                                             <option selected="selected" value="">Select a Category</option>
-                                            @foreach($data as $category)
-                                                <option value="{{$category->id}}"> {{ $category->name }}</option>
+                                            @foreach($data as $cateblog)
+                                                <option value="{{$cateblog->id}}"> {{ $cateblog->name }}</option>
                                             @endforeach
-
                                         </select>
                                     </div>
 
@@ -311,7 +310,7 @@
                                             <div id="wrapper" style="margin-top: 10px;"><input id="fileUpload"
                                                                                                multiple="multiple"
                                                                                                type="file"
-                                                                                               name="image[]"/>
+                                                                                               name="banner"/>
                                                 <div id="image-holder"></div>
                                             </div>
                                         </div>
@@ -331,76 +330,76 @@
 
 @push('scripts')
 <script src="/plugins/summernote/summernote.min.js" type="text/javascript"></script>
-{{--<script>--}}
-{{--$(function () {--}}
-{{--$('#summernote').summernote({--}}
+<script>
+    $(function () {
+        $('#summernote').summernote({
 
-{{--callbacks: {--}}
-{{--onImageUpload: function (files, editor, $editable) {--}}
-{{--//                    alert('evoked');--}}
-{{--sendFile(files[0], editor, $editable);--}}
-{{--}--}}
-{{--},--}}
-{{--placeholder: 'write here...',--}}
-{{--height: 300,                 // set editor height--}}
-{{--minHeight: null,             // set minimum height of editor--}}
-{{--maxHeight: null,             // set maximum height of editor--}}
-{{--focus: true,  // set auto focus--}}
-{{--disableDragAndDrop: false  // enable drag and drop--}}
-{{--});--}}
+            callbacks: {
+                onImageUpload: function (files, editor, $editable) {
+//                    alert('evoked');
+                    sendFile(files[0], editor, $editable);
+                }
+            },
+            placeholder: 'write here...',
+            height: 300,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true,  // set auto focus
+            disableDragAndDrop: false  // enable drag and drop
+        });
 
-{{--function sendFile(file, editor, welEditable) {--}}
+        function sendFile(file, editor, welEditable) {
 
-{{--data = new FormData();--}}
-{{--data.append("file", file);--}}
-{{--$.ajax({--}}
-{{--headers: {--}}
-{{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-{{--},--}}
-{{--url: "{{ url(route('post_upload_image')) }}",--}}
-{{--data: data,--}}
-{{--cache: false,--}}
-{{--contentType: false,--}}
-{{--processData: false,--}}
-{{--type: 'POST',--}}
-{{--success: function (data) {--}}
-{{--//                    alert(data);--}}
-{{--console.log(data);--}}
-{{--$('#summernote').summernote("insertImage", data.data, 'filename');--}}
-{{--},--}}
-{{--error: function (jqXHR, textStatus, errorThrown) {--}}
-{{--console.log(textStatus + " " + errorThrown);--}}
-{{--}--}}
-{{--});--}}
-{{--}--}}
-
-
-{{--//preview image before upload--}}
-{{--function readURL(input) {--}}
-
-{{--if (input.files && input.files[0]) {--}}
-{{--var reader = new FileReader();--}}
-
-{{--reader.onload = function (e) {--}}
-
-{{--$('.fileupload.fileupload-new').addClass('fileupload-exists').removeClass('fileupload-new');--}}
-{{--$('.fileupload-preview').html('');--}}
-{{--var img = '<img class="img-responsive thumbnail" src="' + e.target.result + '">';--}}
-{{--$('.fileupload-preview').append(img);--}}
-{{--//                    $('#blah').attr('src', e.target.result);--}}
-{{--};--}}
-
-{{--reader.readAsDataURL(input.files[0]);--}}
-{{--}--}}
-{{--}--}}
-
-{{--$("#banner").change(function () {--}}
-{{--readURL(this);--}}
-{{--});--}}
-{{--});--}}
+            data = new FormData();
+            data.append("file", file);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url(route('post_upload_image')) }}",
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success: function (data) {
+//                    alert(data);
+                    console.log(data);
+                    $('#summernote').summernote("insertImage", data.data, 'filename');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus + " " + errorThrown);
+                }
+            });
+        }
 
 
-{{--</script>--}}
+//preview image before upload
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+
+                    $('.fileupload.fileupload-new').addClass('fileupload-exists').removeClass('fileupload-new');
+                    $('.fileupload-preview').html('');
+                    var img = '<img class="img-responsive thumbnail" src="' + e.target.result + '">';
+                    $('.fileupload-preview').append(img);
+//                    $('#blah').attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#banner").change(function () {
+            readURL(this);
+        });
+    });
+
+
+</script>
 <script>
     $(document).ready(function () {
         $("#fileUpload").on('change', function () {

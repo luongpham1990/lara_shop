@@ -10,7 +10,7 @@ use Validator;
 use Requests;
 use Image;
 
-class CatablogController extends Controller
+class CateblogController extends Controller
 {
     //
     function __construct()
@@ -20,11 +20,11 @@ class CatablogController extends Controller
 
     function show() {
         $Cateblog = Cateblog::all();
-        return view('admin.catablog.list', ['blog' => $Cateblog]);
+        return view('admin.cateblog.list', ['blog' => $Cateblog]);
     }
 
     function showadd() {
-        return view('admin.catablog.add');
+        return view('admin.cateblog.add');
     }
 
     function add(Request $request) {
@@ -46,21 +46,21 @@ class CatablogController extends Controller
             $cateblog->name =$request->name;
             $cateblog->slug = str_slug($request->name);
             $cateblog->description = $request->description;
-            if ($request->hasFile('banner')){
-                $banner = $request->file('banner');
-                $filename = uniqid().'_banner'.$banner->getClientOriginalName();
-
-                Image::make($banner)->resize(500,500)->save(public_path('images/blog/' . $filename));
-                $cateblog->image = url('images/blog'. $filename);
-            }
+//            if ($request->hasFile('banner')){
+//                $banner = $request->file('banner');
+//                $filename = uniqid().'_banner'.$banner->getClientOriginalName();
+//
+//                Image::make($banner)->resize(500,500)->save(public_path('images/blog/' . $filename));
+//                $cateblog->image = url('images/blog'. $filename);
+//            }
             $cateblog->save();
-            return redirect('/admin/catablog/add')->with('alert','Tạo mới thành công');
+            return redirect('/admin/cateblog/add')->with('alert','Tạo mới thành công');
         }
     }
 
     function showOne ($id) {
-        $catablog = Cateblog::find($id);
-        return view('admin.catablog.edit',['data' => $catablog]);
+        $cateblog = Cateblog::find($id);
+        return view('admin.cateblog.edit',['data' => $cateblog]);
     }
 
     function edit(Request $request, $id){
@@ -82,20 +82,20 @@ class CatablogController extends Controller
 
             $cateblog->name = $request->name;
             $cateblog->description = $request->description;
-            if ($request->hasFile('banner')){
-                $banner = $request->file('banner');
-                $filename = uniqid().'_banner'.$banner->getClientOriginalName();
-
-                Image::make($banner)->resize(500,500)->save(public_path('/images/blog'.$filename));
-                $cateblog->image = url(public_path('/images/blog'.$filename));
-            }
+//            if ($request->hasFile('banner')){
+//                $banner = $request->file('banner');
+//                $filename = uniqid().'_banner'.$banner->getClientOriginalName();
+//
+//                Image::make($banner)->resize(500,500)->save(public_path('/images/blog'.$filename));
+//                $cateblog->image = url('/images/blog'.$filename);
+//            }
             $cateblog->save();
-            return redirect('/admin/catablog/{id}/edit')->with('alert','Sửa thành công');
+            return redirect('/admin/cateblog/{id}/edit')->with('alert','Sửa thành công');
         }
     }
 
     function delete($id) {
         Cateblog::find($id)->delete();
-        return request('/admin/catablog')->with('alert','Xóa thành công');
+        return request('/admin/cateblog')->with('alert','Xóa thành công');
     }
 }

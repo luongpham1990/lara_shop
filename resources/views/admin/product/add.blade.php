@@ -1,12 +1,13 @@
 @extends('admin.layouts.app')
-@section('htmlheader_title')
-    Admin
-@endsection
-@section('contentheader_title')
-    User Area
-@endsection
+@section('htmlheader_title','Create Product')
+
+@section('contentheader_title','Product')
+@section('contentheader_description','Thêm mới Product')
+@push('link')
+<style type="text/css">.thumb-image{float:left;width:170px;position:relative;padding:10px;}</style>
+@endpush
 @section('main-content')
-    <style type="text/css">.thumb-image{float:left;width:170px;position:relative;padding:10px;}</style>
+
     <!-- Page Content -->
    <section class="content paddingleft_right15">
        <div class="row">

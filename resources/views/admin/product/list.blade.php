@@ -1,7 +1,8 @@
 @extends('admin.layouts.app')
-@section('htmlheader_title','Admin Profile')
+@section('htmlheader_title','List Product')
 
 @section('contentheader_title','Product')
+@section('contentheader_description','Danh sách Product')
 @push('link')
 <style>
     .center a {
@@ -37,7 +38,7 @@
                                                data-c="#fff" data-hc="white" id="livicon-47"
                                                style="width: 16px; height: 16px;">
                         </i>
-                        Products List
+                        List Products
                     </h4>
                 </div>
                 <br>
@@ -114,7 +115,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="deleteContent">
-                            Are you sure you want to delete <span class="dname"></span> ? <span
+                            Bạn thực sự muốn xóa bản ghi này <span class="dname"></span> ? <span
                                     class="hidden did"></span>
                         </div>
                         <div class="modal-footer">

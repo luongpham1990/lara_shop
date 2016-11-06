@@ -1,9 +1,9 @@
 @extends('admin.layouts.app')
 
-@section('htmlheader_title','Add Categories')
+@section('htmlheader_title','Edit Cateblog')
 
-@section('contentheader_title','Add Category')
-@section('contentheader_description','Add one category')
+@section('contentheader_title','Cateblog')
+@section('contentheader_description','Chỉnh sửa Cateblog')
 
 @push('links')
 
@@ -255,7 +255,7 @@
                                                style="width: 16px; height: 16px;">
 
                         </i>
-                        Sửa category
+                        Edit Cateblog
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -283,17 +283,17 @@
                             </div>
 
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-2">Featured image</label>
-                            <div class="col-sm-10 fileupload fileupload-new" data-provides="fileupload">
-                                <span class="btn btn-primary btn-file">
-                                    <span class="fileupload-new">Select file</span>
-                                    <span class="fileupload-exists">Change</span>
-                                     <input id="banner" name="banner" type="file">
-                                </span>
-                                <div class="fileupload-preview " style="max-width: 200px"></div>
-                            </div>
-                        </div>
+                        {{--<div class="form-group">--}}
+                            {{--<label class="col-sm-2">Featured image</label>--}}
+                            {{--<div class="col-sm-10 fileupload fileupload-new" data-provides="fileupload">--}}
+                                {{--<span class="btn btn-primary btn-file">--}}
+                                    {{--<span class="fileupload-new">Select file</span>--}}
+                                    {{--<span class="fileupload-exists">Change</span>--}}
+                                     {{--<input id="banner" name="banner" type="file">--}}
+                                {{--</span>--}}
+                                {{--<div class="fileupload-preview " style="max-width: 200px"></div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-4">
                                 <button type="submit" class="btn btn-primary">
@@ -313,38 +313,38 @@
 @push('scripts')
 <script>
 
-    @if($data->image)
-    $(function(){
-        $('.fileupload.fileupload-new').addClass('fileupload-exists').removeClass('fileupload-new');
-        $('.fileupload-preview').html('');
-        var img = '<img class="img-responsive thumbnail" src="{{ $data->image }}">';
-        $('.fileupload-preview').append(img);
-    });
-    @endif
+    {{--@if($data->image)--}}
+    {{--$(function(){--}}
+        {{--$('.fileupload.fileupload-new').addClass('fileupload-exists').removeClass('fileupload-new');--}}
+        {{--$('.fileupload-preview').html('');--}}
+        {{--var img = '<img class="img-responsive thumbnail" src="{{ $data->image }}">';--}}
+        {{--$('.fileupload-preview').append(img);--}}
+    {{--});--}}
+    {{--@endif--}}
 
 
 
     //preview image before upload
-    function readURL(input) {
+//    function readURL(input) {
+//
+//        if (input.files && input.files[0]) {
+//            var reader = new FileReader();
+//
+//            reader.onload = function (e) {
+//
+//                $('.fileupload.fileupload-new').addClass('fileupload-exists').removeClass('fileupload-new');
+//                $('.fileupload-preview').html('');
+//                var img = '<img class="img-responsive thumbnail" src="' + e.target.result + '">';
+//                $('.fileupload-preview').append(img);
+////                    $('#blah').attr('src', e.target.result);
+//            };
+//
+//            reader.readAsDataURL(input.files[0]);
+//        }
+//    }
 
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-
-                $('.fileupload.fileupload-new').addClass('fileupload-exists').removeClass('fileupload-new');
-                $('.fileupload-preview').html('');
-                var img = '<img class="img-responsive thumbnail" src="' + e.target.result + '">';
-                $('.fileupload-preview').append(img);
-//                    $('#blah').attr('src', e.target.result);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $("#banner").change(function () {
-        readURL(this);
-    });
+//    $("#banner").change(function () {
+//        readURL(this);
+//    });
 </script>
 @endpush

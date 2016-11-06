@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 @section('htmlheader_title','Add Posts')
 
-@section('contentheader_title','Add post')
-@section('contentheader_description','Add one post')
+@section('contentheader_title','post')
+@section('contentheader_description','Chỉnh sửa Post')
 
 @push('links')
 <link href="/plugins/summernote/summernote.css" type="text/css" rel="stylesheet">
@@ -14,6 +14,7 @@
         position: relative;
         background: white;
     }
+
     /*Blog  custom code*/
 
     .featured-post-wide {
@@ -184,9 +185,11 @@
         background: #fff;
         border: 1px solid #ccc;
     }
-    .fileupload-preview{
+
+    .fileupload-preview {
         margin-top: 10px;
     }
+
     .bootstrap-select.btn-group .dropdown-menu {
         min-width: 100%;
     }
@@ -210,11 +213,12 @@
         padding-left: 0px;
         padding-right: 0px;
     }
+
     /*add new blog */
     /*summer note */
-    .summernote-editable{
-        height:300px;
-        width:100%;
+    .summernote-editable {
+        height: 300px;
+        width: 100%;
     }
 
 </style>
@@ -224,71 +228,100 @@
     <section class="content paddingleft_right15">
         <!--main content-->
         <div class="row">
-            <div class="the-box no-border">
-                <!-- errors -->
-                <div class="has-error">
 
+            <!-- errors -->
+            <div class="has-error">
+                @if(session('alert'))
+                    <div class="alert alert-success">
+                        {{session('alert')}}
+                    </div>
+                @endif
+                @if(count($errors))
+                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <ul>
+                            @foreach( $errors->all() as $item)
+                                <li> {{ $item }}  </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
+            </div>
+            <div class="panel panel-primary ">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="livicon" data-name="user" data-size="16" data-loop="true"
+                                               data-c="#fff" data-hc="white" id="livicon-47"
+                                               style="width: 16px; height: 16px;">
+                        </i>
+                        Edit Post
+                    </h4>
                 </div>
-                <form id="form_post" method="POST" action="{{ url('/admin/posts/'.$data->id).'/edit' }}" accept-charset="UTF-8" class="bf"
-                      enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    {{ method_field('PUT') }}
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="form-group">
-                                <input class="form-control input-lg" required="required" value="{{ $data->title }}"
-                                       placeholder="Post title here..." name="title" type="text">
+                <br>
+                <div class="panel-body">
+                    <form id="form_post" method="POST" action="{{ url('/admin/post/'.$data->id).'/edit' }}"
+                          accept-charset="UTF-8" class="bf"
+                          enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <input class="form-control input-lg" required="required" value="{{ $data->title }}"
+                                           placeholder="Post title here..." name="title" type="text">
+                                </div>
+                                <div class="box-body pad">
+                                    {{--<textarea id="summnernote" class="textarea form-control" rows="5" placeholder="Place some text here"--}}
+                                    {{--name="content" cols="50"></textarea>--}}
+
+                                    <textarea id="summernote" name="content"> {{ $data->body }}</textarea>
+
+                                </div>
                             </div>
-                            <div class="box-body pad">
-                                {{--<textarea id="summnernote" class="textarea form-control" rows="5" placeholder="Place some text here"--}}
-                                {{--name="content" cols="50"></textarea>--}}
+                            <!-- /.col-sm-8 -->
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="blog_category_id">Post category</label>
+                                    <select class="form-control select2" id="blog_category_id" name="category">
+                                        <option selected="selected" value="">Select a Category</option>
+                                        @foreach($cate as $category)
+                                            <option
 
-                                <textarea id="summernote" name="content"> {{ $data->body }}</textarea>
+                                                    {{ $category->id === $data->category_id ? 'selected':'' }}
 
-                            </div>
-                        </div>
-                        <!-- /.col-sm-8 -->
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="blog_category_id">Post category</label>
-                                <select class="form-control select2" id="blog_category_id" name="category">
-                                    <option selected="selected" value="">Select a Category</option>
-                                    @foreach($categories as $category)
-                                        <option
+                                                    value="{{$category->id}}"> {{ $category->name }}</option>
+                                        @endforeach
 
-                                                {{ $category->id === $data->category_id ? 'selected':'' }}
-
-                                                value="{{$category->id}}"> {{ $category->name }}</option>
-                                    @endforeach
-
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <div class="bootstrap-tagsinput"><input type="text" placeholder="Tags..."></div>
-                                <input class="form-control input-lg" data-role="tagsinput" placeholder="Tags..."
-                                       name="tags" type="text" style="display: none;">
-                            </div>
-                            <div class="form-group">
-                                <label>Featured image</label>
-                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <div class="bootstrap-tagsinput"><input type="text" placeholder="Tags..."></div>
+                                    <input class="form-control input-lg" data-role="tagsinput" placeholder="Tags..."
+                                           name="tags" type="text" style="display: none;">
+                                </div>
+                                <div class="form-group">
+                                    <label>Featured image</label>
+                                    <div class="fileupload fileupload-new" data-provides="fileupload">
                                 <span class="btn btn-primary btn-file">
                                     <span class="fileupload-new">Select file</span>
                                     <span class="fileupload-exists">Change</span>
                                      <input id="banner" name="banner" type="file">
                                 </span>
-                                    <div class="fileupload-preview ">
-                                        <img class="img-responsive" id="preview"  src="{{ $data->banner }}">
+                                        <div class="fileupload-preview ">
+                                            <img class="img-responsive" id="preview" src="{{ $data->banner }}">
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success">Sửa</button>
+                                    <a href="" type="reset" class="btn btn-danger">Hủy</a>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success">Sửa</button>
-                                <a href="" type="reset" class="btn btn-danger">Hủy</a>
-                            </div>
-                        </div>
-                        <!-- /.col-sm-4 --> </div>
-                </form>
+                            <!-- /.col-sm-4 --> </div>
+                    </form>
+                </div>
             </div>
         </div>
         <!--main content ends-->
@@ -303,9 +336,9 @@
         $('#summernote').summernote({
 
             callbacks: {
-                onImageUpload: function(files, editor, $editable) {
+                onImageUpload: function (files, editor, $editable) {
 //                    alert('evoked');
-                    sendFile(files[0],editor,$editable);
+                    sendFile(files[0], editor, $editable);
                 }
             },
             placeholder: 'write here...',
@@ -316,7 +349,7 @@
             disableDragAndDrop: false  // enable drag and drop
         });
 
-        function sendFile(file,editor,welEditable) {
+        function sendFile(file, editor, welEditable) {
 
             data = new FormData();
             data.append("file", file);
@@ -330,18 +363,16 @@
                 contentType: false,
                 processData: false,
                 type: 'POST',
-                success: function(data){
+                success: function (data) {
 //                    alert(data);
                     console.log(data);
                     $('#summernote').summernote("insertImage", data.data, 'filename');
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus+" "+errorThrown);
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus + " " + errorThrown);
                 }
             });
         }
-
-
 
 
         //preview image before upload
@@ -360,7 +391,7 @@
             }
         }
 
-        $("#banner").change(function(){
+        $("#banner").change(function () {
             readURL(this);
         });
     });

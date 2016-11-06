@@ -66,6 +66,8 @@ Route::get('/shop', function () {
 Route::get('catalog/{id}','ShopController@showcatalog');   // route sản phẩm theo cata
 Route::get('products/{id}','ShopController@showdetail');   // route chi tiết sản phẩm
 
+Route::get('/blog/', 'BlogController@index');
+
 //Lương sửa
 Route::group(['prefix' => 'admin'], function () {//route group truy cập theo đường dẫn host/admin
     Route::get('/home', function () {
@@ -126,16 +128,16 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
         Route::delete('/{id}/delete', 'Admin\UserController@delete');//xóa user
     });
     //Lương sửa
-    Route::group(['prefix' => 'catablog'], function () {//phần admin điều chỉnh liên quan đến catablog của website đường dẫn /admin/catablog
-        Route::get('/', 'Admin\CatablogController@show');//show ra danh sách catablog /admin/catablog/
+    Route::group(['prefix' => 'cateblog'], function () {//phần admin điều chỉnh liên quan đến cateblog của website đường dẫn /admin/cateblog
+        Route::get('/', 'Admin\CateblogController@show');//show ra danh sách cateblog /admin/cateblog/
 
-        Route::get('/add', 'Admin\CatablogController@showadd');// show ra view add catablog của website  /admin/user
-        Route::post('/add', 'Admin\CatablogController@add');//  add  các catablog của website /admin/catablog
+        Route::get('/add', 'Admin\CateblogController@showadd');// show ra view add cateblog của website  /admin/user
+        Route::post('/add', 'Admin\CateblogController@add');//  add  các cateblog của website /admin/cateblog
 
-        Route::get('/{id}/edit', 'Admin\CatablogController@showOne');// show ra view edit catablog của website  /admin/product/add
-        Route::put('/{id}/edit', 'Admin\CatablogController@edit');// edit catablog của website  /admin/catablog/add
+        Route::get('/{id}/edit', 'Admin\CateblogController@showOne');// show ra view edit cateblog của website  /admin/product/add
+        Route::put('/{id}/edit', 'Admin\CateblogController@edit');// edit cateblog của website  /admin/cateblog/add
 //        Route::put('/edituser', 'Admin\CatablogController@editUser');//x editable edit user
-        Route::delete('/{id}/delete', 'Admin\CatablogController@delete');//xóa catablog
+        Route::delete('/{id}/delete', 'Admin\CateblogController@delete');//xóa cateblog
     });
     //Lương sửa
     Route::group(['prefix' => 'post'], function () {//vào phần các post cua blog của website /admin/post
@@ -144,7 +146,7 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
         Route::get('add', 'Admin\PostController@showadd');// show ra view add  các post cua blog của website  /admin/post/add
         Route::post('add', 'Admin\PostController@add');//  add  các post cua blog của website  /admin/post/add
 
-//        Route::post('/post/uploadimage', 'Admin\PostController@uploadImage')->name('post_upload_image');
+        Route::post('/post/uploadimage', 'Admin\PostController@uploadImage')->name('post_upload_image');
 
         Route::get('/{id}/edit', 'Admin\PostController@showOne');//Lương sửa đường dẫn show post cua blog theo chuẩn resful
         Route::put('/{id}/edit', 'Admin\PostController@edit');//Lương sửa đường dẫn edit post cua blog theo chuẩn resful

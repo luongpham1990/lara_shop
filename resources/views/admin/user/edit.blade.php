@@ -1,7 +1,8 @@
 @extends('admin.layouts.app')
-@section('htmlheader_title')
-    Admin Profile
-@endsection
+@section('htmlheader_title','Edit User')
+
+@section('contentheader_title','User')
+@section('contentheader_description','Chỉnh sửa User')
 @push('link')
 <style>
     .center a {
@@ -52,7 +53,7 @@
                                                    style="width: 16px; height: 16px;">
 
                             </i>
-                            Products List
+                            Edit User
                         </h4>
                     </div>
                     <br>

@@ -11,9 +11,9 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="site-heading">
-                    <h1>Nghĩa's Blog</h1>
+                    <h1>Eshoper's Blog</h1>
                     <hr class="small">
-                    <span class="subheading">Một cái blog của nghĩa</span>
+                    <span class="subheading">Một cái blog </span>
                 </div>
             </div>
         </div>
@@ -32,15 +32,12 @@
                            {{ $item->title }}
                         </h2>
                         <h3 class="post-subtitle">
-
-
                             {{ substr(strip_tags($item->body),0,100) }}
                         </h3>
                     </a>
                     <p class="post-meta">Posted by <a href="#">{{ $item->user->name}}</a> {{ $item->created_at }}</p>
                 </div>
                 <hr>
-
             @endforeach
             <!-- Pager -->
            {{ $data->links('vendor.pagination.site') }}
