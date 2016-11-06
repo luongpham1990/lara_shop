@@ -66,7 +66,9 @@ Route::get('/shop', function () {
 Route::get('catalog/{id}','ShopController@showcatalog');   // route sản phẩm theo cata
 Route::get('products/{id}','ShopController@showdetail');   // route chi tiết sản phẩm
 
-Route::get('/blog/', 'BlogController@index');
+Route::get('/blog/', 'BlogController@show');
+Route::get('/blog/list', 'BlogController@show');
+Route::get('/blog/{id}', 'BlogController@showOne');
 
 //Lương sửa
 Route::group(['prefix' => 'admin'], function () {//route group truy cập theo đường dẫn host/admin

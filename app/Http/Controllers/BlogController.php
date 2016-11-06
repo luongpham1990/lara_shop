@@ -9,8 +9,13 @@ use App\Http\Requests;
 
 class BlogController extends Controller
 {
-    public function index() {
-        $post = Post::orderBy('create_at','DESC')->paginate(5);
-        return view('site.index',['data' => $post]);
+    public function show() {
+        $post = Post::orderBy('created_at','DESC')->paginate(5);
+        return view('sites.index',['data' => $post]);
+    }
+
+    public function showOne($id) {
+        $post = Post::where($id);
+        return view('sites.detail',['data' => $post]);
     }
 }

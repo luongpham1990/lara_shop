@@ -27,7 +27,7 @@
             @foreach($data as $item)
 
                 <div class="post-preview">
-                    <a href="{{ url('/posts/'.$item->id) }}">
+                    <a href="{{ url('/blog/'.$item->id) }}">
                         <h2 class="post-title">
                            {{ $item->title }}
                         </h2>
@@ -60,7 +60,8 @@
         <div class="col-lg-7">
             <h3>{{ trans('adminlte_lang::message.dropus') }}</h3>
             <br>
-            <form role="form" action="{{ route('tickets.store') }}" method="post" enctype="plain">
+            {{--{{ route('tickets.store') }}--}}
+            <form role="form" action="" method="post" enctype="plain">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="name1">{{ trans('adminlte_lang::message.yourname') }}</label>
