@@ -136,7 +136,7 @@
                             <li class="dropdown"><a href="{{url('/blog')}}">Blog<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a href="{{url('/blog/list')}}">Blog List</a></li>
-                                    <li><a href="{{url('/posts/{id}')}}">Blog Single</a></li>
+                                    {{--<li><a href="{{url('/posts/{{$data}}">Blog Single</a></li>--}}
                                 </ul>
                             </li>
                             <li><a href="404.html">404</a></li>
