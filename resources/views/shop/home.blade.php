@@ -82,7 +82,7 @@
                                         <div class="productinfo text-center">
                                             <a href="{{url('products/'.$product->id)}}">
                                                 <img src="images/{{$featureProduct->getImageFeature()}}" alt=""/>
-                                                <h2>{{number_format($product->price,0,",",".")}} VNĐ</h2>
+                                                <h2>{{number_format($featureProduct->price,0,",",".")}} VNĐ</h2>
                                                 <p>{{ $featureProduct->product_name }}</p> </a>
                                             {{--<form method="POST" action="{{url('cart/'.$product->id)}}">--}}
                                                 <input type="hidden" name="product_id" value="{{$product->id}}">
