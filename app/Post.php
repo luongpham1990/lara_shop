@@ -17,7 +17,7 @@ class Post extends Model
         return $this->belongsTo('App\User', 'author_id','id');
     }
     public function cateblog(){
-        return $this->belongsTo('App\Cateblog');
+        return $this->belongsTo('App\Cateblog','category_id','id');
     }
     public function comments(){
         return $this->hasMany('App\Comment','on_post');

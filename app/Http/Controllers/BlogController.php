@@ -15,7 +15,8 @@ class BlogController extends Controller
     }
 
     public function showOne($id) {
-        $post = Post::where($id);
-        return view('sites.detail',['data' => $post]);
+        $data = Post::find($id);
+//        dd($data->banner);
+        return view('sites.detail')->with('data',$data);
     }
 }

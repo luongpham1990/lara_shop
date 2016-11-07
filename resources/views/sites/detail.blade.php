@@ -3,8 +3,11 @@
 
 @section('main-content')
         <!-- Page Header -->
+
+
+        {{--{{dd($data->cateblog)}}--}}
 <!-- Set your background image for this header on the line below. -->
-<header class="intro-header" style="background-image: url( {{ url($data->banner) }} )">
+<header class="intro-header" style="background-image: url( {{$data->banner}} )">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -12,7 +15,7 @@
                     <h1>{{ $data->title }}</h1>
                     <h2 class="subheading">{{ substr(strip_tags($data->body),0,100) }}</h2>
                     <span class="meta">Đăng bởi <a
-                                href="#">{{ $data->user->name }}</a> trong {{ $data->category->name }}  {{ $data->created_at }}</span>
+                                href="#">{{ $data->user->username }}</a> trong {{ $data->cateblog->name }}  {{ $data->created_at }}</span>
                 </div>
             </div>
         </div>
@@ -72,7 +75,8 @@
             <div class="col-lg-10 col-lg-offset-1">
                 <h3>{{ trans('adminlte_lang::message.dropus') }}</h3>
                 <br>
-                <form role="form" action="{{ route('comment.store', ['post' => $data->id]) }}" method="post"
+                <form role="form" action="" method="post"
+                      {{--{{ route('comment.store', ['post' => $data->id]) }}--}}
                       enctype="plain">
                     {{ csrf_field() }}
 
