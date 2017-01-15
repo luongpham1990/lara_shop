@@ -17,9 +17,13 @@ use App\Catalog;
 
 Route::get('/', 'ShopController@index');    // route đến trang chủ
 //Lương sửa
-//Route::get('/home', function () {
-//    return view('shop.home');
-//});
+Route::get('/home', function () {
+    $products  = Product::all();
+//    dd($products);
+    return view('shop.home',[
+        'products' => $products
+    ]);
+});
 //Lương sửa
 Route::get('/register', function () {
     return view('shop.users.login');
@@ -91,6 +95,7 @@ Route::group(['prefix' => 'admin'], function () {//route group truy cập theo �
 
     Route::get('/{id}/edit', 'Admin\AdminController@profile');// show ra view profile của admin /admin/{id}/edit
     Route::put('/{id}/edit', 'Admin\AdminController@editAdmin');// sửa profile của admin /admin/{id}/edit
+    Route::put('/{id}/changepass', 'Admin\AdminController@changePass');// doi pass
 //    Route::post('/post/uploadimage', 'Admin\PostController@uploadImage');//uppload avatar
 //Hùng sửa
     Route::group(['prefix' => 'cata'], function () {//vào phần cata các sp của website /admin/cata

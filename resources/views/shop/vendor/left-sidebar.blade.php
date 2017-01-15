@@ -10,7 +10,7 @@
                         <h4 class="panel-title">
                             <a href="">
                                 <span class="badge pull-right"><i class="glyphicon glyphicon-chevron-down"></i></span>
-                               {{ $category->catalog_name }}
+                                {{ $category->catalog_name }}
                             </a>
                         </h4>
                     </div>
@@ -22,10 +22,12 @@
             <h2>Brands</h2>
             <div class="brands-name">
                 <ul class="nav nav-pills nav-stacked">
-                    @foreach($products as $product)
+                    @if(isset($products))
+                        @foreach($products as $product)
 
-                    <li><a href="#"> <span class="pull-right"></span>{{$product->brand}}</a></li>
+                            <li><a href="#"> <span class="pull-right"></span>{{$product->brand}}</a></li>
                         @endforeach
+                    @endif
                 </ul>
             </div>
         </div><!--/brands_products-->

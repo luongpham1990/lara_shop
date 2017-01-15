@@ -103,7 +103,9 @@ class ProductController extends Controller
                 }
             }
         }
-        return redirect('/admin/product')->with('thongbao', 'Bạn đã thêm sản phẩm thành công');
+        alert()->success('Bạn đã thêm sản phẩm thành công');
+        return redirect('/admin/product');
+//        ->with('thongbao', 'Bạn đã thêm sản phẩm thành công');
     }
 
     public function showOne($id)
@@ -127,7 +129,9 @@ class ProductController extends Controller
     {
         $img = ProductImages::find($id);
         $img->delete();
-        return redirect()->back()->with('thongbao', 'Bạn đã xóa ảnh thành công');
+        alert()->message('Bạn đã xóa ảnh thành công');
+        return redirect()->back();
+//        ->with('thongbao', 'Bạn đã xóa ảnh thành công');
     }
 
     public function edit(Request $request, $id)
@@ -185,7 +189,9 @@ class ProductController extends Controller
                 }
             }
         }
-        return redirect('/admin/product')->with('thongbao', 'Bạn đã sửa sản phẩm thành công');
+        alert()->success('Bạn đã sửa sản phẩm thành công');
+        return redirect('/admin/product');
+//            ->with('thongbao', 'Bạn đã sửa sản phẩm thành công');
     }
 
 
@@ -198,6 +204,8 @@ class ProductController extends Controller
             ProductImages::find($item->product_photo_id)->delete();
         };
         Product::find($id)->delete();
-        return redirect('/admin/product')->with('thongbao', 'Bạn đã xóa sản phẩm thành công');
+        alert()->message('Bạn đã xóa sản phẩm thành công');
+        return redirect('/admin/product');
+//        ->with('thongbao', 'Bạn đã xóa sản phẩm thành công');
     }
 }

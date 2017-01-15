@@ -135,7 +135,7 @@
 @endsection
 
 
-
+{{--@include('sweet::alert')--}}
 @push('script')
 <script>
     $(document).ready(function () {
@@ -164,6 +164,9 @@
             }
         });
     });
+</script>
+<script>
+
 </script>
 
 @endpush

@@ -54,13 +54,15 @@ class CateblogController extends Controller
 //                $cateblog->image = url('images/blog'. $filename);
 //            }
             $cateblog->save();
-            return redirect('/admin/cateblog/add')->with('alert','Tạo mới thành công');
+            alert()->success('Tạo mới thành công');
+            return redirect('/admin/cateblog/add');
+//                ->with('alert','Tạo mới thành công');
         }
     }
 
     function showOne ($id) {
         $cateblog = Cateblog::find($id);
-        return view('admin.cateblog.edit',['data' => $cateblog]);
+        return view('admin.cateblog.edit',['blog' => $cateblog]);
     }
 
     function edit(Request $request, $id){
@@ -90,7 +92,9 @@ class CateblogController extends Controller
 //                $cateblog->image = url('/images/blog'.$filename);
 //            }
             $cateblog->save();
-            return redirect('/admin/cateblog/{id}/edit')->with('alert','Sửa thành công');
+            alert()->success('Sửa thành công');
+            return redirect('/admin/cateblog/{id}/edit');
+//            ->with('alert','Sửa thành công');
         }
     }
 

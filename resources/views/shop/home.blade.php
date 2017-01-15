@@ -12,6 +12,10 @@
         <div class="features_items"><!--features_items-->
             <h2 class="title text-center">Features Items</h2>
             @foreach($products as $product)
+
+                {{--{{ dd($product) }}--}}
+
+
                 <div class="col-sm-4">
                     <div class="product-image-wrapper">
                         <div class="single-products">
@@ -70,9 +74,13 @@
                 </ul>
             </div>
             <div class="tab-content">
+
+
+
+
                 @foreach($categories as $category)
                     {{--voi moi 1 category thi ta se in ra san pham tieu bieu cua no--}}
-
+                    {{--{{ dd($category) }}--}}
                     <div class="tab-pane fade {{ $categories->first() == $category ? 'active' : '' }} in"
                          id="{{ str_slug($category->catalog_name) }}">
                         @foreach($category->getFeatureProducts() as $featureProduct)
@@ -103,50 +111,50 @@
             </div>
         </div><!--/category-tab-->
 
-        <div class="recommended_items"><!--recommended_items-->
-            <h2 class="title text-center">recommended items</h2>
+        {{--<div class="recommended_items"><!--recommended_items-->--}}
+            {{--<h2 class="title text-center">recommended items</h2>--}}
 
-            <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    @foreach( $recommend_products as $catalog)
-                        <div class="item {{ $loop->first ?'active': ''  }}">
+            {{--<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">--}}
+                {{--<div class="carousel-inner">--}}
+                    {{--@foreach( $recommend_products as $catalog)--}}
+                        {{--<div class="item {{ $loop->first ?'active': ''  }}">--}}
 
                             {{--begin foreach--}}
-                            @foreach($catalog as $item)
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="images/{{$item->getImageFeature()}}"
-                                                     alt="{{$item->product_name}}"/>
-                                                <h2>{{number_format($item->price,0,",",".")}} VND</h2>
-                                                <p>{{$item->product_name}}</p>
+                            {{--@foreach($catalog as $item)--}}
+                                {{--<div class="col-sm-4">--}}
+                                    {{--<div class="product-image-wrapper">--}}
+                                        {{--<div class="single-products">--}}
+                                            {{--<div class="productinfo text-center">--}}
+                                                {{--<img src="images/{{$item->getImageFeature()}}"--}}
+                                                     {{--alt="{{$item->product_name}}"/>--}}
+                                                {{--<h2>{{number_format($item->price,0,",",".")}} VND</h2>--}}
+                                                {{--<p>{{$item->product_name}}</p>--}}
                                                 {{--<form method="POST" action="{{url('cart/'.$product->id)}}">--}}
-                                                    <input type="hidden" name="product_id" value="{{$product->id}}">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <a href="{{url('mua-hang',[$product->id])}}"><button type="submit" class="btn btn-default add-to-cart">
-                                                        <i class="fa fa-shopping-cart"></i>
-                                                        Add to cart
-                                                    </button></a>
+                                                    {{--<input type="hidden" name="product_id" value="{{$product->id}}">--}}
+                                                    {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
+                                                {{--<a href="{{url('mua-hang',[$product->id])}}"><button type="submit" class="btn btn-default add-to-cart">--}}
+                                                        {{--<i class="fa fa-shopping-cart"></i>--}}
+                                                        {{--Add to cart--}}
+                                                    {{--</button></a>--}}
                                                 {{--</form>--}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
 
-                            @endforeach
+                            {{--@endforeach--}}
                             {{--endforeach--}}
-                        </div>
-                    @endforeach
-                </div>
-                <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-                <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-        </div><!--/recommended_items-->
+                        {{--</div>--}}
+                    {{--@endforeach--}}
+                {{--</div>--}}
+                {{--<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">--}}
+                    {{--<i class="fa fa-angle-left"></i>--}}
+                {{--</a>--}}
+                {{--<a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">--}}
+                    {{--<i class="fa fa-angle-right"></i>--}}
+                {{--</a>--}}
+            {{--</div>--}}
+        {{--</div><!--/recommended_items-->--}}
 
     </div>
 

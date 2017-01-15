@@ -259,7 +259,7 @@
                     </h4>
                 </div>
                 <div class="panel-body">
-                    <form method="POST" action="{{ url('admin/catablog/'.$data->id).'/edit' }}" accept-charset="UTF-8"
+                    <form method="POST" action="{{ url('admin/cateblog/'.$blog->id).'/edit' }}" accept-charset="UTF-8"
                           class="form-horizontal" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
@@ -268,7 +268,7 @@
                                 {{ trans('Tên') }}</label>
                             <div class="col-sm-5">
                                 <input class="form-control" placeholder="Category name" name="name" type="text"
-                                       value="{{ $data->name }}">
+                                       value="{{ $blog->name }}">
                             </div>
                             <div class="col-sm-4">
 
@@ -279,7 +279,7 @@
                                 {{ trans('Mô tả') }}                       </label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" name="description" placeholder="Category description"
-                                          rows="3">{{ $data->description }}</textarea>
+                                          rows="3">{{ $blog->description }}</textarea>
                             </div>
 
                         </div>
@@ -299,7 +299,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Lưu
                                 </button>
-                                <a class="btn btn-danger" href="{{ url('admin/catablog/'.$data->id).'/edit' }}">
+                                <a class="btn btn-danger" href="{{ url('admin/cateblog/'.$blog->id).'/edit' }}">
                                     Hủy </a>
                             </div>
                         </div>

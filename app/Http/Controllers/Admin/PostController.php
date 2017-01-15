@@ -97,7 +97,9 @@ class PostController extends Controller
                 $post->banner = url ('/images/blog' . $filename);
             }
             $post->save();
-            return redirect('/admin/post')->with('alert', 'Đã thêm bài post thành công');
+            alert()->success('Đã thêm bài post thành công');
+            return redirect('/admin/post');
+//            ->with('alert', 'Đã thêm bài post thành công');
         }
     }
 
@@ -145,14 +147,18 @@ class PostController extends Controller
                 $post->banner = url('/images/blog' . $filename);
             }
             $post->save();
-            return redirect('/admin/post')->with('alert','Chỉnh sửa bài viết thành công ');
+            alert()->success('Chỉnh sửa bài viết thành công ');
+            return redirect('/admin/post');
+//            ->with('alert','Chỉnh sửa bài viết thành công ');
         }
     }
 
     function delete($id)
     {
         Post::find($id)->delete();
-        return redirect('/admin/post')->with('alert', 'Bạn đã xóa bài post thành công');
+        alert()->message('Bạn đã xóa bài post thành công');
+        return redirect('/admin/post');
+//        ->with('alert', 'Bạn đã xóa bài post thành công');
     }
 
     public function uploadImage(Request $request)

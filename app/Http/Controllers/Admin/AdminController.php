@@ -45,7 +45,9 @@ class AdminController extends Controller
                     return abort(403);//bạn méo có quyền vào khu vực này nhé
                 }
             } else {//email và pass ko khớp
-                return redirect()->back()->withErrors(['login' => 'Tài khoản hoặc mật khẩu không đúng']);//diều hướng quay lại đăng nhập lại nhé
+                alert()->error('Tài khoản hoặc mật khẩu không đúng');
+                return redirect()->back();
+//                    ->withErrors(['login' => 'Tài khoản hoặc mật khẩu không đúng']);//diều hướng quay lại đăng nhập lại nhé
             }
         }
     }
@@ -103,41 +105,48 @@ class AdminController extends Controller
                     $user->avatar = url('avatars/' . $filename);//xuất ra avatar cố tên đường dẫn
                 }
                 $user->save();//save ông admin vào
-                return redirect('/admin/' . $user->id . '/edit/')->with('alert', 'Sửa tài khoản thành công ');//điều hướng
+                alert()->success('Sửa tài khoản thành công ');
+                return redirect('/admin/' . $user->id . '/edit/');
+//                ->with('alert', 'Sửa tài khoản thành công ');//điều hướng
             }
         }
         abort(403);
     }
     //doi pass admin
     function changePass(Request $request, $id){
-        if ($request->user()->id == $id ){
-            $user = User::find($id); //->user($request->password);
-
-            if (Hash::check($request->oldpassword, $user->password)) {
+        if ($request->user()->id == $id) {//nếu id của user đã đăng nhập khớp với id trong csdl thì xuất ra dữ liệu của user đó
+            $user = User::find($id);
+            if (Hash::check($request->oldpassword, $user->password)) {//nếu password cũ nhập vào là khớp
+                //tạo 1 rule để xét định dạng của newpassword
                 $rule = [
-                    'newpassword' => 'string|require|alpha_num|min:6|max:32|confirmed'
+                    'newpassword' => 'string|required|alpha_num|min:6|max:32|confirmed',
+//                'oldpassword' => 'required|alpha_num|confirmed'
                 ];
+                //tạo 1 message để xuất ra khi dữ liệu đầu vào ko khớp với rule
                 $message = [
                     'newpassword.required' => 'Mật khẩu không được để trống',
                     'newpassword.min' => 'Mật khẩu không được ít hơn :min ký tự',
                     'newpassword.max' => 'Mật khẩu không được vượt quá :max ký tự',
                     'newpassword.confirmed' => 'Mật khẩu không trùng khớp',
                 ];
+                //xét dữ liệu nhập vào có khớp với rule và message ko
+                $validation = Validator::make($request->all(), $rule, $message);
 
-                $validation = Validator::make($request->all(),$rule, $message);
-
-                if ($validation->fails()){
-                    return redirect('/admin/'.$user->id.'/edit/')->withInput()->withErrors($validation);
-                }else {
-                    $user->password = Hash::make($request->newpassword);
-                    $user->save();
-
-                    return redirect('/admin'.$user->id.'/edit/')->with('alert','Đổi mật khẩu thành công');
+                if ($validation->fails()) {//nếu xịt
+                    return redirect('/admin/' . $user->id . '/edit/')->withInput()->withErrors($validation);//chuyển vè trang profile và xuất ra lỗi
+                } else {//ko xịt
+                    $user->password = Hash::make($request->newpassword);//nhập vào password mới cho user
+                    $user->save();//save user
+                    alert()->success( 'Đổi mật khẩu thành công');
+                    return redirect('/admin/' . $user->id . '/edit/');
+//                        ->with('alert', 'Đổi mật khẩu thành công');//chuyển về trang profile
                 }
-            }else{
-                return redirect()->back()->with('oldsida', 'Mật khẩu cũ không đúng');
+            } else {//nếu password cũ nhập vào ko khớp
+                alert()->error('Mật khẩu cũ không đúng');
+                return redirect()->back();
+//                    ->with('oldsida', 'Mật khẩu cũ không đúng');
             }
-        }else{
+        } else {
             return abort(403);
         }
     }

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\UserRegister;
 use Image;
+use Alert;
 
 class UsersController extends Controller
 {
@@ -61,8 +62,9 @@ class UsersController extends Controller
             $link = (url('/verify') . "/" . $confirm_code);//tạo ra 1 link để user kích hoạt
             $user->notify(new UserRegister($user, $link));//sử dụng notification để gửi mail kích hoạt
 //            Mail::to($user)->send(new RegisterMail($request->rusername, $request->remail, $link));////sử dụng mailble để gửi mail kích hoạt
-
-            return redirect('/login')->with('alert', 'Dang ky thanh cong moi ban kich hoat tai khoan');//đăng ký thành công sễ chuyển về trang login
+            alert()->success('Success Message', 'Dang ky thanh cong moi ban kich hoat tai khoan');
+            return redirect('/login');
+//                ->with('alert', 'Dang ky thanh cong moi ban kich hoat tai khoan');//đăng ký thành công sễ chuyển về trang login
         }
     }
 
@@ -75,6 +77,7 @@ class UsersController extends Controller
         $user->save();//save lại user
 
         Auth::loginUsingId($user->id);//đăng nhập user có id là id của user đã kích hoạt ở trên
+        alert()->message('Message', 'Kich hoat tai khoan thanh cong');
         return redirect('/user/' . $user->id . '/edit/');//đăng nhập xong chuyển đếm tramg profile của user
     }
 
@@ -96,12 +99,15 @@ class UsersController extends Controller
         $validation = Validator::make($request->all(), $rule, $message);
         //nếu nhập vào sai ko khớp với rule
         if ($validation->fails()) {
-            return redirect('/login')->withInput()->withErrors($validation);
+//            return redirect('/login')->withInput()->withErrors($validation);
+
         } else {//nếu định dạng dữ liệu đầu vào là đúng
             if (Auth::attempt(['email' => $request->lemail, 'password' => $request->lpassword, 'confirmed' => true])) {//check dữ liệu đầu vào với csdl nếu đúng chuyển về trang home
+                alert()->message( 'Đăng nhập thành công');
                 return redirect('/home');
             } else {//sai chuyển lại về trang login
-                return redirect('/login')->with('error', 'Bạn đăng nhập lỗi rồi');//['erorrs' => 'Bạn đăng nhập lỗi rồi']
+                alert()->error('Bạn đăng nhập lỗi rồi');
+                return redirect('/login');//['erorrs' => 'Bạn đăng nhập lỗi rồi']
             }
         }
     }
@@ -150,11 +156,14 @@ class UsersController extends Controller
                 } else {//ko xịt
                     $user->password = Hash::make($request->newpassword);//nhập vào password mới cho user
                     $user->save();//save user
-
-                    return redirect('/user/' . $user->id . '/edit/')->with('alert', 'Đổi mật khẩu thành công');//chuyển về trang profile
+                    alert()->success( 'Đổi mật khẩu thành công');
+                    return redirect('/user/' . $user->id . '/edit/');
+//                        ->with('alert', 'Đổi mật khẩu thành công');//chuyển về trang profile
                 }
             } else {//nếu password cũ nhập vào ko khớp
-                return redirect()->back()->with('oldsida', 'Mật khẩu cũ không đúng');
+                alert()->error('Mật khẩu cũ không đúng');
+                return redirect()->back();
+//                    ->with('oldsida', 'Mật khẩu cũ không đúng');
             }
         } else {
             return abort(403);
@@ -199,8 +208,9 @@ class UsersController extends Controller
                     $user->avatar = url('avatars/' . $filename);// xuất ra avatar = đường dẫn trên csdl
                 }
                 $user->save();//chỉnh xong thì save user lại thôi
-
-                return redirect('/user/' . $user->id . '/edit/')->with('alert', 'Sửa tài khoản thành công ');//điều hướng về trang profile user nhé
+                alert()->success('Sửa tài khoản thành công ');
+                return redirect('/user/' . $user->id . '/edit/');
+//                    ->with('alert', 'Sửa tài khoản thành công ');//điều hướng về trang profile user nhé
             }
         }
     }

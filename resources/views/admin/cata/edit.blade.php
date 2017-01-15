@@ -88,7 +88,6 @@
                 </section>
                 <!-- /#page-wrapper -->
             @endsection
->>>>>>> 3b7b0f621bcaa71b343a8e3df4e6cd3137ae3f71
 
 @push('script')
 <script>

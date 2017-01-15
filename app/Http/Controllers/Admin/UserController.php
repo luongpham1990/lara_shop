@@ -11,7 +11,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Image;
-
+use Alert;
 class UserController extends Controller
 
 {
@@ -64,7 +64,8 @@ class UserController extends Controller
         $validation = Validator::make($request->all(), $rule, $message);
         //nếu ko khớp này
         if ($validation->fails()) {
-            return redirect()->back()->withInput()->withErrors($validation);
+            return redirect()->back()->with($validation);
+//                ->withInput()->withErrors($validation);
         } else {//nếu khớp này
             //tạo mới user này
             $user = new User;
@@ -84,8 +85,9 @@ class UserController extends Controller
                 $user->avatar = url('avatars/' . $filename);//xuất ra avatar cố tên đường dẫn
             }
             $user->save();//save user này
-
-            return redirect('/admin/user')->with('alert', 'Đã thêm thành viên thành công');//chirlaf điều hướng thôi
+            alert()->success ('Đã thêm thành viên thành công');
+            return redirect('/admin/user');
+//                ->with('success', 'Đã thêm thành viên thành công');//chirlaf điều hướng thôi
         }
     }
     //sửa thông tin của user nhé
@@ -108,7 +110,7 @@ class UserController extends Controller
         $validation = Validator::make($request->all(), $rule, $message);
 
         if ($validation->fails()) {  //ko trùng nhé
-            return redirect()->back()->withErrors($validation);//điều hướng luôn
+            return redirect()->back()->with($validation);//điều hướng luôn
         } else {//nếu trùng nhé
             //tạo user này
             $user = new User();
@@ -119,7 +121,9 @@ class UserController extends Controller
             $user->is_admin = ($request->Level == 1) ? true : false;//thích admin hay người thường nào
             $user->save();//save thôi
 
-            return redirect('/admin/user')->with('alert', 'Sửa tài khoản thành công ');//điều hướng nhé
+            alert()->success('Sửa tài khoản thành công');
+            return redirect('/admin/user');
+//                ->with('success', 'Sửa tài khoản thành công ');//điều hướng nhé
         }
     }
     //cũng là edit user nhưng mình dùng gói editable của larvel sửa cho đẹp
@@ -151,7 +155,9 @@ class UserController extends Controller
     function delete($id)
     {
         User::find($id)->delete();//tìm user có id mà mình đã click vào và xóa
-        return redirect('/admin/user')->with('alert', 'Xóa tài khoản thành công ');//xóa xong rồi nhé về trang show user
+        alert()->message('Xóa tài khoản thành công ');
+        return redirect('/admin/user');
+//        ->with('alert', 'Xóa tài khoản thành công ');//xóa xong rồi nhé về trang show user
     }
 
 }

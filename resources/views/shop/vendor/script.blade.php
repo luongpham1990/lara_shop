@@ -4,6 +4,6 @@
 <script src="/js/price-range.js"></script>
 <script src="/js/jquery.prettyPhoto.js"></script>
 <script src="/js/main.js"></script>
-
+<script src="{{ asset('/plugins/sweetalert/dist/sweetalert.min.js') }}"></script>
 @stack('scripts')
 {{--Them vi tri de anh em co the them cac file js vao--}}
