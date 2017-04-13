@@ -59,10 +59,12 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="/dashboard"><i class="fa fa-user"></i> Account</a></li>
+                            {{--@if(Auth::guest())--}}
+                            {{--<li><a href="{{url('/user/'.Auth::user()->id.'/edit/') }}"><i class="fa fa-user"></i> Account</a></li>--}}
+                            <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                             <li><a href="/wishlist"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="{{url ('/cart')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                             @if (Auth::guest())
                                 <li><a href="{{ url('/login') }}">login</a></li>
                             @else
@@ -123,14 +125,14 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index.html" class="active">Home</a></li>
+                            <li><a href="{{url('/home')}}" class="active">Home</a></li>
                             <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">Products</a></li>
-                                    <li><a href="product-details.html">Product Details</a></li>
+                                    <li><a href="{{url ('/home')}}">Products</a></li>
+                                    {{--<li><a href="product-details.html">Product Details</a></li>--}}
                                     <li><a href="checkout.html">Checkout</a></li>
                                     <li><a href="{{url('cart')}}">Cart</a></li>
-                                    <li><a href="login.html">Login</a></li>
+                                    <li><a href="{{url ('login')}}">Login</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown"><a href="{{url('/blog')}}">Blog<i class="fa fa-angle-down"></i></a>
@@ -139,7 +141,7 @@
                                     {{--<li><a href="{{url('/posts/{{$data}}">Blog Single</a></li>--}}
                                 </ul>
                             </li>
-                            <li><a href="404.html">404</a></li>
+                            <li><a href="{{url ('/404')}}">404</a></li>
                             <li><a href="contact-us.html">Contact</a></li>
                         </ul>
                     </div>

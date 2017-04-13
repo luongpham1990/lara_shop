@@ -69,11 +69,6 @@
                         <h2>New User Signup!</h2>
                         <form method="post" action="{{url('/register')}}">
                             {{ csrf_field() }}
-                            {{--@if(count($errors))--}}
-                            {{--@foreach ($errors->all() as $error)--}}
-                            {{--<div>{{ $error }}</div>--}}
-                            {{--@endforeach--}}
-                            {{--@endif--}}
                             <div>
                                 <input id="username" name="rusername" value="{{old('rusername')}}" type="text"
                                        placeholder="Tên hiển thị"/>
